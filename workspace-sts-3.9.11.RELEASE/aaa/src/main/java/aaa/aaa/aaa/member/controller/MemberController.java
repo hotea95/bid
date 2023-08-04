@@ -229,6 +229,7 @@ public class MemberController {
 		 
 		model.addAttribute("MemberInfo", memberService.memberSelect(memberDTO));
 			
+		logger.info("컨트롤러----"+ memberDTO);
 	//	return "./education/education_insert";
 		return "./member/member_insert_view";
 	}

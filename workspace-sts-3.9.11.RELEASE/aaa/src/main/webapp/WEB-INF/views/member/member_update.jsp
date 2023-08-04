@@ -106,13 +106,7 @@ $(function() {
 
 	</div>
 	<h1>사원 정보 수정</h1>
-	<div style="WIDTH: 700px; text-align: center; float: left:;">
-		<fieldset>
-			<button type="button" onclick="location.href='./EducationUpdate?EDNAME=${memberDTO.STHKORNAME}&EDJUMIN=${memberDTO.STHJUMIN}&EDJUMIN2=${memberDTO.STHJUMIN2}'">학력-교육정보</button>
-			<button type="button" onclick="location.href='./CertificateUpdate?CERNAME=${memberDTO.STHKORNAME}&CERJUMIN=${memberDTO.STHJUMIN}&CERJUMIN2=${memberDTO.STHJUMIN2}'">자격증-보유기술정보</button>
-			<button type="button" onclick="location.href='./ProjectUpdate?PRONAME=${memberDTO.STHKORNAME}&PROJUMIN=${memberDTO.STHJUMIN}&PROJUMIN2=${memberDTO.STHJUMIN2}'">프로젝트정보</button>
-		</fieldset>
-	</div>
+	
 	<div>
 		<form method="post" enctype="multipart/form-data"
 			action="./MemberUpdate">

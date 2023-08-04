@@ -7,6 +7,7 @@
 <head>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css">
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
+
 <meta charset="UTF-8">
 <title>멤버 전체조회</title>
 <script type="text/javascript">

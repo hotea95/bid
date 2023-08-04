@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 <meta charset="UTF-8">
 <title>프로젝트 등록</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -70,7 +71,7 @@
 <script type="text/javascript">
 
 function checks() {
-	var PRONAME = RegExp(/^[ㄱ-ㅎ|가-힣]{0,20}$/);
+	//var PRONAME = /^[\uac00-\ud7a3]{0,20}$/;
 	
 	alert("알림");
 	if($("#PRONAME").val() == "") {
@@ -78,12 +79,12 @@ function checks() {
 		$("#PRONAME").focus();
 		return false;
 	}
-	if(!PRONAME.test($("#PRONAME").val())){
-        alert("한글로만 입력해주세요(~20글자)");
-        $("#PRONAME").val("");
-        $("#PRONAME").focus();
-        return false;
-      }
+	  var PRONAME = $("#PRONAME").val();
+	    if (PRONAME.length === 0 || PRONAME.length > 20) {
+	        alert("프로젝트 명은 1자 이상 20자 이하로 입력해주세요.");
+	        $("#PRONAME").focus();
+	        return false;
+	    }
 	if($("#STDATE").val() == "") {
 		alert("시작날짜를 입력해주세요.");
 		$("#STDATE").focus();
@@ -95,6 +96,18 @@ function checks() {
 		$("#ENDDATE").focus();
 		return false;
 	}
+	
+	 // 시작 날짜와 철수 날짜 비교
+    var startDate = new Date($("#STDATE").val());
+    var endDate = new Date($("#ENDDATE").val());
+
+    if (endDate < startDate) {
+        alert("시작날짜가 철수날짜보다 앞에 있어야 합니다.");
+        $("#ENDDATE").focus();
+        return false;
+    }
+    
+	return true;
 }
 </script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -109,7 +122,7 @@ function checks() {
 <body>
 <%@ include file="/WEB-INF/views/include/side.jsp" %>
 <h1>프로젝트 등록</h1>
-<form action="/Comproinsert" method="post">
+<form action="/Comproinsert" method="post" onsubmit="return checks();">
   <label for="PRONAME">프로젝트 명</label>
   <input type="text" id="PRONAME" name="PRONAME"> <br>
   <label for="STDATE">시작 날짜</label>

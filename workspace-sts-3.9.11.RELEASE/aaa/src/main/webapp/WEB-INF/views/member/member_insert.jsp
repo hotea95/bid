@@ -9,6 +9,72 @@
 <meta charset="UTF-8">
 <title>헤드</title>
 
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .select_img img {
+            width: 60px;
+            height: 60px;
+            float: left;
+        }
+        .STHSEX {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .STHWEDDING {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        button[type="submit"], button[type="reset"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        button[type="reset"] {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+        button[type="submit"]:hover, button[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+
 <script type="text/javascript">
 getSTHWORKTypeOptions();
 getSTHSISMTypeOptions()
@@ -177,8 +243,8 @@ $(function() {
 
 			function checks() {
 				var STHKORNAME = RegExp(/^[ㄱ-ㅎ|가-힣]{2,6}$/);
-				var STHENGNAME = RegExp(/^[a-z|A-Z]+$/);
-				var STHCHNAME = RegExp(/^[\u4e00-\u9fff]+$/);
+				var STHENGNAME = RegExp(/^[a-z|A-Z]{4,20}$/);
+				var STHCHNAME = RegExp(/^[\u4e00-\u9fff]{2,6}$/);
 				var STHJUMIN = RegExp(/^[0-9]+$/);
 				var STHJUMIN2 = RegExp(/^[0-9]{7}$/);   //^입력의 시작을 나타내고 \d모든 숫자와 일치하며 {7}숫자가 정확히 7번 발생하도록 지정합니다.
 			    
@@ -199,7 +265,7 @@ $(function() {
 					return false;
 				}
 				if(!STHENGNAME.test($("#STHENGNAME").val())){
-			        alert("영어로만 입력해주세요");
+			        alert("영어로만 입력해주세요(4~20글자)");
 			        $("#STHENGNAME").val("");
 			        $("#STHENGNAME").focus();
 			        return false;
@@ -209,7 +275,7 @@ $(function() {
 					  alert
 
 					 
-					alert("한문으로만 입력해주세요");
+					alert("한문으로만 입력해주세요(2~6글자)");
 					  $(
 					 
 					"#STHCHNAME").val("");
@@ -379,7 +445,7 @@ $(function() {
 				<label for="STHSOJU">주량</label> 
 				<input type="text" name="STHSOJU" id="STHSOJU" style="width: 70px;"> <br>
 				<label for="MYDATE">입사일</label>
-				<input type="text" name="MYDATE" id="MYDATE" style="width: 100px;"> <br>
+				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;"> <br>
 				<div style="text-align: center;">
 					<button type="submit" style="WIDTH: 60pt; HEIGHT: 30pt;">등록</button>
 					<button type="reset" style="WIDTH: 60pt; HEIGHT: 30pt;"
