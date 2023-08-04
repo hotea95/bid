@@ -600,7 +600,7 @@ where NO = #{NO}
     ENDMDATE,
     ROLE,
     PRONAME
-  )
+  ) 
   <foreach collection="list" item="dto" separator="UNION ALL">
     select #{dto.NO}, #{dto.PNO}, #{dto.STMDATE}, #{dto.ENDMDATE}, #{dto.ROLE}, #{dto.PRONAME} from dual
   </foreach>

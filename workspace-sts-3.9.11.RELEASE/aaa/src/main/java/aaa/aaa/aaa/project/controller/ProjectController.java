@@ -152,7 +152,7 @@ public class ProjectController {
 		return pro;
 	}
 	
-	//프로젝트마다 들어간 인원 조회
+	//프로젝트마다 들어간 인원 조회2222222222
 	  @RequestMapping(value = "/participants", method = RequestMethod.GET, produces = "application/json")
 	    @ResponseBody
 	    public List<MYPRODTO> getParticipants(@RequestParam("pno") String PNO) {
