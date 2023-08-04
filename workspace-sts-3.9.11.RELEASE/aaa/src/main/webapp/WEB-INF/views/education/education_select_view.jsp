@@ -1,0 +1,94 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>교육정보 상세보기</h1>
+<table>
+		<thead>
+			<tr>
+				<th>사원명</th>
+				<th>주민등록번호</th>
+				<th>주민등록번호뒷</th>
+				<th>고등학교</th>
+				<th>과</th>
+				<th>년</th>
+				<th>월</th>
+				<th>전산원</th>
+				<th>과</th>
+				<th>년</th>
+				<th>월</th>
+				<th>전문대학</th>
+				<th>과</th>
+				<th>년</th>
+				<th>월</th>
+				<th>대학교</th>
+				<th>과</th>
+				<th>년</th>
+				<th>월</th>
+				<th>대학원</th>
+				<th>과</th>
+				<th>년</th>
+				<th>월</th>
+				<th>교욱명</th>
+				<th>교육시작일</th>
+				<th>교육종료일</th>
+				<th>교육기관</th>
+				<th>교욱명</th>
+				<th>교육시작일</th>
+				<th>교육종료일</th>
+				<th>교육기관</th>
+				<th>교욱명</th>
+				<th>교육시작일</th>
+				<th>교육종료일</th>
+				<th>교육기관</th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr>
+					<td>${educationDTO.EDNAME}</td>
+					<td>${educationDTO.EDJUMIN}</td>
+					<td>${educationDTO.EDJUMIN2}</td>
+					<td>${educationDTO.EDSC}</td>
+					<td>${educationDTO.EDD}</td>
+					<td>${educationDTO.EDYE}</td>
+					<td>${educationDTO.EDM}</td>
+					<td>${educationDTO.EDSC2}</td>
+					<td>${educationDTO.EDD2}</td>
+					<td>${educationDTO.EDYE2}</td>
+					<td>${educationDTO.EDM2}</td>
+					<td>${educationDTO.EDSC3}</td>
+					<td>${educationDTO.EDD3}</td>
+					<td>${educationDTO.EDYE3}</td>
+					<td>${educationDTO.EDM3}</td>
+					<td>${educationDTO.EDSC4}</td>
+					<td>${educationDTO.EDD4}</td>
+					<td>${educationDTO.EDYE4}</td>
+					<td>${educationDTO.EDM4}</td>
+					<td>${educationDTO.EDSC5}</td>
+					<td>${educationDTO.EDD5}</td>
+					<td>${educationDTO.EDYE5}</td>
+					<td>${educationDTO.EDM5}</td>
+					<td>${educationDTO.EDUCATIONNAME}</td>
+					<td>${educationDTO.EDST}</td>
+					<td>${educationDTO.EDEND}</td>
+					<td>${educationDTO.EDIN}</td>
+					<td>${educationDTO.EDUCATIONNAME2}</td>
+					<td>${educationDTO.EDST2}</td>
+					<td>${educationDTO.EDEND2}</td>
+					<td>${educationDTO.EDIN2}</td>
+					<td>${educationDTO.EDUCATIONNAME3}</td>
+					<td>${educationDTO.EDST3}</td>
+					<td>${educationDTO.EDEND3}</td>
+					<td>${educationDTO.EDIN3}</td>
+				</tr>
+		</tbody>
+	</table>
+<a href="./EducationUpdate?EDJUMIN=${educationDTO.EDJUMIN}">
+수정 </a>
+</body>
+</html>

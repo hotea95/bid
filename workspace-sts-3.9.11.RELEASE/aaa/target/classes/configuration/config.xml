@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+ <settings>
+<setting name="jdbcTypeForNull" value="NULL" />
+</settings>
+<!-- 별칭 환경을 설정한다.-->
+<typeAliases>
+<!-- DeptDTO .--> 
+<typeAlias alias="AaaDTO" type="aaa.aaa.aaa.dto.AaaDTO"/>
+<typeAlias alias="MemberDTO" type="aaa.aaa.aaa.member.dto.MemberDTO"/>
+<typeAlias alias="CertificateDTO" type="aaa.aaa.aaa.certificate.dto.CertificateDTO"/>
+<typeAlias alias="ProjectDTO" type="aaa.aaa.aaa.project.dto.ProjectDTO"/>
+<typeAlias alias="CareerDTO" type="aaa.aaa.aaa.career.dto.CareerDTO"/>
+<typeAlias alias="WorkDTO" type="aaa.aaa.aaa.work.dto.WorkDTO"/>
+<typeAlias alias="EducationDTO" type="aaa.aaa.aaa.education.dto.EducationDTO"/>
+<typeAlias alias="ClientDTO" type="aaa.aaa.aaa.client.dto.ClientDTO"/>
+<typeAlias alias="MYPRODTO" type="aaa.aaa.aaa.project.dto.MYPRODTO"/>
+<typeAlias alias="COMMONPRODTO" type="aaa.aaa.aaa.project.dto.COMMONPRODTO"/>
+<typeAlias alias="CODEDTO" type="aaa.aaa.aaa.member.dto.CODEDTO"/>
+<typeAlias alias="CODEMDTO" type="aaa.aaa.aaa.member.dto.CODEMDTO"/>
+</typeAliases>
+</configuration>

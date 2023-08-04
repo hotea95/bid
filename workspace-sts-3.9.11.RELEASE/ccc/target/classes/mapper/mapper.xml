@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ccc.ccc.ccc">
+
+<!-- 전체조회 -->
+<select id="selectall" resultType="MemberDTO">
+select STHKORNAME,STHENNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHBIRTH2,STHBIRTH3,STHBIRTH4,STHWEDDING,STHYEAR,
+STHWORK,STHSISM,STHSTATE,STHADDRES,STHADDRES2,STHPHONE,STHPHONE2,STHPHONE3,STHEMAIL,STHSKILL,STHSOJU,STHMAN from member
+</select>
+
+<!-- 작성 -->
+<insert id="insert" parameterType="MemberDTO">
+insert into member (STHKORNAME,STHENNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHBIRTH2,STHBIRTH3,STHBIRTH4,STHWEDDING,STHYEAR,
+STHWORK,STHSISM,STHSTATE,STHADDRES,STHADDRES2,STHPHONE,STHPHONE2,STHPHONE3,STHEMAIL,STHSKILL,STHSOJU,STHMAN)
+values(#{STHKORNAME},#{STHENNAME},#{STHCHNAME},#{STHJUMIN},#{STHJUMIN2},#{STHPHOTO},#{STHBIRTH},#{STHBIRTH2},#{STHBIRTH3},#{STHBIRTH4},#{STHWEDDING},#{STHYEAR},
+#{STHWORK},#{STHSISM},#{STHSTATE},#{STHADDRES},#{STHADDRES2},#{STHPHONE},#{STHPHONE2},#{STHPHONE3},#{STHEMAIL},#{STHSKILL},#{STHSOJU},#{STHMAN})
+</insert>
+
+<!-- 페이징 -->
+<select id="listPage" resultType="MemberDTO"
+parameterType="ccc.ccc.ccc.dto.Criteria">
+    select STHKORNAME,STHENNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHBIRTH2,STHBIRTH3,STHBIRTH4,STHWEDDING,STHYEAR,
+STHWORK,STHSISM,STHSTATE,STHADDRES,STHADDRES2,STHPHONE,STHPHONE2,STHPHONE3,STHEMAIL,STHSKILL,STHSOJU,STHMAN
+       from (
+           select STHKORNAME,STHENNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHBIRTH2,STHBIRTH3,STHBIRTH4,STHWEDDING,STHYEAR,
+STHWORK,STHSISM,STHSTATE,STHADDRES,STHADDRES2,STHPHONE,STHPHONE2,STHPHONE3,STHEMAIL,STHSKILL,STHSOJU,STHMAN,
+               row_number() over(order by STHKORNAME desc) as rNum
+           from member
+       ) mb
+      where rNum between #{rowStart} and #{rowEnd}
+          order by STHKORNAME desc
+</select>
+<select id="listCount" resultType="Integer">
+<![CDATA[
+select count(STHKORNAME)
+from member
+where STHKORNAME >'0'
+]]>
+</select>
+
+<!-- 검색 -->
+<select id="listSearch" resultType="MemberDTO"
+parameterType="ccc.ccc.ccc.dto.SearchCriteria">
+select STHKORNAME,STHENNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHBIRTH2,STHBIRTH3,STHBIRTH4,STHWEDDING,STHYEAR,
+STHWORK,STHSISM,STHSTATE,STHADDRES,STHADDRES2,STHPHONE,STHPHONE2,STHPHONE3,STHEMAIL,STHSKILL,STHSOJU,STHMAN
+       from (
+           select STHKORNAME,STHENNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHBIRTH2,STHBIRTH3,STHBIRTH4,STHWEDDING,STHYEAR,
+STHWORK,STHSISM,STHSTATE,STHADDRES,STHADDRES2,STHPHONE,STHPHONE2,STHPHONE3,STHEMAIL,STHSKILL,STHSOJU,STHMAN,
+               row_number() over(order by STHKORNAME desc) as rNum
+           from member
+        <include refid="search"></include>
+       ) mb
+      where rNum between #{rowStart} and #{rowEnd}
+          order by STHKORNAME desc
+</select>
+
+<sql id="search">
+
+ <if test="searchTypeMan == 'm'.toString()">
+	<choose>
+	<when test="keywordMan == ''.toString()">
+    where STHMAN like '%'
+    </when>
+    <otherwise>
+    where STHMAN like '%' || #{keywordMan} || '%'
+    </otherwise>
+	</choose>
+ </if>
+ 
+  <if test="searchTypeYear == 'y'.toString()">
+	<choose>
+	<when test="keywordYear == ''.toString()">
+    and STHYEAR like '%'
+    </when>
+    <otherwise>
+    and STHYEAR like '%' || #{keywordYear} || '%'
+    </otherwise>
+	</choose>
+ </if>
+ 
+ <if test="searchTypeAdd == 'a'.toString()">
+	<choose>
+	<when test="keywordAdd == ''.toString()">
+    and STHADDRES like '%'
+    </when>
+    <otherwise>
+    and STHADDRES like '%' || #{keywordAdd} || '%'
+    </otherwise>
+	</choose>
+ </if>
+
+
+</sql>
+<select id="countSearch" resultType="Integer">
+<![CDATA[
+   select count(STHKORNAME)
+    from member
+     
+
+     where STHKORNAME > '0'
+]]>
+</select>
+  <!--  <if test="searchType != null">
+    <if test="searchType == 'm'.toString()">where STHMAN like '%' || #{keyword} || '%'</if>
+    <if test="searchType == 'y'.toString()">where STHYEAR like '%' || #{keyword} || '%'</if>
+    <if test="searchType == 'a'.toString()">where STHADDRES like '%' || #{keyword} || '%'</if>
+  </if> -->
+</mapper>
