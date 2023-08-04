@@ -160,7 +160,7 @@ public class ProjectController {
 	        return participants;
 	    }
 	  
-	  //개인프로젝트 삭제
+	  //개인프로젝트 삭제2233
 	  @RequestMapping(value = "/myprodelete", method = RequestMethod.POST)
 	  public String myprodelete(String NO) {
 		  projectService.myprodelete2(NO);
