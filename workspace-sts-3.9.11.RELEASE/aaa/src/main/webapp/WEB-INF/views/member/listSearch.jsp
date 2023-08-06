@@ -16,26 +16,16 @@
 		
 		$("#update").click(function() {
 			
+			
 			if (!$("input[name=che]:checked").val()) {
 				alert("수정하실 항목을 선택해주세요.")
 				return false;
 			} else {
 
-				var str = $("input[name=che]:checked").val();
+				var NO = $("input[name=che]:checked").val();
 				
-				var index = str.indexOf(',');
 
-				var STHKORNAME = str.substr(0,index);
-	
-				var STHLATER = str.substr(index+1);
-
-				var index2 = STHLATER.indexOf(',');
-				
-				var STHJUMIN = STHLATER.substr(0,index2);
-
-				var STHJUMIN2 = STHLATER.substr(index2+1);
-
-				location.href = "MemberUpdate?STHKORNAME=" + STHKORNAME + "&STHJUMIN=" + STHJUMIN + "&STHJUMIN2=" + STHJUMIN2;
+				location.href = "MemberUpdate?NO=" + NO;
 				/* location.href = "MemberUpdate?NO=" + NO; */
 			}
 		});
@@ -44,6 +34,7 @@
 	$(function() {
 		
 		$("#delete").click(function() {
+				
 			
 			if (!$("input[name=che]:checked").val()) {
 				alert("삭제하실 항목을 선택해주세요.")
@@ -52,21 +43,7 @@
 			
 			if (confirm("정말 삭제하시겠습니까?") == true) {
 				
-				var numVal = $("input[name=radio]:checked").val();
-				
-			 	var str = $("input[name=che]:checked").val();
-				
-				var index = str.indexOf(',');
-
-				var STHKORNAME = str.substr(0,index);
-	
-				var STHLATER = str.substr(index+1);
-
-				var index2 = STHLATER.indexOf(',');
-				
-				var STHJUMIN = STHLATER.substr(0,index2);
-
-				var STHJUMIN2 = STHLATER.substr(index2+1);
+				var noVal = $("input[name=che]:checked").val();
 
 				//location.href = "MemberUpdate?STHKORNAME=" + STHKORNAME;
 				
@@ -77,9 +54,7 @@
 						
 						
 						
-						"STHKORNAME" : STHKORNAME,
-						"STHJUMIN" : STHJUMIN,
-						"STHJUMIN2" : STHJUMIN2 
+						"NO" : noVal
 						
 					}
 				});
@@ -178,12 +153,12 @@
 				value="${scri.keyword2}" style="width: 300px;" /> --%>
 			
 			<input type="text" value="입사일" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
-			<input type="date" name="keyword" id="keywordInput" value="${scri.keyword}" style="width: 100px;">~
-			<input type="date" name="keyword2" id="keywordInput2" value="${scri.keyword2}" style="width: 100px;">		
+			<input type="date" name="keyword" id="keyword11" value="${scri.keyword}" style="width: 100px;">~
+			<input type="date" name="keyword2" id="keyword22" value="${scri.keyword2}" style="width: 100px;">		
 			<input type="text" value="이름" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
-			<input type="text" name="keyword3" id="keywordInput3" value="${scri.keyword3}" style="width: 50px;">
+			<input type="text" name="keyword3" id="keyword33" value="${scri.keyword3}" style="width: 50px;">
 			<input type="text" value="년차" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
-			<input type="text" name="keyword4" id="keywordInput4" value="${scri.keyword4}" style="width: 50px;">
+			<input type="text" name="keyword4" id="keyword44" value="${scri.keyword4}" style="width: 50px;">
 			
 			<button id="searchBtn2">검색</button>
 		</div>
@@ -221,13 +196,14 @@
 					<th>근무</th>
 					<th>번호</th>
 					<th>입사일</th>
+					<th>년차</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="list" items="${list}">
 					<tr class="COLOR">
 					<td><input type="radio" name="che" id="che"
-							value="${list.STHKORNAME},${list.STHJUMIN},${list.STHJUMIN2}"></td>
+							value="${list.NO}"></td>
 						<td class=BOR2>
 							<a href="./MemberSelectDetail?NO=${list.NO}">${list.STHKORNAME}</a></td>
 						<%-- <td class="BOR2">${list.STHKORNAME}</td> --%>
@@ -236,8 +212,9 @@
 						<td class="BOR2">${list.STHSKILL}</td>
 						<td class="BOR2">${list.STHSTATE}</td>
 						<td class="BOR2">${list.STHWORK}</td>
-						<td class="BOR2">${list.NO }</td>
+						<td class="BOR2">${list.NO}</td>
 						<td class="BOR2">${list.MYDATE}</td>
+						<td class="BOR2">${list.STHYEAR}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty list}">
@@ -286,20 +263,39 @@
 <script>
     $(function() {
         $('#searchBtn2').click(function() {
-            var keyword = encodeURIComponent($('#keywordInput').val());
-            var keyword2 = encodeURIComponent($('#keywordInput2').val());
-            var keyword3 = encodeURIComponent($('#keywordInput3').val());
-            var keyword4 = encodeURIComponent($('#keywordInput4').val());
+        	var keyword11 = encodeURIComponent($('#keyword11').val());
+            var keyword22 = encodeURIComponent($('#keyword22').val());
+            var keyword33 = encodeURIComponent($('#keyword33').val());
+            var keyword44 = encodeURIComponent($('#keyword44').val());
             
             var url = "listSearch" + '${pageMaker.makeQuery(1)}';
-            if (keyword !== "" && keyword2 !== "") {
-                url += "&searchType=y1&keyword=" + keyword + "&searchType=y2&keyword2=" + keyword2;
+            
+            if (keyword11 !== "" && keyword22 !== "" && keyword33 !== "" && keyword44 !== "") {
+                url += "&searchType=all&keyword=" + keyword11 + "&keyword2=" + keyword22 + "&keyword3=" + keyword33 + "&keyword4=" + keyword44;
             }
-            if (keyword3 !== "") {
-                url += "&searchType=n&keyword3=" + keyword3;
+            
+            if (keyword11 !== "" && keyword22 !== "" && keyword33 == "" && keyword44 == "") {
+            	url += "&searchType=year&keyword=" + keyword11 + "&keyword2=" + keyword22;
             }
-            if (keyword4 !== "") {
-                url += "&searchType=m&keyword4=" + keyword4;
+            
+            if (keyword11 !== "" && keyword22 !== "" && keyword33 !== "" && keyword44 == "") {
+            	url += "&searchType=yearAndName&keyword=" + keyword11 + "&keyword2=" + keyword22 + "&keyword3=" + keyword33;
+            }
+            
+            if (keyword11 !== "" && keyword22 !== "" && keyword33 == "" && keyword44 !== "") {
+            	url += "&searchType=yearAndYear&keyword=" + keyword11 + "&keyword2=" + keyword22 + "&keyword4=" + keyword44;
+            }
+            
+            if (keyword11 == "" && keyword22 == "" && keyword33 !== "" && keyword44 == "") {
+            	url += "&searchType=name&keyword3=" + keyword33;
+            }
+            
+            if (keyword11 == "" && keyword22 == "" && keyword33 == "" && keyword44 !== "") {
+            	url += "&searchType=duration&keyword4=" + keyword44;
+            }
+            
+            if (keyword11 == "" && keyword22 == "" && keyword33 !== "" && keyword44 !== "") {
+            	url += "&searchType=nameAndYear&keyword3=" + keyword33 + "&keyword4=" + keyword44;
             }
             
             self.location = url;

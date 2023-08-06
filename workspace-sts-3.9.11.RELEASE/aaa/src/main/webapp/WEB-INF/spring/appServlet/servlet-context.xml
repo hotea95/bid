@@ -17,13 +17,14 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	 <resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
+	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
 	 
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="prefix" value="/WEB-INF/views/"/>
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
@@ -31,9 +32,9 @@
 	<!-- 파일 저장 경로 -->
    <beans:bean class="java.lang.String" id="uploadPath">
       <beans:constructor-arg
-         value="C:\Users\qorgh\Documents\workspace-sts-3.9.11.RELEASE\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\aaa\resources" />
+         value="C:\bid\workspace-sts-3.9.11.RELEASE\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\aaa\resources" />
    </beans:bean>
-   
+
    <beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
       <beans:property name="maxUploadSize" value="10485760" />
       <beans:property name="defaultEncoding" value="UTF-8" />

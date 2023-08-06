@@ -149,6 +149,8 @@ public class MemberController {
 		
 		memberDTO = memberService.memberSelect(memberDTO);
 		
+		model.addAttribute("memberDTO", memberDTO);
+		
 		/*
 		 * String year; String month; String date; String lunOrSol;
 		 * 

@@ -51,10 +51,12 @@ public class ProductUploadFileUtils {
    private static void makeDir(String uploadPath, String... paths) {
 
       if (new File(paths[paths.length - 1]).exists()) {
+    	  
          return;
       }
 
       for (String path : paths) {
+    	  
          File dirPath = new File(uploadPath + path);
 
          if (!dirPath.exists()) {

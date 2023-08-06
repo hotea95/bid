@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,7 @@
 <meta charset="UTF-8">
 <title>멤버 상세보기</title>
 <script>
+
 				$(function() {
 					$('#searchBtn').click(
 			function() {
@@ -101,8 +103,7 @@
 <td class="BOR2">${memberDTO.STHJUMIN}-${memberDTO.STHJUMIN2}</td>
 
 
-<td class="BOR2" style="width: 60px; height: 60px; overflow: hidden; margin: auto;"><img src="${pageContext.request.contextPath}/${memberDTO.STHPHOTO}"
-                     style="width: 100%; height: 100%; object-fit: fill;"></td>
+<td class="BOR2"><img src="${pageContext.request.contextPath}/${memberDTO.STHPHOTO}"></td>
                      
 <td class="BOR2">${memberDTO.STHBIRTH}</td>
 <td class="BOR2">${memberDTO.STHSEX}</td>

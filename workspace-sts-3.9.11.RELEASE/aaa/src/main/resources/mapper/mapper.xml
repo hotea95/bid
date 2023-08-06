@@ -122,16 +122,52 @@ select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHSKILL,STHYEAR
   <if test="searchType != null">
     <where>
       <choose>
-        <when test="searchType == 'y1'.toString()">
-          AND MYDATE &gt;= #{keyword} 
+        <when test="searchType == 'all'.toString()">
+          AND MYDATE &gt;= #{keyword}
           AND MYDATE &lt;= #{keyword2}
-        </when>
-        <when test="searchType == 'n'.toString()">
           AND STHKORNAME like '%' || #{keyword3} || '%'
-        </when>
-        <when test="searchType == 'm'.toString()">
           AND STHYEAR like '%' || #{keyword4} || '%'
+          where rNum between #{rowStart} and #{rowEnd}
+
         </when>
+        
+        <when test="searchType == 'year'.toString()">
+          AND MYDATE &gt;= #{keyword}
+          AND MYDATE &lt;= #{keyword2}
+          where rNum between #{rowStart} and #{rowEnd}
+ 
+        </when>
+        
+        <when test="searchType == 'yearAndName'.toString()">
+          AND MYDATE &gt;= #{keyword}
+          AND MYDATE &lt;= #{keyword2}
+          AND STHKORNAME like '%' || #{keyword3} || '%'
+
+        </when>
+        
+        <when test="searchType == 'yearAndYear'.toString()">
+          AND MYDATE &gt;= #{keyword}
+          AND MYDATE &lt;= #{keyword2}
+          AND STHYEAR like '%' || #{keyword4} || '%'
+
+        </when>
+        
+        <when test="searchType == 'name'.toString()">
+          AND STHKORNAME like '%' || #{keyword3} || '%'
+
+        </when>
+        
+        <when test="searchType == 'duration'.toString()">
+          AND STHYEAR like '%' || #{keyword4} || '%'
+
+        </when>
+        
+        <when test="searchType == 'nameAndYear'.toString()">
+          AND STHKORNAME like '%' || #{keyword3} || '%'
+          AND STHYEAR like '%' || #{keyword4} || '%'
+
+        </when>
+        
       </choose>
     </where>
   </if>
@@ -232,10 +268,10 @@ values(#{STHKORNAME},#{STHENGNAME},#{STHCHNAME},#{STHJUMIN},#{STHJUMIN2},#{STHPH
 <!-- 멤버 삭제하기 -->
 <delete id="memberdelete" parameterType="MemberDTO">
 
-<!--  delete from STHMEMBER
-where NO = #{NO} -->
+delete from STHMEMBER
+where NO = #{NO} 
 
-{call
+<!-- {call
 declare
 begin
 
@@ -261,7 +297,7 @@ delete from WORK
 where WORKNAME = #{STHKORNAME} and WORKJUMIN = #{STHJUMIN} and WORKJUMIN2 = #{STHJUMIN2};
 
 end
-}
+} -->
 
 </delete>
 

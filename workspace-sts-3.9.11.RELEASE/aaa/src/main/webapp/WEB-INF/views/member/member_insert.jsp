@@ -199,7 +199,7 @@ $(function() {
                var reader = new FileReader;
                reader.onload = function(
                      data) {
-                  $(".select_img img")
+                  $(".select_img")
                         .attr(
                               "src",
                               data.target.result)
@@ -383,6 +383,7 @@ $(function() {
 			
 				<div class="select_img" style="width: 60px; height: 60px; float: left;">
                         <img src="" />
+                        
                  </div>
                      
                  <div>

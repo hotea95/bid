@@ -8,9 +8,7 @@
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-alert("알림")
-</script>
+
 <c:forEach var="list" items="${MemberInfo}">
 <c:if test="${list.STHKORNAME==memberDTO.STHKORNAME}">
 <c:if test="${list.STHJUMIN==memberDTO.STHJUMIN}">
