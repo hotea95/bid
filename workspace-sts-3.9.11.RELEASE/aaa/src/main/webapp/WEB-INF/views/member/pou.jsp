@@ -183,7 +183,7 @@ th {
 
 
 	<!-- 폼 추가 -->
-	<form id="myForm" action="./Myproinsert" method="post">
+	<form id="myForm" action="./Myproinsert3" method="post">
 		<!-- 추가된 사원들의 프로젝트 정보를 입력할 필드들 -->
 		<div id="inputFields">
 			<!-- 선택한 사원들의 정보를 동적으로 생성하여 추가 -->

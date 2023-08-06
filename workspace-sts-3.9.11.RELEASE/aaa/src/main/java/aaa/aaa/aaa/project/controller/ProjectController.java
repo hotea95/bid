@@ -169,24 +169,61 @@ public class ProjectController {
 	  }
 	  
 	  @RequestMapping(value = "/Myproinsert3", method = RequestMethod.POST)
-	    public String myproinsert3(Model model, HttpServletRequest request) {
-	        List<MYPRODTO> myproDTOList = new ArrayList<>();
+	    public String myproinsert3(Model model, HttpServletRequest request, MYPRODTO myProDTO) {
+		  
+		  //
+//          List<MYPRODTO> myproDTOList = new ArrayList<>();
+//	        List<Object> myproDTOListNO = new ArrayList<>();
+//	        List<Object> myproDTOListPNO = new ArrayList<>();
+//	        List<Object> myproDTOListSTMDATE = new ArrayList<>();
+//	        List<Object> myproDTOListENDMDATE = new ArrayList<>();
+//	        List<Object> myproDTOListROLE = new ArrayList<>();
+//	        List<Object> myproDTOListPRONAME = new ArrayList<>();
+	        
+	        //split으로 컬럼별로 한개의 문자열을 배열에 하나씩 변환
+	        String NO = myProDTO.getNO();
+	        String[] NoList = NO.split(",");
+	        String PNO = myProDTO.getPNO();
+	        String[] PNOList = PNO.split(",");
+	        String STMDATE = myProDTO.getSTMDATE();
+	        String[] STMDATEList = STMDATE.split(",");
+	        String ENDMDATE = myProDTO.getENDMDATE();
+	        String[] ENDMDATEList = ENDMDATE.split(",");
+	        String ROLE = myProDTO.getROLE();
+	        String[] ROLEList = ROLE.split(",");
+	        String PRONAME = myProDTO.getPRONAME();
+	        String[] PRONAMEList = PRONAME.split(",");
 
-	        // 예시로 3개의 객체를 리스트에 추가합니다. 필요에 따라 객체를 생성하고 값을 설정해야 합니다.
-	        for (int i = 0; i < 3; i++) {
-	            MYPRODTO dto = new MYPRODTO();
-	            dto.setNO("NO" + i);
-	            dto.setPNO("PNO" + i);
-	            dto.setSTMDATE("STMDATE" + i);
-	            dto.setENDMDATE("ENDMDATE" + i);
-	            dto.setROLE("ROLE" + i);
-	            dto.setPRONAME("PRONAME" + i);
-	            myproDTOList.add(dto);
-	        }
+	        //그 배열을 컬럼별로 리스트에 넣는다
+	        int count = NoList.length;
+	        
+//	        for (int i = 0; i < count; i++) {
+//	        	
+//	        	myproDTOListNO.add(i, NoList[i]);
+//	        	myproDTOListPNO.add(i, PNOList[i]);
+//	        	myproDTOListSTMDATE.add(i, STMDATEList[i]);
+//	        	myproDTOListENDMDATE.add(i, ENDMDATEList[i]);
+//	        	myproDTOListROLE.add(i, ROLEList[i]);
+//	        	myproDTOListPRONAME.add(i, PRONAMEList[i]);
+//
+//	        }
+	        
+	        
+	        for (int i = 0; i < count; i++) {
+	        	
+	        	myProDTO.setNO(NoList[i]);
+	        	myProDTO.setPNO(PNOList[i]);
+	        	myProDTO.setSTMDATE(STMDATEList[i]);
+	        	myProDTO.setENDMDATE(ENDMDATEList[i]);
+	        	myProDTO.setROLE(ROLEList[i]);
+	        	myProDTO.setPRONAME(PRONAMEList[i]);
+	        	
+	        	projectService.myproinsert(myProDTO);
+				
+			}
 
-	        projectService.myproinsert3(myproDTOList);
 
-	        logger.info("컨트롤러--------" + myproDTOList);
+	       // logger.info("컨트롤러--------" + myproDTOList);
 	        return "./project/mypro_insert_view";
 	    }
 	}
