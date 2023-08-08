@@ -1,5 +1,6 @@
 package aaa.aaa.aaa.project.controller;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -226,6 +227,28 @@ public class ProjectController {
 	       // logger.info("컨트롤러--------" + myproDTOList);
 	        return "./project/mypro_insert_view";
 	    }
+	  
+	  //공통 프로젝트 수정
+	  @RequestMapping(value = "ComproUpdate", method = RequestMethod.GET)
+	  public String comproupdate(Model model, COMMONPRODTO commonprodto) {
+		model.addAttribute("list",projectService.comproselectall());
+		return "./project/compro_update";
+	  }
+	  
+	  //공통 플젝 상세조회
+	  @RequestMapping(value = "Comproselectone", method = RequestMethod.GET)
+	  public String selectone(Model model, COMMONPRODTO commonprodto) {
+		  model.addAttribute("list",projectService.comselect(commonprodto));
+		  return "./project/compro_selectone_view";
+	  }
+	  
+	  
+	  //공통플젝 삭제
+		  @RequestMapping(value = "/Comprodelete", method = RequestMethod.POST)
+	  public String comprodelete(String PNO) {
+		  projectService.comprodelete2(PNO);
+		  return "./project/compro_delete";
+	  }
 	}
 
 

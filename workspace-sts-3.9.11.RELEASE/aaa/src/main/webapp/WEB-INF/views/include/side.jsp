@@ -66,13 +66,13 @@
 		</fieldset>
 		<br> -->
 
-		<fieldset>
+		<%-- <fieldset>
 			<input type="text" value="■ 경력검색" readonly="readonly"
 				style="border: none; background-color: transparent;"> <br>
 			<input type="text" name="keyword" id="keywordInput"
 				value="${scri.keyword}" style="width: 70px;" />
 			<button id="searchBtn">검색</button>
-		</fieldset>
+		</fieldset> --%>
 
 	</div>
 </body>

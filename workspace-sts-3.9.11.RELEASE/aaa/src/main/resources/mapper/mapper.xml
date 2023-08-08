@@ -127,14 +127,12 @@ select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHSKILL,STHYEAR
           AND MYDATE &lt;= #{keyword2}
           AND STHKORNAME like '%' || #{keyword3} || '%'
           AND STHYEAR like '%' || #{keyword4} || '%'
-          where rNum between #{rowStart} and #{rowEnd}
 
         </when>
         
         <when test="searchType == 'year'.toString()">
           AND MYDATE &gt;= #{keyword}
           AND MYDATE &lt;= #{keyword2}
-          where rNum between #{rowStart} and #{rowEnd}
  
         </when>
         
@@ -253,8 +251,8 @@ where NO = #{NO}
  <update id="memberupdate" parameterType="MemberDTO">
 update STHMEMBER set STHENGNAME = #{STHENGNAME}, STHCHNAME = #{STHCHNAME}, STHJUMIN = #{STHJUMIN}, STHJUMIN2 = #{STHJUMIN2},
 STHPHOTO = #{STHPHOTO}, STHBIRTH = #{STHBIRTH}, STHSEX = #{STHSEX}, STHWEDDING = #{STHWEDDING}, STHYEAR = #{STHYEAR}, STHWORK = #{STHWORK}, STHSISM = #{STHSISM},
-STHSTATE = #{STHSTATE}, STHADDRESS = #{STHADDRESS}, STHADDRESS2 = #{STHADDRESS2}, STHPHONE = #{STHPHONE}, STHEMAIL = #{STHEMAIL}, STHSKILL = #{STHSKILL}, STHSOJU = #{STHSOJU}
-where STHKORNAME = #{STHKORNAME}
+STHSTATE = #{STHSTATE}, STHADDRESS = #{STHADDRESS}, STHADDRESS2 = #{STHADDRESS2}, STHPHONE = #{STHPHONE}, STHEMAIL = #{STHEMAIL}, STHSKILL = #{STHSKILL}, STHSOJU = #{STHSOJU}, MYDATE = #{MYDATE}
+where NO = #{NO}
 </update>
 
 <!-- 멤버 작성하기 -->
@@ -655,5 +653,18 @@ values(#{NO},#{PNO},#{STMDATE},#{ENDMDATE},#{ROLE},#{PRONAME})
 
 <select id="che" resultType="MYPRODTO">
 select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME FROM MYPRO WHERE NO = #{NO}
+</select>
+<select id="comselect" resultType="COMMONPRODTO">
+PNO,STDATE,ENDDATE,PRONAME FROM COMMONPRO WHERE PNO = #{PNO}
+</select>
+
+<!-- 공통플젝 삭제 -->
+<delete id="comprodelete" parameterType="COMMONPRODTO">
+delete from COMMONPRO
+where PNO = #{PNO}
+</delete>
+<!-- 개인플젝 리스트 -->
+<select id="myproselectall3" resultType="MYPRODTO">
+select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
 </select>
 </mapper>

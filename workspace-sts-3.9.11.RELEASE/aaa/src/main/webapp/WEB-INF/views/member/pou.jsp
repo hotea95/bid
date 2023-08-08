@@ -101,6 +101,12 @@ th {
 	font-size: 14px;
 	cursor: pointer;
 }
+ .role-label {
+    display: inline-block;
+    width: 60px; /* 라벨 너비 조정 */
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
 #myForm input[type="submit"]:hover {
 	background-color: #45a049;
@@ -114,7 +120,7 @@ th {
 	<!-- 검색 입력 필드 및 버튼 코드 추가 -->
 	<input type="text" value="이름" readonly="readonly"
 		style="border: none; background-color: transparent;">
-	<input type="text" name="keyword3" id="keywordInput3"
+	<input type="text" name="keyword3" id="keywordInput33"
 		value="${scri.keyword3}" style="width: 70px;">
 	<button id="searchBtn">검색</button>
 
@@ -198,21 +204,27 @@ th {
 			// 검색 버튼 클릭 이벤트 핸들러
 			$('#searchBtn').click(
 					function() {
-						var keyword3 = encodeURIComponent($('#keywordInput3')
+						var keyword333 = encodeURIComponent($('#keywordInput33')
 								.val());
-						var urlParams = new URLSearchParams(
+						 
+						
+						/* if (keyword333 !== "") {
+			            	url += "&searchType=name&keyword3=" + keyword333;
+			            } */
+						
+					 	var urlParams = new URLSearchParams(
 								window.location.search);
 						var pno = urlParams.get('pno');
 						var proname = urlParams.get('proname');
 						var url;
 						if (pno && proname) {
-							url = "/Pou?page=1&searchType=n&keyword3="
-									+ keyword3 + "&pno=" + pno + "&proname="
+							url = "/Pou?page=1&searchType=name&keyword3="
+									+ keyword333 + "&pno=" + pno + "&proname="
 									+ proname;
 						} else {
-							url = "/Pou?page=1&searchType=n&keyword3="
-									+ keyword3;
-						}
+							url = "/Pou?page=1&searchType=name&keyword3="
+									+ keyword333;
+						} 
 						self.location = url;
 					});
 			// 선택한 사원들의 정보를 저장할 배열
@@ -275,12 +287,12 @@ th {
 							.append('<h3>사원 '
 									+ (i + 1)
 									+ '</h3>'
-									+ '<label>회원 번호 : </label><input type="text" id="NO' + i + '" name="NO" value="' + employee.NO + '" readonly><br>'
-									+ '<label>프로젝트 번호 : </label><input type="text" id="PNO' + i + '" name="PNO" value="' + pno + '" readonly><br>'
-									+ '<label>프로젝트 이름 : </label><input type="text" id="PRONAME' + i + '" name="PRONAME" value="' + proname + '" readonly><br>'
-									+ '<label>시작날짜 : </label><input type="date" name="STMDATE" max="9999-12-31"><br>'
-									+ '<label>종료날짜 : </label><input type="date" name="ENDMDATE" max="9999-12-31"><br>'
-									+ '<label>역할 : </label><input type="text" name="ROLE"><br><br>');
+									+ '<input type="hidden" id="NO' + i + '" name="NO" value="' + employee.NO + '" readonly><br>'
+									+ '<input type="hidden" id="PNO' + i + '" name="PNO" value="' + pno + '" readonly><br>'
+									+ '<input type="hidden" id="PRONAME' + i + '" name="PRONAME" value="' + proname + '" readonly><br>'
+									+ '<span class="date-label">시작날짜 : </span><input type="date" name="STMDATE" max="9999-12-31">'
+							        + '<span class="date-label">종료날짜 : </span><input type="date" name="ENDMDATE" max="9999-12-31">'
+							        + '<span class="role-label">역할 : </span><input type="text" name="ROLE"><br><br>');
 				}
 			}
 

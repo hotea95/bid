@@ -47,14 +47,64 @@
 <meta charset="UTF-8">
 <title>공통 프로젝트 조회</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+//공통플젝 삭제
+$(document).on('click', '.delete', function() {
+    var pno = $(this).closest('tr').find('td:eq(0)').text(); // 해당 행의 첫 번째 열 (프로젝트 번호) 값을 가져옴
+    confirmDeleteProject(pno); // pno 값을 confirmDeleteProject 함수에 전달
+});
+
+function confirmDeleteProject(pno) {
+    var confirmDelete = confirm("정말 삭제하시겠습니까?"); // 확인 대화상자 띄우기
+
+    if (confirmDelete) {
+        deleteProjectData(pno); // 확인을 선택한 경우에만 삭제 작업 수행
+    } else {
+        console.log("삭제 취소");
+    }
+}
+
+function deleteProjectData(pno) {
+    $.ajax({
+        type: 'POST',
+        url: '/Comprodelete',
+        data: { PNO: pno }, // 'pno' 값을 'PNO' 파라미터로 보냄
+        success: function(response) {
+            console.log('삭제 성공');
+            console.log(response);
+            
+            location.reload();
+            // 여기서 새로운 데이터를 로드하고 프로젝트 목록 테이블을 갱신하는 작업을 수행할 수 있습니다.
+            // 예를 들어, loadProjects 함수를 다시 호출하여 테이블을 갱신할 수 있습니다.
+            loadProjects();
+        },
+        error: function() {
+            console.log("삭제 오류 발생");
+            // 오류 발생 시 처리할 내용 작성
+        }
+    });
+}
+
+</script>
+
 <script>
     // ... (이전 코드 생략) ...
 
-// "삭제" 버튼 클릭 이벤트 처리
+//개인플젝  "삭제" 버튼 클릭 이벤트 처리
 $(document).on('click', '.delete-participant', function() {
     var no = $(this).closest('tr').find('td:eq(0)').text(); // 해당 행의 2번째 열 (프로젝트 번호) 값을 가져옴
-    deleteParticipantData(no); // pno 값을 deleteParticipantData 함수에 전달
+    confirmDeleteParticipant(no); // 확인 대화상자 표시
 });
+
+function confirmDeleteParticipant(no) {
+    var confirmDelete = confirm("정말 삭제하시겠습니까?"); // 확인 대화상자 띄우기
+
+    if (confirmDelete) {
+        deleteParticipantData(no); // 확인을 선택한 경우에만 삭제 작업 수행
+    } else {
+        console.log("삭제 취소");
+    }
+}
 
 function deleteParticipantData(no) {
     $.ajax({
@@ -142,6 +192,8 @@ function deleteParticipantData(no) {
                 <th>프로젝트 명</th>
                 <th>확인</th>
                 <th>추가</th>
+                <th>수정</th>
+                <th>삭제</th>
             </tr>
         </thead>
         <tbody>
@@ -153,6 +205,12 @@ function deleteParticipantData(no) {
                     <td>${list.PRONAME}</td>
                     <td><button class="view-participants" data-pno="${list.PNO}">참여 인원 보기</button></td>
                 	<td><p><input type="button" value="사원 추가하기" onclick="new_window(${list.PNO}, '${list.PRONAME}');"></p></td>
+					  <td><a href="./ComproUpdate?PNO=${list.PNO}">수정하기</a></td>
+					<!-- <td><input type="button" value="${list.PNO}">수정하기</td>-->
+					<td><p><input type="button" value="삭제하기" data-pno="${list.PNO}" class="delete"></p></td>
+
+
+
 
                 </tr>
             </c:forEach>

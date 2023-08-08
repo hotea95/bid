@@ -202,7 +202,7 @@ public class MemberController {
 		//memberService.memberUpdate(STHKORNAME);
 		logger.info("컨트롤러 수정완료post");
 		model.addAttribute("educationDTO",educationService.educationselectM(memberDTO));
-		return "./education/education_update";
+		return "./member/member_update_view";
 	}
 
 	// 사원 작성하기
@@ -258,8 +258,11 @@ public class MemberController {
 		model.addAttribute("list",memberService.listSearch(scri));
 		model.addAttribute("list2",projectService.comproselectall());
 		//model.addAttribute("list3",projectService.myproselectall(myprodto));
+		model.addAttribute("list3",projectService.myproselectall3());
 		return "./member/pou";
 	}
+	
+	
 	
 	// 중복 체크를 위한 API 엔드포인트 추가
 	@RequestMapping(value = "/checkDuplicate", method = RequestMethod.POST)

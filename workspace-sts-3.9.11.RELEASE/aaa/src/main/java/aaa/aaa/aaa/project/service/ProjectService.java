@@ -103,4 +103,19 @@ public class ProjectService {
 	public List<MYPRODTO> che(String NO) {
 		return projectDAO.che(NO);
 	}
+	
+	//공통 플젝 상세조회
+	public COMMONPRODTO comselect(COMMONPRODTO commonprodto) {
+		return projectDAO.comselect(commonprodto);
+	}
+	
+	//공통 플젝 삭제
+	public void comprodelete2(String PNO) {
+		projectDAO.comprodelete3(PNO);
+	}
+	
+	//개인플젝 조회리스트
+	public List<MYPRODTO> myproselectall3() {
+		return projectDAO.myproselectall3();
+	}
 }

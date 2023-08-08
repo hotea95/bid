@@ -129,16 +129,7 @@
 
 	<%@ include file="/WEB-INF/views/include/side.jsp" %>
 	
-<p><input type="button" value="사원추가하기" onclick="new_window();"></p>
-    <script>
-      function new_window() {
-        window.open(
-          "/Pou",
-          "Child",
-          "width=400, height=300, top=50, left=50"
-        );
-      }
-    </script>
+
 	<div style="width: 800px;">
 		<h1>사원 조회</h1>
 		<div>
@@ -153,9 +144,9 @@
 				value="${scri.keyword2}" style="width: 300px;" /> --%>
 			
 			<input type="text" value="입사일" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
-			<input type="date" name="keyword" id="keyword11" value="${scri.keyword}" style="width: 100px;">~
-			<input type="date" name="keyword2" id="keyword22" value="${scri.keyword2}" style="width: 100px;">		
-			<input type="text" value="이름" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
+			<input type="date" name="keyword" id="keyword11" value="${scri.keyword}" max="9999-12-31" style="width: 100px;">~
+			<input type="date" name="keyword2" id="keyword22" value="${scri.keyword2}" max="9999-12-31" style="width: 100px;">		
+			<input type="text" value="이름" readonly="readonly"  style="border: none; background-color: transparent; width: 50px;">
 			<input type="text" name="keyword3" id="keyword33" value="${scri.keyword3}" style="width: 50px;">
 			<input type="text" value="년차" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
 			<input type="text" name="keyword4" id="keyword44" value="${scri.keyword4}" style="width: 50px;">
@@ -267,6 +258,16 @@
             var keyword22 = encodeURIComponent($('#keyword22').val());
             var keyword33 = encodeURIComponent($('#keyword33').val());
             var keyword44 = encodeURIComponent($('#keyword44').val());
+            
+            if (keyword11 === "" && keyword22 === "" && keyword33 === "" && keyword44 === "") {
+                alert("입사일과 이름, 년차 중 최소 한 가지를 입력해야 합니다.");
+                return;
+              }
+
+              if ((keyword11 === "" && keyword22 !== "") || (keyword11 !== "" && keyword22 === "")) {
+                alert("입사일 범위를 모두 입력해주세요.");
+                return;
+              }
             
             var url = "listSearch" + '${pageMaker.makeQuery(1)}';
             

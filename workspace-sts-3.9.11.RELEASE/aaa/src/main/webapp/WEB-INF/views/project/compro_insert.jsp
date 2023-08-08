@@ -73,7 +73,6 @@
 function checks() {
 	//var PRONAME = /^[\uac00-\ud7a3]{0,20}$/;
 	
-	alert("알림");
 	if($("#PRONAME").val() == "") {
 		alert("프로젝트를 입력해주세요.");
 		$("#PRONAME").focus();

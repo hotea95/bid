@@ -121,7 +121,8 @@ $(function() {
 
 
 				</div>
-
+				<input type="text"
+					name="NO" id="NO" value="${memberDTO.NO}" readonly="readonly">
 				<label for="STHKORNAME">한글 이름</label> <input type="text"
 					name="STHKORNAME" id="STHKORNAME" value="${memberDTO.STHKORNAME}" readonly="readonly">
 				<br> <label for="STHENGNAME">영문 이름</label> <input type="text"
@@ -230,6 +231,9 @@ $(function() {
 				<input type="text" name="STHSKILL" id="STHSKILL" value="${memberDTO.STHSKILL}"> <br>
 				<label for="STHSOJU">주량</label> <input type="text" name="STHSOJU"
 					id="STHSOJU" value="${memberDTO.STHSOJU}"><br>
+					
+					<label for="MYDATE">입사일</label>
+				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;"  value="${memberDTO.MYDATE}"> <br>
 				<div style="text-align: center;">
 					<button type="submit" style="WIDTH: 60pt; HEIGHT: 30pt;">수정</button>
 					<button type="reset" style="WIDTH: 60pt; HEIGHT: 30pt;"

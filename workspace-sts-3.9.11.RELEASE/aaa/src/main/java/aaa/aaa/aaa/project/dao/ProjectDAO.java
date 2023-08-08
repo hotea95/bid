@@ -93,4 +93,19 @@ public class ProjectDAO {
 		public List<MYPRODTO> che(String NO) {
 			return sqlSessionTemplate.selectList("che",NO);
 		}
+		
+		//공통 플젝 상세조회
+		public COMMONPRODTO comselect(COMMONPRODTO commonprodto) {
+			return sqlSessionTemplate.selectOne("comselect",commonprodto);
+		}
+		
+		//공통 플젝 삭제하기
+		public void comprodelete3(String PNO) {
+			sqlSessionTemplate.delete("comprodelete",PNO);
+		}
+		
+		//개인플젝 전체조회리스트
+		public List<MYPRODTO> myproselectall3() {
+			return 	sqlSessionTemplate.selectList("myproselectall3");
+		}
 }
