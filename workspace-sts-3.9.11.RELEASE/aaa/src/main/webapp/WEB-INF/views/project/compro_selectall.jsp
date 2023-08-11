@@ -199,12 +199,12 @@ function deleteParticipantData(no) {
         <tbody>
             <c:forEach var="list" items="${list}">
                 <tr>
-                    <td>${list.PNO}</td>
+                    <td><a href="./Comproselectone?PNO=${list.PNO}">${list.PNO}</a> </td>
                     <td>${list.STDATE}</td>
                     <td>${list.ENDDATE}</td>
                     <td>${list.PRONAME}</td>
                     <td><button class="view-participants" data-pno="${list.PNO}">참여 인원 보기</button></td>
-                	<td><p><input type="button" value="사원 추가하기" onclick="new_window(${list.PNO}, '${list.PRONAME}');"></p></td>
+                	<td><p> <input type="button" value="사원 추가하기" onclick="new_window(${list.PNO}, '${list.PRONAME}');"></p></td>
 					  <td><a href="./ComproUpdate?PNO=${list.PNO}">수정하기</a></td>
 					<!-- <td><input type="button" value="${list.PNO}">수정하기</td>-->
 					<td><p><input type="button" value="삭제하기" data-pno="${list.PNO}" class="delete"></p></td>

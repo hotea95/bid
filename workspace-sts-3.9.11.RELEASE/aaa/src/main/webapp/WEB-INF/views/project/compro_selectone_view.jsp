@@ -11,7 +11,7 @@
 <table>
 <thead>
 <tr>
-<th>프로젝트번호</th><th>시작날짜</th><th>종료날짜</th><th>프로젝트이름</th>
+<th>프로젝트번호</th><th>시작날짜</th><th>종료날짜</th><th>프로젝트이름</th><th>수정</th>
 </tr>
 </thead>
 <tbody>
@@ -20,6 +20,7 @@
 <td>${list.STDATE }</td>
 <td>${list.ENDDATE }</td>
 <td>${list.PRONAME }</td>
+<td><a href="./ComproUpdate?PNO=${list.PNO}">수정하기</a></td>
 </tr>
 </tbody>
 </table>

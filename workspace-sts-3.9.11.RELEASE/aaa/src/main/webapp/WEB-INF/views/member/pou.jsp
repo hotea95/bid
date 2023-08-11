@@ -124,6 +124,7 @@ th {
 		value="${scri.keyword3}" style="width: 70px;">
 	<button id="searchBtn">검색</button>
 
+	
 	<table>
 		<thead>
 			<tr>
@@ -187,9 +188,8 @@ th {
 	<br>
 	<br>
 
-
 	<!-- 폼 추가 -->
-	<form id="myForm" action="./Myproinsert3" method="post">
+	<form id="myForm" action="./Myproinsert3" method="post" onsubmit="return checks3();">
 		<!-- 추가된 사원들의 프로젝트 정보를 입력할 필드들 -->
 		<div id="inputFields">
 			<!-- 선택한 사원들의 정보를 동적으로 생성하여 추가 -->
@@ -198,6 +198,7 @@ th {
 		<!-- 전송 버튼은 여기에 있어야 폼이 전송됨 -->
 		<input type="submit" value="전송">
 	</form>
+
 
 	<script>
 		$(function() {
@@ -229,8 +230,10 @@ th {
 					});
 			// 선택한 사원들의 정보를 저장할 배열
 			var selectedEmployees = [];
-
-			// '배치' 버튼 클릭 이벤트 핸들러
+		
+			
+			
+			// '배치' 버튼 클릭 이벤트 핸들러 밑에떠잇는 인원 중복체크
 			$(document).on('click', 'input[value="배치"]', function() {
 				var row = $(this).closest('tr');
 				var no = row.find('td:eq(0)').text();
@@ -239,7 +242,8 @@ th {
 
 				if (isDuplicate(no)) {
 					alert('이미 선택한 사원입니다.');
-				} else {
+				}
+				else {
 					// 선택한 사원들의 정보를 배열에 추가
 					selectedEmployees.push({
 						NO : no,
@@ -252,7 +256,7 @@ th {
 				}
 			});
 
-			// 중복 체크 함수
+			// 중복 체크 함수 (배치했을때 밑에 떠있는 인원 중복체크)
 			function isDuplicate(no) {
 				for (var i = 0; i < selectedEmployees.length; i++) {
 					if (selectedEmployees[i].NO === no) {
@@ -271,6 +275,8 @@ th {
 
 				for (var i = 0; i < selectedEmployees.length; i++) {
 					var employee = selectedEmployees[i];
+					
+					
 
 					// 추가된 사원들의 정보를 테이블에 동적으로 추가
 					addedEmployeesTable.append('<tr>' + '<td>' + employee.NO
@@ -290,9 +296,9 @@ th {
 									+ '<input type="hidden" id="NO' + i + '" name="NO" value="' + employee.NO + '" readonly><br>'
 									+ '<input type="hidden" id="PNO' + i + '" name="PNO" value="' + pno + '" readonly><br>'
 									+ '<input type="hidden" id="PRONAME' + i + '" name="PRONAME" value="' + proname + '" readonly><br>'
-									+ '<span class="date-label">시작날짜 : </span><input type="date" name="STMDATE" max="9999-12-31">'
-							        + '<span class="date-label">종료날짜 : </span><input type="date" name="ENDMDATE" max="9999-12-31">'
-							        + '<span class="role-label">역할 : </span><input type="text" name="ROLE"><br><br>');
+									+ '<span class="date-label">시작날짜 : </span><input type="date" name="STMDATE" id="STMDATE" max="9999-12-31">'
+							        + '<span class="date-label">종료날짜 : </span><input type="date" name="ENDMDATE" id="ENDMDATE" max="9999-12-31">'
+							        + '<span class="role-label">역할 : </span><input type="text" name="ROLE" id="ROLE"><br><br>');
 				}
 			}
 
@@ -306,5 +312,42 @@ th {
 			});
 		});
 	</script>
+	<script type="text/javascript">
+
+function checks3() {
+	//var PRONAME = /^[\uac00-\ud7a3]{0,20}$/;
+	
+	
+	if($("#STMDATE").val() == "") {
+		alert("시작날짜를 입력해주세요.");
+		$("#STMDATE").focus();
+		return false;
+	}
+	
+	if($("#ENDMDATE").val() == "") {
+		alert("철수날짜를 입력해주세요.");
+		$("#ENDMDATE").focus();
+		return false;
+	}
+	
+	 // 시작 날짜와 철수 날짜 비교
+    var startDate = new Date($("#STMDATE").val());
+    var endDate = new Date($("#ENDMDATE").val());
+
+    if (endDate < startDate) {
+        alert("시작날짜가 철수날짜보다 앞에 있어야 합니다.");
+        $("#ENDMDATE").focus();
+        return false;
+    }
+    
+    if($("#ROLE").val() == "") {
+		alert("역할를 입력해주세요.");
+		$("#ROLE").focus();
+		return false;
+	}
+    
+	return true;
+}
+</script>
 </body>
 </html>

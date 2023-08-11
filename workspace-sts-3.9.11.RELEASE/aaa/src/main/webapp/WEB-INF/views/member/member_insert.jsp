@@ -247,6 +247,8 @@ $(function() {
 				var STHCHNAME = RegExp(/^[\u4e00-\u9fff]{2,6}$/);
 				var STHJUMIN = RegExp(/^[0-9]+$/);
 				var STHJUMIN2 = RegExp(/^[0-9]{7}$/);   //^입력의 시작을 나타내고 \d모든 숫자와 일치하며 {7}숫자가 정확히 7번 발생하도록 지정합니다.
+				var STHYEAR = RegExp(/^[0-9]{1,2}$/);
+				var STHEMAIL = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 			    
 				if($("#STHKORNAME").val() == "") {
 					alert("한글이름을 입력바랍니다.");
@@ -311,6 +313,25 @@ $(function() {
 				    if(!fileCheck){
 				        alert("파일을 첨부해 주세요");
 				        return false;
+				    }
+						
+				    var STHYEARValue = $("#STHYEAR").val();
+				    if (STHYEARValue !== "") {
+				        if (!STHYEAR.test(STHYEARValue)) {
+				            alert("숫자로만 입력해주세요(1~2자리)");
+				            $("#STHYEAR").val("");
+				            $("#STHYEAR").focus();
+				            return false;
+				        }
+				    }
+				    var STHEMAILValue = $("#STHEMAIL").val();
+				    if (STHEMAILValue !== "") {
+				        if (!STHEMAIL.test(STHEMAILValue)) {
+				            alert("이메일형식으로 작성해주세요.");
+				            $("#STHEMAIL").val("");
+				            $("#STHEMAIL").focus();
+				            return false;
+				        }
 				    }
 				
 			}
@@ -446,7 +467,7 @@ $(function() {
 				<label for="STHSOJU">주량</label> 
 				<input type="text" name="STHSOJU" id="STHSOJU" style="width: 70px;"> <br>
 				<label for="MYDATE">입사일</label>
-				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;"> <br>
+				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;" max="9999-12-31"> <br>
 				<div style="text-align: center;">
 					<button type="submit" style="WIDTH: 60pt; HEIGHT: 30pt;">등록</button>
 					<button type="reset" style="WIDTH: 60pt; HEIGHT: 30pt;"
