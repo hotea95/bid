@@ -108,4 +108,9 @@ public class ProjectDAO {
 		public List<MYPRODTO> myproselectall3() {
 			return 	sqlSessionTemplate.selectList("myproselectall3");
 		}
+		
+		//공통 플젝 수정
+		public void comproupdate(COMMONPRODTO commonprodto) {
+			sqlSessionTemplate.update("comproupdate",commonprodto);
+		}
 }

@@ -231,9 +231,18 @@ public class ProjectController {
 	  //공통 프로젝트 수정
 	  @RequestMapping(value = "ComproUpdate", method = RequestMethod.GET)
 	  public String comproupdate(Model model, COMMONPRODTO commonprodto) {
-		model.addAttribute("list",projectService.comproselectall());
+		//model.addAttribute("list",projectService.comproselectall());
+		model.addAttribute("list",projectService.comselect(commonprodto));
 		return "./project/compro_update";
 	  }
+	  
+	  @RequestMapping(value = "ComproUpdate", method = RequestMethod.POST)
+	  public String comproupdate(COMMONPRODTO commonprodto) {
+		  
+		  projectService.comproupdate(commonprodto);
+		  return "./project/compro_update_view";
+	  }
+	  
 	  
 	  //공통 플젝 상세조회
 	  @RequestMapping(value = "Comproselectone", method = RequestMethod.GET)

@@ -667,4 +667,10 @@ where PNO = #{PNO}
 <select id="myproselectall3" resultType="MYPRODTO">
 select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
 </select>
+
+<!-- 공통플젝 수정 -->
+<update id="comproupdate" parameterType="COMMONPRODTO">
+update COMMONPRO set STDATE = #{STDATE},ENDDATE = #{ENDDATE},PRONAME = #{PRONAME} WHERE PNO = #{PNO}
+</update>
+
 </mapper>

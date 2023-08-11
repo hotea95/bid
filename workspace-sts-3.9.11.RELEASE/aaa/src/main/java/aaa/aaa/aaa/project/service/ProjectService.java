@@ -118,4 +118,9 @@ public class ProjectService {
 	public List<MYPRODTO> myproselectall3() {
 		return projectDAO.myproselectall3();
 	}
+	
+	//공통 플제 수정
+	public void comproupdate(COMMONPRODTO commonprodto) {
+		projectDAO.comproupdate(commonprodto);
+	}
 }
