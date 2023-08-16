@@ -123,4 +123,14 @@ public class ProjectService {
 	public void comproupdate(COMMONPRODTO commonprodto) {
 		projectDAO.comproupdate(commonprodto);
 	}
+	
+	//개인 플젝 수정
+	public void myproupdate(MYPRODTO myprodto) {
+		projectDAO.myproupdate(myprodto);
+	}
+	
+	//개인플제 상세조회 2개
+	public MYPRODTO myproselectOne(MYPRODTO myprodto) {
+		return projectDAO.myproselectOne(myprodto);
+	}
 }

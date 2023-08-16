@@ -57,15 +57,17 @@ parameterType="aaa.aaa.aaa.member.dto.SearchCriteria">
   select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHSKILL,STHYEAR,NO,MYDATE
        from (
            select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHSKILL,STHYEAR,NO,MYDATE,
-               row_number() over(order by ROWID desc) as rNum
+               row_number() over(order by NO desc) as rNum
            from STHMEMBER
 
         <include refid="search"/>
        ) mb
       where rNum between #{rowStart} and #{rowEnd}
-          order by ROWID desc 
+          order by NO desc
           
-<!-- select 
+          
+          
+ <!-- select 
    STHKORNAME, 
    STHJUMIN, 
    STHJUMIN2, 
@@ -97,7 +99,9 @@ LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE = CD2.CODENUM)
 LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX = CD3.CODENUM)
 where rNum between #{rowStart} and #{rowEnd}
 order by ROWID desc
-) -->
+)
+ -->
+
 
 
 </select>
@@ -673,4 +677,13 @@ select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
 update COMMONPRO set STDATE = #{STDATE},ENDDATE = #{ENDDATE},PRONAME = #{PRONAME} WHERE PNO = #{PNO}
 </update>
 
+<!-- 개인플젝 수정 -->
+<update id="myproupdate" parameterType="MYPRODTO">
+update MYPRO set STMDATE = #{STMDATE}, ENDMDATE = #{ENDMDATE}, ROLE = #{ROLE}, PRONAME = #{PRONAME} WHERE NO = #{NO} AND PNO = #{PNO}
+</update>
+
+<!-- 개인 플젝 상세조회 2개 -->
+<select id="myproselectone" resultType="MYPRODTO">
+select STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO WHERE NO = #{NO} AND PNO = #{PNO} 
+</select>
 </mapper>

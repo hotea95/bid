@@ -7,6 +7,120 @@
 <head>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css">
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+getSTHWORKTypeOptions();
+getSTHSISMTypeOptions()
+getSTHSTATETypeOptions()
+getSTHSEXypeOptions()
+getSTHWEDDINGypeOptions()
+
+function getSTHWORKTypeOptions() {
+    $.ajax({
+      type: "GET",
+      url: "/code/codeVal",
+      data: { codeVal : "A10" },
+      dataType: "json", 
+      success: function(response) {
+    	console.log(response);
+        var options = "<button disabled>급여지급유형</button>";
+        options += "<select name='STHWORK' id='STHWORK'>";
+        $.each(response, function(index, option) {
+          options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+        });
+        options += "</select>";
+        $(".STHWORK").html(options);
+      },
+      error: function(xhr, status, error) {
+        console.log(error);
+      }
+    });
+}
+    function getSTHSISMTypeOptions() {
+        $.ajax({
+          type: "GET",
+          url: "/code/codeVal",
+          data: { codeVal : "A20" },
+          dataType: "json", 
+          success: function(response) {
+        	console.log(response);
+            var options = "<button disabled>희망직무</button>";
+            options += "<select name='STHSISM' id='STHSISM'>";
+            $.each(response, function(index, option) {
+              options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+            });
+            options += "</select>";
+            $(".STHSISM").html(options);
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+        });
+  }
+    
+    function getSTHSTATETypeOptions() {
+        $.ajax({
+          type: "GET",
+          url: "/code/codeVal",
+          data: { codeVal : "A30" },
+          dataType: "json", 
+          success: function(response) {
+        	console.log(response);
+            var options = "<button disabled>입사유형</button>";
+            options += "<select name='STHSTATE' id='STHSTATE'>";
+            $.each(response, function(index, option) {
+              options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+            });
+            options += "</select>";
+            $(".STHSTATE").html(options);
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+        });
+  }
+    
+    function getSTHSEXypeOptions() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "/code/codeVal",
+    	    data: { codeVal: "B10" },
+    	    dataType: "json",
+    	    success: function (response) {
+    	      console.log(response);
+    	      var options = "<label>성별</label>";
+    	      $.each(response, function (index, option) {
+    	        options += "<input type='radio' name='STHSEX' value='" + option.codenum + "'>" + option.codem + "<br>";
+    	      });
+    	      $(".STHSEX").html(options);
+    	    }, // Missing a comma here to separate the success function from the error function
+    	    error: function (xhr, status, error) {
+    	      console.log(error);
+    	    }
+    	  });
+    	}
+    
+    function getSTHWEDDINGypeOptions() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "/code/codeVal",
+  	    data: { codeVal: "B20" },
+  	    dataType: "json",
+  	    success: function (response) {
+  	      console.log(response);
+  	      var options = "<label>결혼유무</label>";
+  	      $.each(response, function (index, option) {
+  	        options += "<input type='radio' name='STHWEDDING' value='" + option.codenum + "'>" + option.codem + "<br>";
+  	      });
+  	      $(".STHWEDDING").html(options);
+  	    }, // Missing a comma here to separate the success function from the error function
+  	    error: function (xhr, status, error) {
+  	      console.log(error);
+  	    }
+  	  });
+  	}
+
+</script>
 <script>
 
 $(function() {
@@ -48,63 +162,7 @@ $(function() {
 <title>Insert title here</title>
 </head>
 <body>
-	<div style="float: left;" style="width:400px;" style="height:800px;">
-		<p>
-			<img style="width: 100px;" src="resources/img/title.gif">
-		</p>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./listSearch'">■ 기본정보</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./MemberInsert'">- 등록</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./listSearch'">■ 직원명부</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./Retirement'">■ 퇴직자현황</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./Preliminary'">■ 예비 인력정보</button>
-		<br> <br>
-		<br> <br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./ClientSelectAll'">■ 거래처 정보</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./ClientInsert'">- 등록</button>
-		<br> <br>
-		<br>
-		<fieldset>
-			<label for="label3">진행 프로젝트<br>
-			<br> 현황
-			</label><br>
-			<br>
-			<br>
-		</fieldset>
-		<br>
-
-		<fieldset>
-			<input type="text" value="■ 경력검색" readonly="readonly"
-				style="border: none; background-color: transparent;"> <br>
-			<input type="text" name="keyword" id="keywordInput"
-				value="${scri.keyword}" style="width: 70px;" />
-			<button id="searchBtn">검색</button>
-		</fieldset>
-
-	</div>
+	<%@ include file="/WEB-INF/views/include/side.jsp" %>
 	<h1>사원 정보 수정</h1>
 	
 	<div>
@@ -116,7 +174,7 @@ $(function() {
 					style="width: 60px; height: 60px; float: left;">
 
 					<img id="imgSrc"
-						src="${pageContext.request.contextPath}/${memberDTO.STHPHOTO}"  style="width: 100%; height: 100%; object-fit: fill;"/>
+						src="${memberDTO.STHPHOTO}"  style="width: 100%; height: 100%; object-fit: fill;"/>
 					<input type="hidden" name="STHPHOTO" value="${memberDTO.STHPHOTO}" />
 
 
@@ -166,9 +224,9 @@ $(function() {
 
 				  <br> 
 				  
-				  <label for="STHSEX">성별</label> 
+				  <label for="STHSEX" class="STHSEX">성별</label> 
 	
-				  <c:if test="${memberDTO.STHSEX eq '남자'}">
+				<%--   <c:if test="${memberDTO.STHSEX eq '남자'}">
 				  <input type="radio" name="STHSEX" id="STHSEX" value="남자" checked="checked">남자 
 				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자">여자
 				  </c:if>
@@ -181,13 +239,13 @@ $(function() {
 				  <c:if test="${empty memberDTO.STHSEX}">
 				  <input type="radio" name="STHSEX" id="STHSEX" value="남자">남자 
 				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자">여자
-				  </c:if>
+				  </c:if> --%>
 				  
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					 
-				<label for="STHWEDDING">결혼유무</label>
+				<label for="STHWEDDING" class="STHWEDDING">결혼유무</label>
 				
-				<c:if test="${memberDTO.STHWEDDING eq '기혼'}">
+				<%-- <c:if test="${memberDTO.STHWEDDING eq '기혼'}">
 				  <input type="radio" name="STHWEDDING" id="STHWEDDING" value="기혼" checked="checked">기혼
 				<input type="radio" name="STHWEDDING" id="STHWEDDING2" value="미혼">미혼
 				  </c:if>
@@ -200,7 +258,7 @@ $(function() {
 				  <c:if test="${empty memberDTO.STHWEDDING}">
 				  <input type="radio" name="STHWEDDING" id="STHWEDDING" value="기혼">기혼
 				<input type="radio" name="STHWEDDING" id="STHWEDDING2" value="미혼">미혼
-				  </c:if>
+				  </c:if> --%>
 
 				<br> 
 				
@@ -209,14 +267,14 @@ $(function() {
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			   <label for="STHWORK">급여지급유형</label>
 			 
-				<select name="STHWORK">
+				<select name="STHWORK" class="STHWORK">
 					<option value="주급">주급</option>
 					<option value="월급">월급</option>
-				</select> <br> <label for="STHSISM">희망직무</label> <select name="STHSISM">
+				</select> <br> <label for="STHSISM">희망직무</label> <select name="STHSISM" class="STHSISM">
 					<option value="si">si</option>
 					<option value="sm">sm</option>
 				</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				 <label for="STHSTATE">입사유형</label> <select name="STHSTATE">
+				 <label for="STHSTATE">입사유형</label> <select name="STHSTATE" class="STHSTATE">
 					<option value="정규직">정규직</option>
 					<option value="계약직">계약직</option>
 				</select> <br> 

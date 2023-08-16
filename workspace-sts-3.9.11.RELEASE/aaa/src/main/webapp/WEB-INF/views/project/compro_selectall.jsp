@@ -154,6 +154,7 @@ function deleteParticipantData(no) {
                         '<td>' + participant.endmdate + '</td>' +
                         '<td>' + participant.role + '</td>' +
                         '<td>' + participant.proname + '</td>' +
+                        '<td><a href="./MyproUpdate?NO=' + participant.no + '&PNO=' + participant.pno + '">수정하기</a></td>' +
                         '<td><button class="delete-participant" data-participant-id="' + participant.id + '">삭제</button></td>' +
                        // '<td><a href="./myprodelete/' + participant.id + '">삭제</a></td>'
                        '</tr>';
@@ -228,7 +229,8 @@ function deleteParticipantData(no) {
                 <th>종료날짜</th>
                 <th>역할</th>
                 <th>프로젝트명</th>
-                <th>선택</th>
+                <th>수정</th>
+                <th>삭제</th>
             </tr>
         </thead>
         <tbody>

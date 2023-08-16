@@ -113,4 +113,14 @@ public class ProjectDAO {
 		public void comproupdate(COMMONPRODTO commonprodto) {
 			sqlSessionTemplate.update("comproupdate",commonprodto);
 		}
+		
+		//개인 플젝 수정
+		public void myproupdate(MYPRODTO myprodto) {
+			sqlSessionTemplate.update("myproupdate",myprodto);
+		}
+		
+		//개인플젝 상세조회2개
+		public MYPRODTO myproselectOne(MYPRODTO myprodto) {
+			return sqlSessionTemplate.selectOne("myproselectone",myprodto);
+		}
 }

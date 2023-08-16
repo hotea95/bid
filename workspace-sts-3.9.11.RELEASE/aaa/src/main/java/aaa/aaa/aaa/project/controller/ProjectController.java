@@ -258,6 +258,26 @@ public class ProjectController {
 		  projectService.comprodelete2(PNO);
 		  return "./project/compro_delete";
 	  }
+	
+	//개인플젝 수정
+		  @RequestMapping(value = "/MyproUpdate", method = RequestMethod.GET)
+		  public String myproupdate(Model model, MYPRODTO myprodto) {
+			 model.addAttribute("list",projectService.myproselectOne(myprodto));
+			  return "./project/mypro_update";
+		  }
+		  
+		  @RequestMapping(value = "/MyproUpdate", method = RequestMethod.POST)
+		  public String myproupdate(MYPRODTO myprodto) {
+			  projectService.myproupdate(myprodto);
+			  return "./project/mypro_update_view";
+		  }
+		  
+		  //개인플젝 조건2개 조회
+		  @RequestMapping(value = "/MyproselectOne", method = RequestMethod.GET)
+		  public String myproselectOne(Model model, MYPRODTO myprodto) {
+			  model.addAttribute("list",projectService.myproselectOne(myprodto));
+			  return "./project/mypro_selectone";
+		  }
 	}
 
 

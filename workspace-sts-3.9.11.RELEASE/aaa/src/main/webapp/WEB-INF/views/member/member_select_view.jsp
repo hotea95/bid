@@ -103,7 +103,7 @@
 <td class="BOR2">${memberDTO.STHJUMIN}-${memberDTO.STHJUMIN2}</td>
 
 
-<td class="BOR2"><img src="${pageContext.request.contextPath}/${memberDTO.STHPHOTO}"></td>
+<td class="BOR2"><img src="${memberDTO.STHPHOTO}"></td>
                      
 <td class="BOR2">${memberDTO.STHBIRTH}</td>
 <td class="BOR2">${memberDTO.STHSEX}</td>

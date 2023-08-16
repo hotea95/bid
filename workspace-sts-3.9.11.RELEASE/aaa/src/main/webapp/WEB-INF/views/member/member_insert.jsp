@@ -442,7 +442,8 @@ $(function() {
 					name="STHWEDDING" id="STHWEDDING2" value="미혼">미혼 --> <br>
 				<label for="STHYEAR">년차</label> <input type="text" name="STHYEAR"
 					id="STHYEAR" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<label for="STHWORK">급여지급유형</label> <select
+					<label for="STHWORK">급여지급유형</label> 
+					<select
 					name="STHWORK" class="STHWORK">
 					<option value="1">주급</option>
 					<option value="2">월급</option>
