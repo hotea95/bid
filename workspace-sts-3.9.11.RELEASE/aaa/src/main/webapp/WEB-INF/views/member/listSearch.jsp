@@ -259,6 +259,8 @@
             var keyword33 = encodeURIComponent($('#keyword33').val());
             var keyword44 = encodeURIComponent($('#keyword44').val());
             
+            
+            
             if (keyword11 === "" && keyword22 === "" && keyword33 === "" && keyword44 === "") {
                 alert("입사일과 이름, 년차 중 최소 한 가지를 입력해야 합니다.");
                 return;

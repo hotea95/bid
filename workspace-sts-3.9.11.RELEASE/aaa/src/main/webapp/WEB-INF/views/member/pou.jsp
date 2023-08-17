@@ -187,7 +187,7 @@ th {
 	</table>
 	<br>
 	<br>
-
+	
 	<!-- 폼 추가 -->
 	<form id="myForm" action="./Myproinsert3" method="post" onsubmit="return checks3();">
 		<!-- 추가된 사원들의 프로젝트 정보를 입력할 필드들 -->

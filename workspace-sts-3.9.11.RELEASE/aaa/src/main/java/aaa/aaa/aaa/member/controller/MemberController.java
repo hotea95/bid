@@ -131,7 +131,7 @@ public class MemberController {
 	@RequestMapping(value = "/MemberSelectDetail", method = RequestMethod.GET)
 	public String detail(Model model, MemberDTO memberDTO, MYPRODTO myprodto, String NO) {
 		//model.addAttribute("memberDTO",memberService.memberSelect(memberDTO));
-		System.err.println(memberDTO);
+		//System.err.println(memberDTO);
 		//model.addAttribute("list2",projectService.myproselectall(myprodto));
 		model.addAttribute("memberDTO", memberService.memberSelect(memberDTO));
 		

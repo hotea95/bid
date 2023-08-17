@@ -160,6 +160,104 @@ $(function() {
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script type="text/javascript">
+
+			function checks() {
+				var STHKORNAME = RegExp(/^[ㄱ-ㅎ|가-힣]{2,6}$/);
+				var STHENGNAME = RegExp(/^[a-z|A-Z]{4,20}$/);
+				var STHCHNAME = RegExp(/^[\u4e00-\u9fff]{2,6}$/);
+				var STHJUMIN = RegExp(/^[0-9]+$/);
+				var STHJUMIN2 = RegExp(/^[0-9]{7}$/);   //^입력의 시작을 나타내고 \d모든 숫자와 일치하며 {7}숫자가 정확히 7번 발생하도록 지정합니다.
+				var STHYEAR = RegExp(/^[0-9]{1,2}$/);
+				var STHEMAIL = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+			    
+				if($("#STHKORNAME").val() == "") {
+					alert("한글이름을 입력바랍니다.");
+					$("#STHKORNAME").focus();
+					return false;
+				}
+				if(!STHKORNAME.test($("#STHKORNAME").val())){
+			        alert("한글로만 입력해주세요(2~6글자)");
+			        $("#STHKORNAME").val("");
+			        $("#STHKORNAME").focus();
+			        return false;
+			      }
+				if($("#STHENGNAME").val() == "") {
+					alert("영어이름을 입력바랍니다.");
+					$("#STHENGNAME").focus();
+					return false;
+				}
+				if(!STHENGNAME.test($("#STHENGNAME").val())){
+			        alert("영어로만 입력해주세요(4~20글자)");
+			        $("#STHENGNAME").val("");
+			        $("#STHENGNAME").focus();
+			        return false;
+			      }
+				if ($("#STHCHNAME").val() !== "" && !STHJUMIN.test($("#STHCHNAME").val())) {
+					  
+					  alert
+
+					 
+					alert("한문으로만 입력해주세요(2~6글자)");
+					  $(
+					 
+					"#STHCHNAME").val("");
+					  $(
+					 
+					"#STHCHNAME").focus();
+					  return false;
+					}
+				
+				if($("#STHJUMIN").val() == "") {
+					alert("앞주민번호을 입력바랍니다.");
+					$("#STHJUMIN").focus();
+					return false;
+				}
+				if(!STHJUMIN.test($("#STHJUMIN").val())){
+			        alert("앞자리숫자로만 입력해주세요");
+			        $("#STHJUMIN").val("");
+			        $("#STHJUMIN").focus();
+			        return false;
+			      }
+				if($("#STHJUMIN2").val() == "") {
+					alert("뒷주민번호을 입력바랍니다.");
+					$("#STHJUMIN2").focus();
+					return false;
+				}
+				if(!STHJUMIN2.test($("#STHJUMIN2").val())){
+			        alert("뒷자리숫자로만 입력해주세요(7자리)");
+			        $("#STHJUMIN2").val("");
+			        $("#STHJUMIN2").focus();
+			        return false;
+			      }
+				   var fileCheck = document.getElementById("attachedfile").value;
+				    if(!fileCheck){
+				        alert("파일을 첨부해 주세요");
+				        return false;
+				    }
+						
+				    var STHYEARValue = $("#STHYEAR").val();
+				    if (STHYEARValue !== "") {
+				        if (!STHYEAR.test(STHYEARValue)) {
+				            alert("숫자로만 입력해주세요(1~2자리)");
+				            $("#STHYEAR").val("");
+				            $("#STHYEAR").focus();
+				            return false;
+				        }
+				    }
+				    var STHEMAILValue = $("#STHEMAIL").val();
+				    if (STHEMAILValue !== "") {
+				        if (!STHEMAIL.test(STHEMAILValue)) {
+				            alert("이메일형식으로 작성해주세요.");
+				            $("#STHEMAIL").val("");
+				            $("#STHEMAIL").focus();
+				            return false;
+				        }
+				    }
+				
+			}
+			
+			</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/side.jsp" %>
@@ -167,7 +265,7 @@ $(function() {
 	
 	<div>
 		<form method="post" enctype="multipart/form-data"
-			action="./MemberUpdate">
+			action="./MemberUpdate" onsubmit="return checks()">
 			<fieldset>
 
 				<div class="select_img"
