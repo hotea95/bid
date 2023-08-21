@@ -245,7 +245,7 @@ $(function() {
 			function checks() {
 				var STHKORNAME = RegExp(/^[ㄱ-ㅎ|가-힣]{2,6}$/);
 				var ID = RegExp(/^[a-zA-Z0-9]{4,12}$/);
-				var isIdChecked = false;
+				//var isIdChecked = false;
 				var PWD = RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
 				var STHENGNAME = RegExp(/^[a-z|A-Z]{4,20}$/);
 				var STHCHNAME = RegExp(/^[\u4e00-\u9fff]{2,6}$/);
@@ -393,24 +393,28 @@ $(function() {
 			</script>
 			
 			<script type="text/javascript">
-			function fn_idChk(){
-				$.ajax({
-					url : "/idChk",
-					type : "post",
-					dataType : "json",
-					data : {"ID" : $("#ID").val()},
-					success : function(data) {
-						if(data == 1) {
-							alert("중복된 아이디입니다.");
-							isIdChecked = false; // 중복된 아이디일 경우 체크 여부를 false로 설정
-						}else if(data == 0) {
-							$("#ID").attr("value", "Y");
-							alert("사용가능한 아이디입니다.");
-							isIdChecked = true; // 사용 가능한 아이디일 경우 체크 여부를 true로 설정
-						}
-					}
-				})
+			
+			let isIdChecked = false;
+
+			function fn_idChk() {
+			    $.ajax({
+			        url: "/idChk",
+			        type: "post",
+			        dataType: "json",
+			        data: {"ID": $("#ID").val()},
+			        success: function(data) {
+			            if (data == 1) {
+			                alert("중복된 아이디입니다.");
+			                isIdChecked = false; // 중복된 아이디일 경우 체크 여부를 false로 설정
+			            } else if (data == 0) {
+			                $("#ID").attr("value", "Y");
+			                alert("사용가능한 아이디입니다.");
+			                isIdChecked = true; // 사용 가능한 아이디일 경우 체크 여부를 true로 설정
+			            }
+			        }
+			    });
 			}
+
 			</script>
 </head>
 <body>
