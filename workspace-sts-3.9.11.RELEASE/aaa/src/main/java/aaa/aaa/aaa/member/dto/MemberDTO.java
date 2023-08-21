@@ -26,6 +26,9 @@ public class MemberDTO {
 	private String STHSOJU;
 	private String NO;
 	private String MYDATE;
+	private String ID;
+	private String PWD;
+	
 	public String getSTHKORNAME() {
 		return STHKORNAME;
 	}
@@ -152,6 +155,19 @@ public class MemberDTO {
 	public void setMYDATE(String mYDATE) {
 		MYDATE = mYDATE;
 	}
+	
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
+	public String getPWD() {
+		return PWD;
+	}
+	public void setPWD(String pWD) {
+		PWD = pWD;
+	}
 	@Override
 	public String toString() {
 		return "MemberDTO [STHKORNAME=" + STHKORNAME + ", STHENGNAME=" + STHENGNAME + ", STHCHNAME=" + STHCHNAME
@@ -159,8 +175,10 @@ public class MemberDTO {
 				+ STHBIRTH + ", STHSEX=" + STHSEX + ", STHWEDDING=" + STHWEDDING + ", STHYEAR=" + STHYEAR + ", STHWORK="
 				+ STHWORK + ", STHSISM=" + STHSISM + ", STHSTATE=" + STHSTATE + ", STHADDRESS=" + STHADDRESS
 				+ ", STHADDRESS2=" + STHADDRESS2 + ", STHPHONE=" + STHPHONE + ", STHEMAIL=" + STHEMAIL + ", STHSKILL="
-				+ STHSKILL + ", STHSOJU=" + STHSOJU + ", NO=" + NO + ", MYDATE=" + MYDATE + "]";
+				+ STHSKILL + ", STHSOJU=" + STHSOJU + ", NO=" + NO + ", MYDATE=" + MYDATE + ", ID=" + ID + ", PWD="
+				+ PWD + "]";
 	}
+	
 	
 
 }

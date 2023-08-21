@@ -215,24 +215,32 @@ public class MemberController {
 	@RequestMapping(value = "/MemberInsert", method = RequestMethod.POST)
 	public String memberinsert(Model model, MemberDTO memberDTO , MultipartFile multipartFile)throws Exception{
 
-	      String imgUploadPath = uploadPath + File.separator + "imgUpload";
-	      String ymdPath = ProductUploadFileUtils.calcPath(imgUploadPath);
-	      String fileName = null;
-	      
-	      if (multipartFile != null) {
-	         fileName = ProductUploadFileUtils.fileUpload(imgUploadPath, multipartFile.getOriginalFilename(),multipartFile.getBytes(), ymdPath);
-	      }else {
-	         fileName = uploadPath + File.separator + "imges" + File.separator + "none.png";
-	      }
-	      
-	      memberDTO.setSTHPHOTO(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+	     int result = memberService.idChk(memberDTO);
+	     try {
+			if (result == 1) {
+				return "./member/member_insert";
+			}else if (result == 0) {
+				String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			      String ymdPath = ProductUploadFileUtils.calcPath(imgUploadPath);
+			      String fileName = null;
+			      
+			      if (multipartFile != null) {
+			         fileName = ProductUploadFileUtils.fileUpload(imgUploadPath, multipartFile.getOriginalFilename(),multipartFile.getBytes(), ymdPath);
+			      }else {
+			         fileName = uploadPath + File.separator + "imges" + File.separator + "none.png";
+			      }
+			      
+			      memberDTO.setSTHPHOTO(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 
-		 memberService.memberInsert(memberDTO);
-		 
-		model.addAttribute("MemberInfo", memberService.memberSelect(memberDTO));
-			
-		logger.info("컨트롤러----"+ memberDTO);
-	//	return "./education/education_insert";
+				 memberService.memberInsert(memberDTO);
+				 
+				model.addAttribute("MemberInfo", memberService.memberSelect(memberDTO));
+					
+				logger.info("컨트롤러----"+ memberDTO);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
 		return "./member/member_insert_view";
 	}
 
@@ -271,6 +279,14 @@ public class MemberController {
 	    // 서비스 레이어에서 중복 체크를 수행하는 메서드를 호출하고 결과를 반환
 	    List<MYPRODTO> isDuplicate = projectService.che(no);
 	    return isDuplicate;
+	}
+	
+	//아이디 중복체크
+	@ResponseBody
+	@RequestMapping(value = "/idChk", method = RequestMethod.POST)
+	public int idChk(MemberDTO memberDTO) throws Exception {
+		int result = memberService.idChk(memberDTO);
+		return result;
 	}
 
 }

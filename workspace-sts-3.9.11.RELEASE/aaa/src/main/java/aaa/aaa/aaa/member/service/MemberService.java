@@ -107,4 +107,10 @@ public class MemberService {
 	public void memberDelete(MemberDTO memberDTO) {
 		memberDAO.memberdelete(memberDTO);
 	}
+	
+	//아이디 중복체크
+	public int idChk(MemberDTO memberDTO) throws Exception {
+		int result = memberDAO.idChk(memberDTO);
+		return result;
+	}
 }

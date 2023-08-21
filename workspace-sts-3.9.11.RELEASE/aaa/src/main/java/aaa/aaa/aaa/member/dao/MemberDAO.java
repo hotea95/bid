@@ -106,4 +106,10 @@ public class MemberDAO {
 	public void memberdelete(MemberDTO memberDTO) {
 		sqlSessionTemplate.delete("memberdelete", memberDTO);
 	}
+	
+	//아이디 중복 체크
+	public int idChk(MemberDTO memberDTO) throws Exception {
+		int result = sqlSessionTemplate.selectOne("idchk",memberDTO);
+		return result;
+	}
 }

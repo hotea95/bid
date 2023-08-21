@@ -241,13 +241,18 @@ $(function() {
 			
 			<script type="text/javascript">
 
+			
 			function checks() {
 				var STHKORNAME = RegExp(/^[ㄱ-ㅎ|가-힣]{2,6}$/);
+				var ID = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+				var isIdChecked = false;
+				var PWD = RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
 				var STHENGNAME = RegExp(/^[a-z|A-Z]{4,20}$/);
 				var STHCHNAME = RegExp(/^[\u4e00-\u9fff]{2,6}$/);
 				var STHJUMIN = RegExp(/^[0-9]+$/);
 				var STHJUMIN2 = RegExp(/^[0-9]{7}$/);   //^입력의 시작을 나타내고 \d모든 숫자와 일치하며 {7}숫자가 정확히 7번 발생하도록 지정합니다.
 				var STHYEAR = RegExp(/^[0-9]{1,2}$/);
+				var STHPHONE = RegExp(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/);
 				var STHEMAIL = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 			    
 				if($("#STHKORNAME").val() == "") {
@@ -260,6 +265,44 @@ $(function() {
 			        $("#STHKORNAME").val("");
 			        $("#STHKORNAME").focus();
 			        return false;
+			      }
+				if($("#ID").val() == "") {
+					alert("아이디 입력바랍니다.");
+					$("#ID").focus();
+					return false;
+				}
+				
+				  if(!ID.test($("#ID").val())){
+				        alert("아이디를 숫자와 영문으로 작성해주시고 4~12글자로 작성해주세요");
+				        $("#ID").val("");
+				        $("#ID").focus();
+				        return false;
+				      }
+				  
+				  if (!isIdChecked) {
+				        alert("아이디 중복 체크를 먼저 수행해주세요.");
+				        return false;
+				    }
+				  
+				  if($("#PWD").val() == ""){
+				        alert("비밀번호 입력바랍니다");
+				        $("#PWD").focus();
+				        return false;
+				      }
+				  
+				  if(!PWD.test($("#PWD").val())){
+				        alert("비밀번호를 숫자와 영문 특수문자 모두 사용해주세요. 8~15글자");
+				        $("#PWD").val("");
+				        $("#PWD").focus();
+				        return false;
+				      }
+				  
+				  if($("#PWD").val() != $("#PWD2").val()){
+			          alert("비밀번호가 상이합니다");
+			          $("#PWD").val("");
+			          $("#PWD2").val("");
+			          $("#PWD").focus();
+			          return false;
 			      }
 				if($("#STHENGNAME").val() == "") {
 					alert("영어이름을 입력바랍니다.");
@@ -324,6 +367,17 @@ $(function() {
 				            return false;
 				        }
 				    }
+				    
+				    var STHPHONEValue = $("#STHPHONE").val();
+				    if (STHPHONEValue !== "") {
+				    	if (!STHPHONE.test(STHPHONEValue)) {
+							alert("번호 형식에 맞게 입력해주세요(-사용)")
+							$("#STHPHONE").val("");
+				            $("#STHPHONE").focus();
+				            return false;
+						}
+				    }
+				    
 				    var STHEMAILValue = $("#STHEMAIL").val();
 				    if (STHEMAILValue !== "") {
 				        if (!STHEMAIL.test(STHEMAILValue)) {
@@ -336,6 +390,27 @@ $(function() {
 				
 			}
 			
+			</script>
+			
+			<script type="text/javascript">
+			function fn_idChk(){
+				$.ajax({
+					url : "/idChk",
+					type : "post",
+					dataType : "json",
+					data : {"ID" : $("#ID").val()},
+					success : function(data) {
+						if(data == 1) {
+							alert("중복된 아이디입니다.");
+							isIdChecked = false; // 중복된 아이디일 경우 체크 여부를 false로 설정
+						}else if(data == 0) {
+							$("#ID").attr("value", "Y");
+							alert("사용가능한 아이디입니다.");
+							isIdChecked = true; // 사용 가능한 아이디일 경우 체크 여부를 true로 설정
+						}
+					}
+				})
+			}
 			</script>
 </head>
 <body>
@@ -410,6 +485,12 @@ $(function() {
                  <div>
 				<label for="STHKORNAME">한글 이름</label> <input type="text"
 					name="STHKORNAME" id="STHKORNAME" placeholder="필수사항"> <br>
+					<label for="ID">ID</label>
+					<input type="text" name="ID" id="ID" placeholder="필수사항">  <input type="button" id="idche" value="중복체크" onclick="fn_idChk();"> <br>
+					<label for="PWD">비밀번호</label>
+					<input type="text" name="PWD" id="PWD" placeholder="필수사항"> <br>
+					<label for="PWD2">비밀번호 확인</label>
+					<input type="text" name="PWD2" id="PWD2" placeholder="필수사항"> <br>
 					 <label for="STHENGNAME">영문 이름</label> <input type="text" name="STHENGNAME"
 					id="STHENGNAME" placeholder="필수사항"> <br> <label for="STHCHNAME">한문
 					이름</label> <input type="text" name="STHCHNAME" id="STHCHNAME"> <br>
@@ -425,14 +506,7 @@ $(function() {
                         accept="image/*">
                         
    	
-					 <br> <label for="STHBIRTH">생년월일</label>
-				<input type="text" name="STHBIRTH" id="STHBIRTH"
-					style="width: 100px;" required="required" placeholder="필수사항">년 <input type="text" name="STHBIRTH"
-					id="STHBIRTH2" style="width: 50px;" required="required" placeholder="필수사항">월 <input type="text"
-					name="STHBIRTH" id="STHBIRTH3" style="width: 50px;" required="required" placeholder="필수사항">일( <input
-					type="radio" name="STHBIRTH" id="STHBIRTH4" value="양력" required="required" checked="checked"> 앙력
-				<input type="radio" name="STHBIRTH" id="STHBIRTH5" value="음력" required="required">
-				음력 ) <br> <label for="STHSEX" class="STHSEX">성별</label>
+					 <br>  <label for="STHSEX" class="STHSEX">성별</label>
 				 <!-- 	<input type="radio"
 					name="STHSEX" id="STHSEX" value="1" class="STHSEX">남자 <input type="radio"
 					name="STHSEX" id="STHSEX" value="2" class="STHSEX">여자   -->

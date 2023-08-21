@@ -173,7 +173,7 @@ public class ProjectController {
 	    public String myproinsert3(Model model, HttpServletRequest request, MYPRODTO myProDTO) {
 		  
 		  //
-//          List<MYPRODTO> myproDTOList = new ArrayList<>();
+//        List<MYPRODTO> myproDTOList = new ArrayList<>();
 //	        List<Object> myproDTOListNO = new ArrayList<>();
 //	        List<Object> myproDTOListPNO = new ArrayList<>();
 //	        List<Object> myproDTOListSTMDATE = new ArrayList<>();
@@ -227,6 +227,7 @@ public class ProjectController {
 	       // logger.info("컨트롤러--------" + myproDTOList);
 	        return "./project/mypro_insert_view";
 	    }
+	  
 	  
 	  //공통 프로젝트 수정
 	  @RequestMapping(value = "ComproUpdate", method = RequestMethod.GET)

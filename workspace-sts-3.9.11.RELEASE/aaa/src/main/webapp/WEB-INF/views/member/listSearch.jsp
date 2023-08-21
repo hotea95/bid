@@ -67,6 +67,49 @@
 		});
 	});
 </script>
+
+<script type="text/javascript">
+$(function() {
+    $('#keyword11, #keyword22').on('input', function() {
+        var startDate = new Date($('#keyword11').val());
+        var endDate = new Date($('#keyword22').val());
+
+        if (startDate > endDate) {
+            $('#dateErrorMessage').text('시작일은 종료일보다 이전이어야 합니다.');
+        } else {
+            $('#dateErrorMessage').text('');
+        }
+    });
+
+    $('#keyword33').on('input', function() {
+        var inputValue = $(this).val();
+        var filteredValue = inputValue.replace(/[^가-힣ㄱ-ㅎㅏ-ㅣ]/g, ''); // Only Korean characters including 자음 and 모음
+
+        if (filteredValue.length > 6) {
+            filteredValue = filteredValue.substring(0, 6);
+            $('#nameErrorMessage').text('6글자 이상 입력이 불가능합니다.');
+        } else {
+            $('#nameErrorMessage').text('');
+        }
+
+        $(this).val(filteredValue);
+    });
+
+    $('#keyword44').on('input', function() {
+        var inputValue = $(this).val();
+        var numericValue = inputValue.replace(/[^0-9]/g, ''); // Only numbers
+
+        if (numericValue.length > 2) {
+            numericValue = numericValue.substring(0, 2);
+            $('#yearErrorMessage').text('2글자 이상 입력이 불가능합니다.');
+        } else {
+            $('#yearErrorMessage').text('');
+        }
+
+        $(this).val(numericValue);
+    });
+});
+</script>
 </head>
 <body>
 	<%-- <div style="float: left;" style="width:400px;" style="height:800px;">
@@ -145,11 +188,14 @@
 			
 			<input type="text" value="입사일" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
 			<input type="date" name="keyword" id="keyword11" value="${scri.keyword}" max="9999-12-31" style="width: 100px;">~
-			<input type="date" name="keyword2" id="keyword22" value="${scri.keyword2}" max="9999-12-31" style="width: 100px;">		
-			<input type="text" value="이름" readonly="readonly"  style="border: none; background-color: transparent; width: 50px;">
+			<input type="date" name="keyword2" id="keyword22" value="${scri.keyword2}" max="9999-12-31" style="width: 100px;">
+			<span id="dateErrorMessage" style="color: red;"></span>
+			<input type="text" value="이름" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
 			<input type="text" name="keyword3" id="keyword33" value="${scri.keyword3}" style="width: 50px;">
+			<span id="nameErrorMessage" style="color: red;"></span>
 			<input type="text" value="년차" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
 			<input type="text" name="keyword4" id="keyword44" value="${scri.keyword4}" style="width: 50px;">
+			<span id="yearErrorMessage" style="color: red;"></span>
 			
 			<button id="searchBtn2">검색</button>
 		</div>

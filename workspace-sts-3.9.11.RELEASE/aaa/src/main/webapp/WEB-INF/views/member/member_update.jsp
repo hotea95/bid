@@ -160,15 +160,82 @@ $(function() {
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .select_img img {
+            width: 60px;
+            height: 60px;
+            float: left;
+        }
+        .STHSEX {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .STHWEDDING {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        button[type="submit"], button[type="reset"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        button[type="reset"] {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+        button[type="submit"]:hover, button[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 	<script type="text/javascript">
 
 			function checks() {
 				var STHKORNAME = RegExp(/^[ㄱ-ㅎ|가-힣]{2,6}$/);
+				var ID = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+				var PWD = RegExp(/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
 				var STHENGNAME = RegExp(/^[a-z|A-Z]{4,20}$/);
 				var STHCHNAME = RegExp(/^[\u4e00-\u9fff]{2,6}$/);
 				var STHJUMIN = RegExp(/^[0-9]+$/);
 				var STHJUMIN2 = RegExp(/^[0-9]{7}$/);   //^입력의 시작을 나타내고 \d모든 숫자와 일치하며 {7}숫자가 정확히 7번 발생하도록 지정합니다.
 				var STHYEAR = RegExp(/^[0-9]{1,2}$/);
+				var STHPHONE = RegExp(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/);
 				var STHEMAIL = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 			    
 				if($("#STHKORNAME").val() == "") {
@@ -181,6 +248,39 @@ $(function() {
 			        $("#STHKORNAME").val("");
 			        $("#STHKORNAME").focus();
 			        return false;
+			      }
+				if($("#ID").val() == "") {
+					alert("아이디 입력바랍니다.");
+					$("#ID").focus();
+					return false;
+				}
+				
+				  if(!ID.test($("#ID").val())){
+				        alert("아이디를 숫자와 영문으로 작성해주시고 4~12글자로 작성해주세요");
+				        $("#ID").val("");
+				        $("#ID").focus();
+				        return false;
+				      }
+				  
+				  if($("#PWD").val() == ""){
+				        alert("비밀번호 입력바랍니다");
+				        $("#PWD").focus();
+				        return false;
+				      }
+				  
+				  if(!PWD.test($("#PWD").val())){
+				        alert("비밀번호를 숫자와 영문 특수문자 모두 사용해주세요. 8~15글자");
+				        $("#PWD").val("");
+				        $("#PWD").focus();
+				        return false;
+				      }
+				  
+				  if($("#PWD").val() != $("#PWD2").val()){
+			          alert("비밀번호가 상이합니다");
+			          $("#PWD").val("");
+			          $("#PWD2").val("");
+			          $("#PWD").focus();
+			          return false;
 			      }
 				if($("#STHENGNAME").val() == "") {
 					alert("영어이름을 입력바랍니다.");
@@ -245,6 +345,17 @@ $(function() {
 				            return false;
 				        }
 				    }
+				    
+				    var STHPHONEValue = $("#STHPHONE").val();
+				    if (STHPHONEValue !== "") {
+				    	if (!STHPHONE.test(STHPHONEValue)) {
+							alert("번호 형식에 맞게 입력해주세요(-사용)")
+							$("#STHPHONE").val("");
+				            $("#STHPHONE").focus();
+				            return false;
+						}
+				    }
+				    
 				    var STHEMAILValue = $("#STHEMAIL").val();
 				    if (STHEMAILValue !== "") {
 				        if (!STHEMAIL.test(STHEMAILValue)) {
@@ -281,7 +392,14 @@ $(function() {
 					name="NO" id="NO" value="${memberDTO.NO}" readonly="readonly">
 				<label for="STHKORNAME">한글 이름</label> <input type="text"
 					name="STHKORNAME" id="STHKORNAME" value="${memberDTO.STHKORNAME}" readonly="readonly">
-				<br> <label for="STHENGNAME">영문 이름</label> <input type="text"
+				<br>
+				<label for="ID">ID</label>
+					<input type="text" name="ID" id="ID" placeholder="필수사항" value="${memberDTO.ID}"> <br>
+					<label for="PWD">비밀번호</label>
+					<input type="text" name="PWD" id="PWD" placeholder="필수사항"> <br>
+					<label for="PWD2">비밀번호 확인</label>
+					<input type="text" name="PWD2" id="PWD2" placeholder="필수사항"> <br>
+				 <label for="STHENGNAME">영문 이름</label> <input type="text"
 					name="STHENGNAME" id="STHENGNAME" value="${memberDTO.STHENGNAME}"> <br> <label
 					for="STHCHNAME">한문 이름</label> <input type="text" name="STHCHNAME"
 					id="STHCHNAME" value="${memberDTO.STHCHNAME}"> <br>
@@ -297,30 +415,7 @@ $(function() {
                         type="file" name="multipartFile" id="attachedfile"
                         accept="image/*" value="5959"> <br>
 					
-				<label for="STHBIRTH">생년월일</label> 
 				
-				<input type="text" name="STHBIRTH" id="STHBIRTH" style="width: 100px;" value="${year}" required="required">년 
-				
-				<input type="text" name="STHBIRTH" id="STHBIRTH2" style="width: 40px;" value="${month}" required="required">월
-				
-				<input type="text" name="STHBIRTH" id="STHBIRTH3" style="width: 40px;" value="${date}" required="required">일
-	
-				  <c:if test="${lunOrSol eq '양력'}">
-				  ( <input type="radio" name="STHBIRTH" id="STHBIRTH4" value="양력" checked="checked" required="required"> 앙력 
-				  <input type="radio" name="STHBIRTH" id="STHBIRTH5" value="음력"> 음력 ) 
-				  </c:if>
-
-                  <c:if test="${lunOrSol eq '음력'}">
-				  ( <input type="radio" name="STHBIRTH" id="STHBIRTH4" value="양력"> 앙력 
-				  <input type="radio" name="STHBIRTH" id="STHBIRTH5" value="음력" checked="checked"> 음력 ) 
-				  </c:if>
-				  
-				  <c:if test="${empty lunOrSol}">
-				  <input type="radio" name="STHBIRTH" id="STHBIRTH4" value="양력"> ( 앙력 
-				  <input type="radio" name="STHBIRTH" id="STHBIRTH5" value="음력"> 음력 ) 
-				  </c:if>
-
-				  <br> 
 				  
 				  <label for="STHSEX" class="STHSEX">성별</label> 
 	
