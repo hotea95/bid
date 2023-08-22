@@ -113,4 +113,9 @@ public class MemberService {
 		int result = memberDAO.idChk(memberDTO);
 		return result;
 	}
+	
+	//로그인
+	public MemberDTO login(MemberDTO memberDTO) throws Exception {
+		return memberDAO.login(memberDTO);
+	}
 }

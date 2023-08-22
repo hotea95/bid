@@ -15,6 +15,12 @@
 		<p>
 			<img style="width: 100px;" src="resources/img/title.gif">
 		</p>
+		  <c:set var="loggedInID" value="${sessionScope.ID}" />
+        <%-- ID가 있을 경우 환영 메시지 출력 --%>
+        <c:if test="${not empty loggedInID}">
+            <p><c:out value="${loggedInID}"/>님 반갑습니다.</p>
+        </c:if>
+        <button type="button" onclick="location.href='./logout'">로그아웃</button> <br>
 		<button type="button"
 			style="border: none; background-color: transparent; cursor: pointer;"
 			onclick="location.href='./listSearch'">■ 사원정보</button>

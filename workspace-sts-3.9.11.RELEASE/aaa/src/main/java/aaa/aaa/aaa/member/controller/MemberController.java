@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import aaa.aaa.aaa.education.dto.EducationDTO;
 import aaa.aaa.aaa.education.service.EducationService;
@@ -267,6 +269,11 @@ public class MemberController {
 		model.addAttribute("list2",projectService.comproselectall());
 		//model.addAttribute("list3",projectService.myproselectall(myprodto));
 		model.addAttribute("list3",projectService.myproselectall3());
+		PageMaker pageMaker = new PageMaker(); 
+		  pageMaker.setCri(scri);
+		 // pageMaker.setTotalCount(memberService.listCount());
+		  pageMaker.setTotalCount(memberService.countSearch(scri));
+		  model.addAttribute("pageMaker", pageMaker); 
 		return "./member/pou";
 	}
 	
@@ -287,6 +294,47 @@ public class MemberController {
 	public int idChk(MemberDTO memberDTO) throws Exception {
 		int result = memberService.idChk(memberDTO);
 		return result;
+	}
+	
+	//로그인
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(MemberDTO memberDTO, HttpServletRequest req, RedirectAttributes ra, String ID, String PWD) throws Exception {
+		HttpSession session = req.getSession();
+		MemberDTO login = memberService.login(memberDTO);
+		session.setAttribute("ID", ID);
+		String message = null;
+		String path = null;
+		if(login == null) {
+			session.setAttribute("member", null);
+			System.out.println("로그인 실패");
+			// 실패 시 알림창을 띄우고 리다이렉트
+			message = "ㅗ";
+	       
+	        System.out.println("로그인 실패 메시지: " + message);
+	        ra.addFlashAttribute("message", message); // == 스파게티코드
+	        path =  "redirect:/";
+		} else {
+			session.setAttribute("member", login);
+			message = "ㅇ";
+			System.out.println("로그인 성공");
+			System.out.println(message);
+			//ra.addFlashAttribute("message", message);
+			path = "./member/login";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		return path;
+	}
+	
+	//로그아웃
+	@RequestMapping(value= "/logout", method=RequestMethod.GET)
+	public String logout(HttpServletRequest req) throws Exception {
+		logger.info("logout메서드 진입");
+		HttpSession session = req.getSession();
+		session.invalidate();
+		
+		return "redirect:/";
+		
 	}
 
 }

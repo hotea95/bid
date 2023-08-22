@@ -199,7 +199,7 @@ $(function() {
                var reader = new FileReader;
                reader.onload = function(
                      data) {
-                  $(".select_img")
+                  $(".select_img img")
                         .attr(
                               "src",
                               data.target.result)

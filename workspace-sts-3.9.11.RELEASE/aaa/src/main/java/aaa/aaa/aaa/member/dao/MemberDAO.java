@@ -112,4 +112,9 @@ public class MemberDAO {
 		int result = sqlSessionTemplate.selectOne("idchk",memberDTO);
 		return result;
 	}
+	
+	//로그인
+	public MemberDTO login(MemberDTO memberDTO) throws Exception {
+		return sqlSessionTemplate.selectOne("login", memberDTO);
+	}
 }
