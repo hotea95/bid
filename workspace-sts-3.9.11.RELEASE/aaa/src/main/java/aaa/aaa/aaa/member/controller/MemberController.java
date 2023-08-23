@@ -1,7 +1,9 @@
 package aaa.aaa.aaa.member.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,9 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,6 +52,8 @@ public class MemberController {
 	private ProjectService projectService;
 	@Autowired
 	private CODEService comeService;
+	@Autowired
+	BCryptPasswordEncoder passEncoder;
 	
 	   @Autowired(required=false)
 	   @Qualifier("uploadPath" )
@@ -233,6 +239,10 @@ public class MemberController {
 			      }
 			      
 			      memberDTO.setSTHPHOTO(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			      
+			      String inputPass = memberDTO.getPWD();
+			      String pass = passEncoder.encode(inputPass);
+			      memberDTO.setPWD(pass);
 
 				 memberService.memberInsert(memberDTO);
 				 
@@ -256,10 +266,19 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/MemberDelete", method = RequestMethod.POST)
-	public String memberdelete(MemberDTO memberDTO) {
-	//	memberService.memberDelete(memberDTO.getSTHKORNAME());
-		memberService.memberDelete(memberDTO);
-		return "./member/member_delete_view";
+	@ResponseBody
+	
+	public Map<String, Object> memberdelete(@RequestBody List<String> NOList) {
+	    memberService.memberDelete(NOList);
+	    Map<String, Object> resultMap = new HashMap<String, Object>();
+	    resultMap.put("result", "success");
+	    return resultMap;
+	    
+//		public String memberdelete(MemberDTO memberDTO) {
+//		//	memberService.memberDelete(memberDTO.getSTHKORNAME());
+//			memberService.memberDelete(memberDTO);
+//			return "./member/member_delete_view";
+		
 	}
 	
 	//팝업창 테스트
@@ -299,32 +318,35 @@ public class MemberController {
 	//로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(MemberDTO memberDTO, HttpServletRequest req, RedirectAttributes ra, String ID, String PWD) throws Exception {
-		HttpSession session = req.getSession();
-		MemberDTO login = memberService.login(memberDTO);
-		session.setAttribute("ID", ID);
-		String message = null;
-		String path = null;
-		if(login == null) {
-			session.setAttribute("member", null);
-			System.out.println("로그인 실패");
-			// 실패 시 알림창을 띄우고 리다이렉트
-			message = "ㅗ";
-	       
+	    HttpSession session = req.getSession();
+	    MemberDTO login = memberService.login(memberDTO);
+	    session.setAttribute("ID", ID);
+	    String message = null;
+	    String path = null;
+	    
+	    if (login != null) {
+	        boolean passMatch = passEncoder.matches(memberDTO.getPWD(), login.getPWD());
+	        if (passMatch) {
+	            session.setAttribute("member", login);
+	            System.out.println("로그인 성공");
+	            return "./member/login"; // 로그인 성공 시 해당 경로로 리다이렉트
+	        } else {
+	            System.out.println("로그인 실패");
+	            // 실패 시 알림창을 띄우고 리다이렉트
+	            message = "패스워드가 일치하지 않습니다.";
+	            System.out.println("로그인 실패 메시지: " + message);
+	        }
+	    } else {
+	        System.out.println("로그인 실패");
+	        // 실패 시 알림창을 띄우고 리다이렉트
+	        message = "존재하지 않는 회원입니다.";
 	        System.out.println("로그인 실패 메시지: " + message);
-	        ra.addFlashAttribute("message", message); // == 스파게티코드
-	        path =  "redirect:/";
-		} else {
-			session.setAttribute("member", login);
-			message = "ㅇ";
-			System.out.println("로그인 성공");
-			System.out.println(message);
-			//ra.addFlashAttribute("message", message);
-			path = "./member/login";
-		}
-		
-		ra.addFlashAttribute("message", message);
-		return path;
+	    }
+	    
+	    ra.addFlashAttribute("message", message); // 알림 메시지 전달
+	    return "redirect:/"; // 로그인 실패 시 홈페이지로 리다이렉트
 	}
+
 	
 	//로그아웃
 	@RequestMapping(value= "/logout", method=RequestMethod.GET)

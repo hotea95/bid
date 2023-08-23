@@ -99,13 +99,13 @@ public class MemberService {
 		}
 	}
 	//멤버 삭제
-	/*
-	 * public void memberDelete(String STHKORNAME) {
-	 * memberDAO.memberdelete(STHKORNAME); }
-	 */
 	
-	public void memberDelete(MemberDTO memberDTO) {
-		memberDAO.memberdelete(memberDTO);
+//	public void memberDelete(MemberDTO memberDTO) {
+//		memberDAO.memberdelete(memberDTO);
+//	}
+	
+	public void memberDelete(List<String> NO) {
+	    memberDAO.memberdelete(NO);
 	}
 	
 	//아이디 중복체크

@@ -8,6 +8,7 @@
 <link href="resources/css/style.css" rel="stylesheet" type="text/css">
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 
+
 <script type="text/javascript">
 getSTHWORKTypeOptions();
 getSTHSISMTypeOptions()
@@ -419,12 +420,12 @@ $(function() {
 				  
 				  <label for="STHSEX" class="STHSEX">성별</label> 
 	
-				<%--   <c:if test="${memberDTO.STHSEX eq '남자'}">
+				   <c:if test="${memberDTO.STHSEX eq '1'}">
 				  <input type="radio" name="STHSEX" id="STHSEX" value="남자" checked="checked">남자 
 				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자">여자
 				  </c:if>
 
-                  <c:if test="${memberDTO.STHSEX eq '여자'}">
+                  <c:if test="${memberDTO.STHSEX eq '2'}">
 				  <input type="radio" name="STHSEX" id="STHSEX" value="남자">남자 
 				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자" checked="checked">여자
 				  </c:if>
@@ -432,7 +433,7 @@ $(function() {
 				  <c:if test="${empty memberDTO.STHSEX}">
 				  <input type="radio" name="STHSEX" id="STHSEX" value="남자">남자 
 				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자">여자
-				  </c:if> --%>
+				  </c:if> 
 				  
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					 
@@ -478,10 +479,7 @@ $(function() {
 					name="STHPHONE" id="STHPHONE" style="width: 50px;" value="${memberDTO.STHPHONE}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					 <label
 					for="STHEMAIL">이메일</label> <input type="text" name="STHEMAIL"
-					id="STHEMAIL" value="${memberDTO.STHEMAIL}"> <br> <label for="STHSKILL">기술등급</label>
-				<input type="text" name="STHSKILL" id="STHSKILL" value="${memberDTO.STHSKILL}"> <br>
-				<label for="STHSOJU">주량</label> <input type="text" name="STHSOJU"
-					id="STHSOJU" value="${memberDTO.STHSOJU}"><br>
+					id="STHEMAIL" value="${memberDTO.STHEMAIL}"> <br>
 					
 					<label for="MYDATE">입사일</label>
 				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;"  value="${memberDTO.MYDATE}"> <br>

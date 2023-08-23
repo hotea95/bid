@@ -5,6 +5,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+  /* 기본 테이블 스타일링 */
+  table.SCHBOR {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 20px;
+  }
+
+  .SCHBOR th, .SCHBOR td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+
+  .SCHBOR th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  /* 선택된 행 스타일링 */
+  .SCHBOR tr.selected {
+    background-color: #e0f3ff;
+  }
+
+  /* 오버된 행 스타일링 */
+  .SCHBOR tr:hover {
+    background-color: #f0f0f0;
+  }
+</style>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css">
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 
@@ -20,7 +50,11 @@
 			if (!$("input[name=che]:checked").val()) {
 				alert("수정하실 항목을 선택해주세요.")
 				return false;
-			} else {
+			}if ($("input[name=che]:checked").length != 1) {
+			    alert("회원 한명만 선택해주세요");
+			    return false;
+			}
+			else {
 
 				var NO = $("input[name=che]:checked").val();
 				
@@ -32,40 +66,47 @@
 	});
 
 	$(function() {
-		
-		$("#delete").click(function() {
-				
-			
-			if (!$("input[name=che]:checked").val()) {
-				alert("삭제하실 항목을 선택해주세요.")
-				return false;
-			}
-			
-			if (confirm("정말 삭제하시겠습니까?") == true) {
-				
-				var noVal = $("input[name=che]:checked").val();
+	    $("#delete").click(function() {
+	        var selectedItems = $("input[name=che]:checked");
 
-				//location.href = "MemberUpdate?STHKORNAME=" + STHKORNAME;
-				
-				$.ajax({
-					url : "./MemberDelete",
-					type : "post",
-					data : {
-						
-						
-						
-						"NO" : noVal
-						
-					}
-				});
-				alert("삭제 되었습니다.");
-				location.reload();
-			} else {
-				alert("삭제가 취소 되었습니다.");
-				location.reload();
-			}
-		});
+	        if (selectedItems.length === 0) {
+	            alert("삭제하실 항목을 선택해주세요.");
+	            return false;
+	        }
+
+	        if (confirm("정말 삭제하시겠습니까?")) {
+	            var noValues = [];
+
+	            selectedItems.each(function() {
+	                noValues.push($(this).val());
+	            });
+	            
+	            $.ajax({
+	                url: "./MemberDelete",
+	                type: "POST",
+	                contentType: "application/json; charset=utf-8",
+	                data: JSON.stringify(noValues),
+	                dataType: "json",
+	                success: function(data) {
+	                    alert("삭제 되었습니다.");
+	                    location.reload();
+	                    console.log("서버 응답 데이터:", data); // 추가
+	                },
+	                error: function(xhr, status, error) {
+	                    alert("삭제 중 오류가 발생했습니다.");
+	                    console.log("오류 상태:", status); // 추가
+	                    console.log("오류 메시지:", error); // 추가
+	                }
+	            });
+
+	        } else {
+	            alert("삭제가 취소 되었습니다.");
+	        }
+	    });
 	});
+
+
+
 </script>
 
 <script type="text/javascript">
@@ -229,7 +270,6 @@ $(function() {
 					<th>이름</th>
 					<th>주민등록번호</th>
 					<th>성별</th>
-					<th>기술등급</th>
 					<th>상태</th>
 					<th>근무</th>
 					<th>번호</th>
@@ -240,14 +280,14 @@ $(function() {
 			<tbody>
 				<c:forEach var="list" items="${list}">
 					<tr class="COLOR">
-					<td><input type="radio" name="che" id="che"
-							value="${list.NO}"></td>
+					<%-- <td><input type="checkbox" name="che" id="che"
+							value="${list.NO}"></td> --%>
+							<td><input type="checkbox" name="che" value="${list.NO}"></td>
 						<td class=BOR2>
 							<a href="./MemberSelectDetail?NO=${list.NO}">${list.STHKORNAME}</a></td>
 						<%-- <td class="BOR2">${list.STHKORNAME}</td> --%>
 						<td class="BOR2">${list.STHJUMIN}-${list.STHJUMIN2}</td>
 						<td class="BOR2">${list.STHSEX}</td>
-						<td class="BOR2">${list.STHSKILL}</td>
 						<td class="BOR2">${list.STHSTATE}</td>
 						<td class="BOR2">${list.STHWORK}</td>
 						<td class="BOR2">${list.NO}</td>

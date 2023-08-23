@@ -5,7 +5,7 @@
 <head>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css">
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
-
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <meta charset="UTF-8">
 <title>헤드</title>
 
@@ -73,7 +73,55 @@
             background-color: #0056b3;
         }
     </style>
+<script type="text/javascript">
+function execPostCode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+           // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+           // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+           // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+           var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+           var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+           // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+           // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+               extraRoadAddr += data.bname;
+           }
+           // 건물명이 있고, 공동주택일 경우 추가한다.
+           if(data.buildingName !== '' && data.apartment === 'Y'){
+              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+           }
+           // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+           if(extraRoadAddr !== ''){
+               extraRoadAddr = ' (' + extraRoadAddr + ')';
+           }
+           // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+           if(fullRoadAddr !== ''){
+               fullRoadAddr += extraRoadAddr;
+           }
+
+           // 우편번호와 주소 정보를 해당 필드에 넣는다.
+           console.log(data.zonecode);
+           console.log(fullRoadAddr);
+           
+           
+           $("[name=STHADDRESS]").val(data.zonecode);
+           $("[name=STHADDRESS2]").val(fullRoadAddr);
+           
+           /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+           document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+           document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+           
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+           document.getElementById('STHADDRESS').value = data.zonecode; //5자리 새우편번호 사용
+           document.getElementById('STHADDRESS2').value = fullAddr;
+       }
+    }).open();
+}
+
+</script>
 
 <script type="text/javascript">
 getSTHWORKTypeOptions();
@@ -534,19 +582,32 @@ $(function() {
 				 <label for="STHSTATE">입사유형</label> <select name="STHSTATE" class="STHSTATE">
 					<option value="1">정규직</option>
 					<option value="2">계약직</option>
-				</select> <br> <label for="STHADDRESS">주소</label> <input type="text"
+				</select> <br>
+				<!--  <label for="STHADDRESS">주소</label> <input type="text"
 					name="STHADDRESS" id="STHADDRESS"> <input type="text"
-					name="STHADDRESS2" id="STHADDRESS2" style="width: 300px;"> <br>
+					name="STHADDRESS2" id="STHADDRESS2" style="width: 300px;"> --> <br>
+					
+				<div class="form-group">                   
+				<input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="STHADDRESS" id="STHADDRESS" type="text" readonly="readonly" >
+				    <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
+				</div>
+				<div class="form-group">
+				    <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="STHADDRESS2" id="STHADDRESS2" type="text" readonly="readonly" />
+				</div>
+				<div class="form-group">
+				    <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
+				</div>
+					
+					
+					
+					
 				<label for="STHPHONE">
 				연락처</label> <input type="text" name="STHPHONE"
 					id="STHPHONE" style="width: 120px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label for="STHEMAIL">이메일</label> <input type="text" name="STHEMAIL"
-					id="STHEMAIL"> <br> <label for="STHSKILL">기술등급</label>
-				<input type="text" name="STHSKILL" id="STHSKILL" style="width: 50px;"> <br>
-				<label for="STHSOJU">주량</label> 
-				<input type="text" name="STHSOJU" id="STHSOJU" style="width: 70px;"> <br>
+					id="STHEMAIL"> <br>
 				<label for="MYDATE">입사일</label>
-				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;" max="9999-12-31"> <br>
+				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;" max="9999-12-31" min="1950-12-31"> <br>
 				<div style="text-align: center;">
 					<button type="submit" style="WIDTH: 60pt; HEIGHT: 30pt;">등록</button>
 					<button type="reset" style="WIDTH: 60pt; HEIGHT: 30pt;"

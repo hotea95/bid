@@ -5,6 +5,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+  /* 기본 테이블 스타일링 */
+  table.SCHBOR {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 20px;
+  }
+
+  .SCHBOR th, .SCHBOR td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+
+  .SCHBOR th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  /* 선택된 행 스타일링 */
+  .SCHBOR tr.selected {
+    background-color: #e0f3ff;
+  }
+
+  /* 오버된 행 스타일링 */
+  .SCHBOR tr:hover {
+    background-color: #f0f0f0;
+  }
+</style>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css">
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 <meta charset="UTF-8">
@@ -88,8 +118,8 @@
 <table class="SCHBOR">
 <thead>
 <tr>
-<th>한글이름</th> <th>영문이름</th><th>한문이름</th><th>주민번호</th><th>사진</th><th>생년월일</th><th>성별</th>
-<th>결혼유무</th><th>년차</th><th>희망직무</th><th>입사유형</th><th>주소</th><th>연락처</th><th>이메일</th><th>기술등급</th><th>주량</th>
+<th>한글이름</th> <th>영문이름</th><th>한문이름</th><th>주민번호</th><th>사진</th><th>성별</th>
+<th>결혼유무</th><th>년차</th><th>희망직무</th><th>입사유형</th><th>주소</th><th>연락처</th><th>이메일</th>
 </tr>
 </thead>
 <tbody>
@@ -101,11 +131,7 @@
 <td class="BOR2">${memberDTO.STHENGNAME}</td>
 <td class="BOR2">${memberDTO.STHCHNAME}</td>
 <td class="BOR2">${memberDTO.STHJUMIN}-${memberDTO.STHJUMIN2}</td>
-
-
 <td class="BOR2"><img src="${memberDTO.STHPHOTO}"></td>
-                     
-<td class="BOR2">${memberDTO.STHBIRTH}</td>
 <td class="BOR2">${memberDTO.STHSEX}</td>
 <td class="BOR2">${memberDTO.STHWEDDING}</td>
 <td class="BOR2">${memberDTO.STHYEAR}</td>
@@ -114,8 +140,6 @@
 <td class="BOR2">${memberDTO.STHADDRESS}</td>
 <td class="BOR2">${memberDTO.STHPHONE}</td>
 <td class="BOR2">${memberDTO.STHEMAIL}</td>
-<td class="BOR2">${memberDTO.STHSKILL}</td>
-<td class="BOR2">${memberDTO.STHSOJU}</td>
 <td class="BOR2"><a href ="./Myproinsert?NO=${memberDTO.NO}">프로젝트 작성하기</a></td>
 </tr>
 <%-- </c:forEach> --%>

@@ -98,13 +98,13 @@ public class MemberDAO {
 	}
 	
 	//멤버 삭제
-	/*
-	 * public void memberdelete(String STHKORNAME) {
-	 * sqlSessionTemplate.delete("memberdelete", STHKORNAME); }
-	 */
 	
-	public void memberdelete(MemberDTO memberDTO) {
-		sqlSessionTemplate.delete("memberdelete", memberDTO);
+//	public void memberdelete(MemberDTO memberDTO) {
+//		sqlSessionTemplate.delete("memberdelete", memberDTO);
+//	}
+	
+	public void memberdelete(List<String> NO) {
+	    sqlSessionTemplate.delete("memberdelete", NO);
 	}
 	
 	//아이디 중복 체크
@@ -115,6 +115,9 @@ public class MemberDAO {
 	
 	//로그인
 	public MemberDTO login(MemberDTO memberDTO) throws Exception {
-		return sqlSessionTemplate.selectOne("login", memberDTO);
+		//return sqlSessionTemplate.selectOne("login", memberDTO);
+		return sqlSessionTemplate.selectOne("login2", memberDTO);
 	}
+	
 }
+
