@@ -133,4 +133,9 @@ public class ProjectService {
 	public MYPRODTO myproselectOne(MYPRODTO myprodto) {
 		return projectDAO.myproselectOne(myprodto);
 	}
+	
+	//개인플젝 list조회
+	public List<MYPRODTO> myprolist(String NO) {
+		return projectDAO.myprolist(NO);
+	}
 }

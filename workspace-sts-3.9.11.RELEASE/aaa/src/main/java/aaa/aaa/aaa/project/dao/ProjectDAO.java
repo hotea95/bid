@@ -123,4 +123,9 @@ public class ProjectDAO {
 		public MYPRODTO myproselectOne(MYPRODTO myprodto) {
 			return sqlSessionTemplate.selectOne("myproselectone",myprodto);
 		}
+		
+		//개인플젝 확인
+		public List<MYPRODTO> myprolist(String NO) {
+			return sqlSessionTemplate.selectList("myprolist",NO);
+		}
 }

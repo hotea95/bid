@@ -540,9 +540,9 @@ $(function() {
 					<label for="ID">ID</label>
 					<input type="text" name="ID" id="ID" placeholder="필수사항">  <input type="button" id="idche" value="중복체크" onclick="fn_idChk();"> <br>
 					<label for="PWD">비밀번호</label>
-					<input type="text" name="PWD" id="PWD" placeholder="필수사항"> <br>
+					<input type="password" name="PWD" id="PWD" placeholder="필수사항"> <br>
 					<label for="PWD2">비밀번호 확인</label>
-					<input type="text" name="PWD2" id="PWD2" placeholder="필수사항"> <br>
+					<input type="password" name="PWD2" id="PWD2" placeholder="필수사항"> <br>
 					 <label for="STHENGNAME">영문 이름</label> <input type="text" name="STHENGNAME"
 					id="STHENGNAME" placeholder="필수사항"> <br> <label for="STHCHNAME">한문
 					이름</label> <input type="text" name="STHCHNAME" id="STHCHNAME"> <br>

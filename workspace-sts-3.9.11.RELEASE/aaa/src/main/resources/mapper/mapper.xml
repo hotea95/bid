@@ -816,6 +816,7 @@ where PNO = #{PNO}
 <!-- 개인플젝 리스트 -->
 <select id="myproselectall3" resultType="MYPRODTO">
 select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
+
 </select>
 
 <!-- 공통플젝 수정 -->
@@ -858,5 +859,11 @@ PWD
 from
 STHMEMBER
 where ID = #{ID}
+</select>
+
+<!-- 개인플젝 조회 리스트 -->
+<select id="myprolist" resultType="MYPRODTO">
+select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
+WHERE NO = #{NO}
 </select>
 </mapper>

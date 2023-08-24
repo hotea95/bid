@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.Model;import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -329,7 +330,11 @@ public class MemberController {
 	        if (passMatch) {
 	            session.setAttribute("member", login);
 	            System.out.println("로그인 성공");
-	            return "./member/login"; // 로그인 성공 시 해당 경로로 리다이렉트
+	            if ("admin".equals(login.getID())) { // 로그인 성공한 멤버의 아이디가 "admin"이면
+	                return "./member/login"; // 해당 경로로 리다이렉트
+	            } else { // 로그인 성공한 멤버의 아이디가 "admin"이 아니면
+	                return "./member/xxadmin"; // 해당 경로로 리다이렉트
+	            }
 	        } else {
 	            System.out.println("로그인 실패");
 	            // 실패 시 알림창을 띄우고 리다이렉트
@@ -342,9 +347,11 @@ public class MemberController {
 	        message = "존재하지 않는 회원입니다.";
 	        System.out.println("로그인 실패 메시지: " + message);
 	    }
+
 	    
 	    ra.addFlashAttribute("message", message); // 알림 메시지 전달
-	    return "redirect:/"; // 로그인 실패 시 홈페이지로 리다이렉트
+	   // return "redirect:/"; // 로그인 실패 시 홈페이지로 리다이렉트
+	      return "./member/alert";
 	}
 
 	
@@ -358,5 +365,15 @@ public class MemberController {
 		return "redirect:/";
 		
 	}
-
+	
+	@RequestMapping(value = "/home")
+	public String home() {
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/xadmin", method = RequestMethod.GET)
+	public String xadmin(MemberDTO memberDTO,Model model) {
+		model.addAttribute("list",memberService.memberSelect(memberDTO));
+		return "./member/xadmin";
+	}
 }

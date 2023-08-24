@@ -268,13 +268,14 @@ $(function() {
 				<tr class="COLOR">
 					<th>선택</th>
 					<th>이름</th>
-					<th>주민등록번호</th>
+					<!-- <th>주민등록번호</th> -->
 					<th>성별</th>
 					<th>상태</th>
 					<th>근무</th>
 					<th>번호</th>
 					<th>입사일</th>
 					<th>년차</th>
+					<th>프로젝트</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -285,14 +286,14 @@ $(function() {
 							<td><input type="checkbox" name="che" value="${list.NO}"></td>
 						<td class=BOR2>
 							<a href="./MemberSelectDetail?NO=${list.NO}">${list.STHKORNAME}</a></td>
-						<%-- <td class="BOR2">${list.STHKORNAME}</td> --%>
-						<td class="BOR2">${list.STHJUMIN}-${list.STHJUMIN2}</td>
+						<%-- <td class="BOR2">${list.STHJUMIN}-${list.STHJUMIN2}</td> --%>
 						<td class="BOR2">${list.STHSEX}</td>
 						<td class="BOR2">${list.STHSTATE}</td>
 						<td class="BOR2">${list.STHWORK}</td>
 						<td class="BOR2">${list.NO}</td>
 						<td class="BOR2">${list.MYDATE}</td>
 						<td class="BOR2">${list.STHYEAR}</td>
+						<td class="BOR2"><a href="./prolist?NO=${list.NO}">프로젝트</a></td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty list}">
@@ -302,7 +303,6 @@ $(function() {
 				</c:if>
 			</tbody>
 		</table>
-
 
 		<!-- 검색 -->
 		<div class="search">

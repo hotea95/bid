@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -161,6 +162,13 @@ public class ProjectController {
 	        return participants;
 	    }
 	  
+	  //개인프로젝트 한거 확인
+	  @RequestMapping(value = "/prolist", method = RequestMethod.GET)
+	  public String comproselectList(@RequestParam("NO") String NO,Model model) {
+		 model.addAttribute("list",projectService.myprolist(NO));
+		  return "./project/pro_list";
+	  }
+	  
 	  //개인프로젝트 삭제2233
 	  @RequestMapping(value = "/myprodelete", method = RequestMethod.POST)
 	  public String myprodelete(String NO) {
@@ -279,6 +287,8 @@ public class ProjectController {
 			  model.addAttribute("list",projectService.myproselectOne(myprodto));
 			  return "./project/mypro_selectone";
 		  }
+		  
+		  
 	}
 
 
