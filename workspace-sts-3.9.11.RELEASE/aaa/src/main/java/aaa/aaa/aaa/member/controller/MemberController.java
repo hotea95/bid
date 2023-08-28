@@ -330,11 +330,7 @@ public class MemberController {
 	        if (passMatch) {
 	            session.setAttribute("member", login);
 	            System.out.println("로그인 성공");
-	            if ("admin".equals(login.getID())) { // 로그인 성공한 멤버의 아이디가 "admin"이면
-	                return "./member/login"; // 해당 경로로 리다이렉트
-	            } else { // 로그인 성공한 멤버의 아이디가 "admin"이 아니면
-	                return "./member/xxadmin"; // 해당 경로로 리다이렉트
-	            }
+	            return "./member/login"; // 로그인 성공 시 해당 경로로 리다이렉트
 	        } else {
 	            System.out.println("로그인 실패");
 	            // 실패 시 알림창을 띄우고 리다이렉트
@@ -347,14 +343,13 @@ public class MemberController {
 	        message = "존재하지 않는 회원입니다.";
 	        System.out.println("로그인 실패 메시지: " + message);
 	    }
-
 	    
 	    ra.addFlashAttribute("message", message); // 알림 메시지 전달
 	   // return "redirect:/"; // 로그인 실패 시 홈페이지로 리다이렉트
 	      return "./member/alert";
 	}
 
-	
+
 	//로그아웃
 	@RequestMapping(value= "/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest req) throws Exception {
@@ -376,4 +371,17 @@ public class MemberController {
 		model.addAttribute("list",memberService.memberSelect(memberDTO));
 		return "./member/xadmin";
 	}
+	//세션 타임아웃
+	@RequestMapping(value = "/resetSessionTimeout", method = RequestMethod.GET)
+	@ResponseBody
+	 public String resetSessionTimeout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.setMaxInactiveInterval(1500); // 30분 (단위: 초)
+            return "세션 시간이 30분으로 초기화되었습니다.";
+        } else {
+            return "세션이 존재하지 않습니다.";
+        }
+    }
 }
+	

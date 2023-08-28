@@ -249,7 +249,6 @@ th {
 		
 			
 			
-			// '배치' 버튼 클릭 이벤트 핸들러 밑에떠잇는 인원 중복체크
 			$(document).on('click', 'input[value="배치"]', function() {
 				var row = $(this).closest('tr');
 				var no = row.find('td:eq(0)').text();

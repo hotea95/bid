@@ -88,7 +88,6 @@ function deleteProjectData(pno) {
 </script>
 
 <script>
-    // ... (이전 코드 생략) ...
 
 //개인플젝  "삭제" 버튼 클릭 이벤트 처리
 $(document).on('click', '.delete-participant', function() {

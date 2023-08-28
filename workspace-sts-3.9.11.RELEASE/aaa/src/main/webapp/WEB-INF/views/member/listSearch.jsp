@@ -268,6 +268,7 @@ $(function() {
 				<tr class="COLOR">
 					<th>선택</th>
 					<th>이름</th>
+					<th>ID</th>
 					<!-- <th>주민등록번호</th> -->
 					<th>성별</th>
 					<th>상태</th>
@@ -279,7 +280,13 @@ $(function() {
 				</tr>
 			</thead>
 			<tbody>
+			
 				<c:forEach var="list" items="${list}">
+				<c:set var="loggedInID" value="${sessionScope.ID}" />
+			    <%-- <c:if test="${list.ID eq loggedInID || loggedInID eq not 'admin'}"> --%>
+			     <c:if test="${loggedInID eq 'admin' || list.ID eq loggedInID}">
+				<%-- <c:out value="${list.ID}11"/> | <c:out value="${loggedInID}22"/> --%>
+				<%-- 사용자가 admin이거나 현재 사원의 ID와 로그인한 사용자의 ID가 일치할 때만 정보 출력 --%>
 					<tr class="COLOR">
 					<%-- <td><input type="checkbox" name="che" id="che"
 							value="${list.NO}"></td> --%>
@@ -287,6 +294,7 @@ $(function() {
 						<td class=BOR2>
 							<a href="./MemberSelectDetail?NO=${list.NO}">${list.STHKORNAME}</a></td>
 						<%-- <td class="BOR2">${list.STHJUMIN}-${list.STHJUMIN2}</td> --%>
+						<td class="BOR2">${list.ID}</td>
 						<td class="BOR2">${list.STHSEX}</td>
 						<td class="BOR2">${list.STHSTATE}</td>
 						<td class="BOR2">${list.STHWORK}</td>
@@ -295,6 +303,7 @@ $(function() {
 						<td class="BOR2">${list.STHYEAR}</td>
 						<td class="BOR2"><a href="./prolist?NO=${list.NO}">프로젝트</a></td>
 					</tr>
+					</c:if>
 				</c:forEach>
 				<c:if test="${empty list}">
 					<tr>
