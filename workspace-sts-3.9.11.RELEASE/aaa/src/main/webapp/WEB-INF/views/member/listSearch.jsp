@@ -60,7 +60,6 @@
 				
 
 				location.href = "MemberUpdate?NO=" + NO;
-				/* location.href = "MemberUpdate?NO=" + NO; */
 			}
 		});
 	});
@@ -150,66 +149,23 @@ $(function() {
         $(this).val(numericValue);
     });
 });
+
+
+</script>
+  <script>
+    // 초기화 버튼 클릭 시 값들을 초기화하는 함수
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("clear").addEventListener("click", function() {
+            document.getElementById("keyword11").value = "";
+            document.getElementById("keyword22").value = "";
+            document.getElementById("keyword33").value = "";
+            document.getElementById("keyword44").value = "";
+        });
+    });
 </script>
 </head>
 <body>
-	<%-- <div style="float: left;" style="width:400px;" style="height:800px;">
-		<p>
-			<img style="width: 100px;" src="resources/img/title.gif">
-		</p>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./listSearch'">■ 기본정보</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./MemberInsert'">- 등록</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./listSearchAsReg'">■ 직원명부</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./Retirement'">■ 퇴직자현황</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./Preliminary'">■ 예비 인력정보</button>
-		<br> <br>
-		<br> <br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./ClilistSearch'">■ 거래처 정보</button>
-		<br>
-		<br>
-		<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./ClientInsert'">- 등록</button>
-		<br> <br>
-		<br>
-		<fieldset>
-			<label for="label3">진행 프로젝트<br>
-			<br> 현황
-			</label><br>
-			<br>
-			<br>
-		</fieldset>
-		<br>
-
-		<fieldset>
-			<input type="text" value="■ 경력검색" readonly="readonly"
-				style="border: none; background-color: transparent;"> <br>
-			<input type="text" name="keyword" id="keywordInput"
-				value="${scri.keyword}" style="width: 70px;" />
-			<button id="searchBtn">검색</button>
-		</fieldset>
-
-	</div> --%>
+	
 
 	<%@ include file="/WEB-INF/views/include/side.jsp" %>
 	
@@ -218,15 +174,7 @@ $(function() {
 	<div style="width: 800px;">
 		<h1>사원 조회</h1>
 		<div>
-
-			
-		<%-- 	<select name="searchType" style="width: 100px;">
-				<option value="n"
-					<c:out value="${scri.searchType eq 'n' ? 'selected' : ''}"/>>이름</option>
-				<option value="a"
-					<c:out value="${scri.searchType eq 'a' ? 'selected' : ''}"/>>주민번호</option>
-			</select> <input type="text" name="keyword2" id="keywordInput2"
-				value="${scri.keyword2}" style="width: 300px;" /> --%>
+	
 			
 			<input type="text" value="입사일" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
 			<input type="date" name="keyword" id="keyword11" value="${scri.keyword}" max="9999-12-31" style="width: 100px;">~
@@ -240,25 +188,13 @@ $(function() {
 			<span id="yearErrorMessage" style="color: red;"></span>
 			
 			<button id="searchBtn2">검색</button>
+			<button id="clear">초기화</button>
 		</div>
 		<br>
-		<!-- <select name="search2" style="width: 200px;">
-			<option value="전체조회">전체조회</option>
-			<option value="이름">이름</option>
-		</select> <input type="text" name="search2" id="search2" -->
-		<!-- 	style="width: 300px; background-color: transparent;"> -->
-		<!-- <button type="button" style="width: 100px;">검색</button>
-		<br>
-		<br> -->
 
 		<div>
 		
 				<button type="button" id="delete">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<!-- <a href="./Comproinsert">공통프로젝트 작성</a>
-				<a href="./Comproselectall">공통프로젝트 조회</a> -->
-				<!-- <button type="button">인사기록카드</button>
-				<button type="button">경력정보</button>
-				<button type="button">근무정보</button> -->
 			
 			<br><br>
 		</div>
@@ -330,22 +266,6 @@ $(function() {
 				});
 			</script>
 
-		<!-- 	<script>
-				$(function() {
-					$('#searchBtn2')
-							.click(
-									function() {
-										self.location = "listSearch"
-												+ '${pageMaker.makeQuery(1)}'
-												+ "&searchType="
-												+ $("select option:selected")
-														.val()
-												+ "&keyword2="
-												+ encodeURIComponent($(
-														'#keywordInput2').val());
-									});
-				});
-			</script> -->
 			
 <script>
     $(function() {
@@ -428,9 +348,7 @@ $(function() {
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="button" id="update">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<!-- <button type="button">인사기록카드</button>
-				<button type="button">경력정보</button>
-				<button type="button">근무정보</button> -->
+				
 			
 		</div>
 

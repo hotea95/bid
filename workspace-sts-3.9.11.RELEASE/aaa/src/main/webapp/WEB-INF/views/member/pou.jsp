@@ -148,6 +148,7 @@ th {
 	<br>
 	<br>
 
+<h4>프로젝트 정보</h4>
 	<table>
 		<thead>
 			<tr>
@@ -168,6 +169,7 @@ th {
 					</tr>
 				</c:if>
 			</c:forEach>
+			
 			<div style="text-align: center;">
 
 			<c:if test="${pageMaker.prev}">
@@ -186,7 +188,27 @@ th {
 		</div>
 		</tbody>
 	</table>
-
+	<h4>등록된 사원</h4>
+<table>
+			<thead>
+			<tr>
+			<th>번호</th>	
+			<th>역할</th>	
+			<th>프로젝트명</th>
+			</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="list4" items="${list4}">
+			<c:if test="${param.pno == list4.PNO}">
+			<tr>
+			<td>${list4.NO}</td>
+			<td>${list4.ROLE}</td>
+			<td>${list4.PRONAME}</td>
+			</tr>
+			</c:if>
+			</c:forEach>
+			</tbody>
+			</table>
 	<!-- 추가된 사원들의 정보를 보여줄 테이블 -->
 	<h2>추가된 사원 정보</h2>
 	<table id="addedEmployeesTable">
@@ -324,6 +346,7 @@ th {
 
 				// 폼 전송
 				this.submit();
+				
 			});
 		});
 	</script>

@@ -360,7 +360,9 @@ where NO = #{NO}
 	STHADDRESS2 = #{STHADDRESS2}, 
 	STHPHONE = #{STHPHONE}, 
 	STHEMAIL = #{STHEMAIL},
-	MYDATE = #{MYDATE}, ID = #{ID}, PWD = #{PWD}
+	MYDATE = #{MYDATE}, 
+	ID = #{ID}, 
+	PWD = #{PWD}
 	where NO = #{NO}
 </update>
 
@@ -761,12 +763,27 @@ VALUES(COMMONPRO_COM_SEQ.nextval,#{STDATE},#{ENDDATE},#{PRONAME})
 
 <!--공통 플젝 상세조회  -->
 <select id="comproselectall2" resultType="COMMONPRODTO">
-select PNO,STDATE,ENDDATE,PRONAME FROM COMMONPRO WHERE PNO = #{PNO}
+select
+PNO,
+STDATE,
+ENDDATE,
+PRONAME 
+FROM 
+COMMONPRO
+WHERE PNO = #{PNO}
 </select>
 
 <!-- 담당 플젝 불러오기 -->
 <select id="getParticipantsByPno" resultType="MYPRODTO">
-select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME FROM MYPRO WHERE PNO = #{PNO}
+select
+NO,
+PNO,
+STMDATE,
+ENDMDATE,
+ROLE,
+PRONAME 
+FROM MYPRO 
+WHERE PNO = #{PNO}
 </select>
 
 <!-- 개인 플젝 삭제 -->
@@ -815,23 +832,47 @@ where PNO = #{PNO}
 </delete>
 <!-- 개인플젝 리스트 -->
 <select id="myproselectall3" resultType="MYPRODTO">
-select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
+select 
+NO,
+PNO,
+STMDATE,
+ENDMDATE,
+ROLE,
+PRONAME
+from MYPRO
 
 </select>
 
 <!-- 공통플젝 수정 -->
 <update id="comproupdate" parameterType="COMMONPRODTO">
-update COMMONPRO set STDATE = #{STDATE},ENDDATE = #{ENDDATE},PRONAME = #{PRONAME} WHERE PNO = #{PNO}
+update 
+COMMONPRO set 
+STDATE = #{STDATE},
+ENDDATE = #{ENDDATE},
+PRONAME = #{PRONAME} 
+WHERE PNO = #{PNO}
 </update>
 
 <!-- 개인플젝 수정 -->
 <update id="myproupdate" parameterType="MYPRODTO">
-update MYPRO set STMDATE = #{STMDATE}, ENDMDATE = #{ENDMDATE}, ROLE = #{ROLE}, PRONAME = #{PRONAME} WHERE NO = #{NO} AND PNO = #{PNO}
+update 
+MYPRO set 
+STMDATE = #{STMDATE}, 
+ENDMDATE = #{ENDMDATE}, 
+ROLE = #{ROLE}, 
+PRONAME = #{PRONAME} 
+WHERE NO = #{NO} 
+AND PNO = #{PNO}
 </update>
 
 <!-- 개인 플젝 상세조회 2개 -->
 <select id="myproselectone" resultType="MYPRODTO">
-select STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO WHERE NO = #{NO} AND PNO = #{PNO} 
+select STMDATE,
+ENDMDATE,
+ROLE,
+PRONAME 
+from MYPRO 
+WHERE NO = #{NO} AND PNO = #{PNO} 
 </select>
 
 <!-- 아이디 중복체크 -->
@@ -863,7 +904,42 @@ where ID = #{ID}
 
 <!-- 개인플젝 조회 리스트 -->
 <select id="myprolist" resultType="MYPRODTO">
-select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
+select 
+NO,
+PNO,
+STMDATE,
+ENDMDATE,
+ROLE,
+PRONAME 
+from MYPRO
 WHERE NO = #{NO}
+</select>
+
+
+<!-- 게시판 작성 -->
+<insert id="boardinsert" parameterType="BoardDTO">
+insert into BOARD (
+BNO,
+TITLE,
+CONTENT,
+WRITER,
+REG_DATETIME)
+VALUES(
+BNO_SEQ.nextval,
+#{TITLE},
+#{CONTENT},
+#{WRITER},
+sysdate)
+</insert>
+
+<!-- 게시판 전체조회 -->
+<select id="boardselectall" resultType="BoardDTO">
+select
+BNO,
+TITLE,
+CONTENT,
+WRITER,
+REG_DATETIME
+from BOARD
 </select>
 </mapper>

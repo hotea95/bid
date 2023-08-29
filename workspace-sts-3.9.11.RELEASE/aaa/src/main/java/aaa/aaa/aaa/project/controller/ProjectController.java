@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -111,11 +112,16 @@ public class ProjectController {
 	
 	@RequestMapping(value = "Myproinsert", method = RequestMethod.POST)
 	public String myproinsert1(Model model, MYPRODTO myproDTO, HttpServletRequest request) {
-		String NO = request.getParameter("NO");
-		//model.addAttribute("list", projectService.myproselectall(myproDTO));
-		projectService.myproinsert(myproDTO);
-		logger.info("컨트롤러--------"+myproDTO);
-		return "./project/mypro_insert_view";
+	    String NO = request.getParameter("NO");
+
+	    try {
+	        projectService.myproinsert(myproDTO);
+	        logger.info("컨트롤러: " + myproDTO);
+	        return "./project/mypro_insert_view";
+	    } catch (DataIntegrityViolationException e) {
+	        model.addAttribute("errorMessage", "프로젝트 등록 중 오류가 발생했습니다.");
+	        return "./project/myproj_insert_error"; // 에러 페이지 경로
+	    }
 	}
 	
 	//공통 프로젝트 작성
@@ -180,15 +186,7 @@ public class ProjectController {
 	  @RequestMapping(value = "/Myproinsert3", method = RequestMethod.POST)
 	    public String myproinsert3(Model model, HttpServletRequest request, MYPRODTO myProDTO) {
 		  
-		  //
-//        List<MYPRODTO> myproDTOList = new ArrayList<>();
-//	        List<Object> myproDTOListNO = new ArrayList<>();
-//	        List<Object> myproDTOListPNO = new ArrayList<>();
-//	        List<Object> myproDTOListSTMDATE = new ArrayList<>();
-//	        List<Object> myproDTOListENDMDATE = new ArrayList<>();
-//	        List<Object> myproDTOListROLE = new ArrayList<>();
-//	        List<Object> myproDTOListPRONAME = new ArrayList<>();
-	        
+		  try {
 	        //split으로 컬럼별로 한개의 문자열을 배열에 하나씩 변환
 	        String NO = myProDTO.getNO();
 	        String[] NoList = NO.split(",");
@@ -206,17 +204,6 @@ public class ProjectController {
 	        //그 배열을 컬럼별로 리스트에 넣는다
 	        int count = NoList.length;
 	        
-//	        for (int i = 0; i < count; i++) {
-//	        	
-//	        	myproDTOListNO.add(i, NoList[i]);
-//	        	myproDTOListPNO.add(i, PNOList[i]);
-//	        	myproDTOListSTMDATE.add(i, STMDATEList[i]);
-//	        	myproDTOListENDMDATE.add(i, ENDMDATEList[i]);
-//	        	myproDTOListROLE.add(i, ROLEList[i]);
-//	        	myproDTOListPRONAME.add(i, PRONAMEList[i]);
-//
-//	        }
-	        
 	        
 	        for (int i = 0; i < count; i++) {
 	        	
@@ -232,8 +219,10 @@ public class ProjectController {
 			}
 
 
-	       // logger.info("컨트롤러--------" + myproDTOList);
-	        return "./project/mypro_insert_view";
+		  return "./project/mypro_insert_view";
+		  }catch (DataIntegrityViolationException e) {
+			  return "./project/myproj_insert_error2"; // 에러 페이지 경로
+		}
 	    }
 	  
 	  
@@ -287,7 +276,6 @@ public class ProjectController {
 			  model.addAttribute("list",projectService.myproselectOne(myprodto));
 			  return "./project/mypro_selectone";
 		  }
-		  
 		  
 	}
 

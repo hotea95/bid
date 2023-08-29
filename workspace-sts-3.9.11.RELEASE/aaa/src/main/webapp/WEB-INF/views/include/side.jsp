@@ -109,10 +109,15 @@ function extendSessionTimeout() {
 			<br> <br>
 		<button type="button"
 			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./Comproselectall'">■ 공통 프로젝트 조회</button> <br>	<br><br>	
+			onclick="location.href='./Comproselectall'">■ 공통 프로젝트 조회</button> <br>	<br><br>
+		<button type="button"
+			style="border: none; background-color: transparent; cursor: pointer;"
+			onclick="location.href='./BoardSelectall'">■ 공지사항</button>	
+				
 			</c:if>
 			<c:if test="${loggedInID != 'admin'}"> 
 			<button type="button" onclick="location.href='./logout'">로그아웃</button> <br>
+			<button type="button" onclick="extendSessionTimeout()">세션 시간 초기화</button><br>
 		<button type="button"
 			style="border: none; background-color: transparent; cursor: pointer;"
 			onclick="location.href='./listSearch'">■ 사원정보</button>

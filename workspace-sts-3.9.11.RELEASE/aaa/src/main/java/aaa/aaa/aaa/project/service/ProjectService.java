@@ -65,7 +65,9 @@ public class ProjectService {
 			projectDAO.myproinsert(myproDTO);
 			logger.info("서비스"+ myproDTO);
 		} catch(DataIntegrityViolationException e) {
-			e.printStackTrace();
+			
+			throw e;
+		//	e.printStackTrace();
 		}
 	}
 	

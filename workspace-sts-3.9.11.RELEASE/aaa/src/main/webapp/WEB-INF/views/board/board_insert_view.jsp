@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +8,8 @@
 </head>
 <body>
 <script type="text/javascript">
-alert("등록이 완료되었습니다.")
-location.href="./listSearch"
-window.close();
+alert("작성이 완료되었습니다.")
+location.href="./listSearch";
 </script>
 </body>
 </html>

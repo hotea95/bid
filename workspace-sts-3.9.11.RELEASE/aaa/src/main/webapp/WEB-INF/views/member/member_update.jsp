@@ -395,7 +395,7 @@ $(function() {
 					name="STHKORNAME" id="STHKORNAME" value="${memberDTO.STHKORNAME}" readonly="readonly">
 				<br>
 				<label for="ID">ID</label>
-					<input type="text" name="ID" id="ID" placeholder="필수사항" value="${memberDTO.ID}"> <br>
+					<input type="text" name="ID" id="ID" placeholder="필수사항" value="${memberDTO.ID}" readonly="readonly"> <br>
 					<label for="PWD">비밀번호</label>
 					<input type="text" name="PWD" id="PWD" placeholder="필수사항"> <br>
 					<label for="PWD2">비밀번호 확인</label>

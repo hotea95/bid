@@ -284,11 +284,14 @@ public class MemberController {
 	
 	//팝업창 테스트
 	@RequestMapping(value = "/Pou", method = RequestMethod.GET)
-	public String pou(@ModelAttribute("scri") SearchCriteria scri,MemberDTO memberDTO, Model model,MYPRODTO myprodto) throws Exception {
+	public String pou(@RequestParam("pno")String PNO,HttpServletRequest request,@ModelAttribute("scri") SearchCriteria scri,MemberDTO memberDTO, Model model,MYPRODTO myprodto) throws Exception {
+		//String PNO = request.getParameter("pno");
 		model.addAttribute("list",memberService.listSearch(scri));
 		model.addAttribute("list2",projectService.comproselectall());
 		//model.addAttribute("list3",projectService.myproselectall(myprodto));
 		model.addAttribute("list3",projectService.myproselectall3());
+		model.addAttribute("list4",projectService.getParticipantsByPno(PNO));
+		
 		PageMaker pageMaker = new PageMaker(); 
 		  pageMaker.setCri(scri);
 		 // pageMaker.setTotalCount(memberService.listCount());
@@ -374,14 +377,14 @@ public class MemberController {
 	//세션 타임아웃
 	@RequestMapping(value = "/resetSessionTimeout", method = RequestMethod.GET)
 	@ResponseBody
-	 public String resetSessionTimeout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.setMaxInactiveInterval(1500); // 30분 (단위: 초)
-            return "세션 시간이 30분으로 초기화되었습니다.";
-        } else {
-            return "세션이 존재하지 않습니다.";
-        }
+	public String extendSession(HttpSession session) {
+        // 세션 초기화 로직
+        // 세션을 갱신하거나 다른 세션 관련 작업을 수행합니다.
+        
+        // 세션의 최대 비활성 시간을 30분으로 설정
+        session.setMaxInactiveInterval(30 * 60);
+        
+        return "세션 시간이 30분으로 초기화되었습니다.";
     }
 }
 	

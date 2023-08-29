@@ -20,5 +20,6 @@
 <typeAlias alias="COMMONPRODTO" type="aaa.aaa.aaa.project.dto.COMMONPRODTO"/>
 <typeAlias alias="CODEDTO" type="aaa.aaa.aaa.member.dto.CODEDTO"/>
 <typeAlias alias="CODEMDTO" type="aaa.aaa.aaa.member.dto.CODEMDTO"/>
+<typeAlias alias="BoardDTO" type="aaa.aaa.aaa.board.dto.BoardDTO"/>
 </typeAliases>
 </configuration>
