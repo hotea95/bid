@@ -13,6 +13,59 @@
                             crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+  <style type="text/css">
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        fieldset {
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        label {
+        	display:block; 
+        	margin-bottom:10px; 
+        	text-align:left; 
+        	font-weight:bold; 
+        	font-size:.9em
+    	}
+
+    	input[type=text], input[type=password] {
+    		width : 200px ;
+    		padding : .5em ;
+    		margin-bottom : .5em ;
+    	}
+
+     .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    button[type=submit] {
+        width: auto;
+        padding: 0.5em 1em;
+        background-color: #4CAF50; /* Green */
+        color: white;
+        border: none;
+        border-radius: 0.25em;
+    }
+        
+    </style>
 <c:choose>
     <c:when test="${!empty sessionScope.message}">
         <script>
@@ -37,43 +90,24 @@
 
 		<form action="./login" role="form" method="POST" autocomplete="off">
 
-			<div class="indexDiv">
+			<div class="">
 
-				<div>
 					<label for="ID">아이디 : </label> <input type="text" id="ID" name="ID">
-				</div>
 
 				<br>
 
-				<div>
 					<label for="PWD">패스워드 : </label> <input type="password" id="PWD"
 						name="PWD">
-				</div>
 
 			</div>
 
 			<div>
-				<button type="submit" id="login"
-					style="WIDTH: 60pt; HEIGHT: 60pt; margin-left: -450px;">로그인</button>
+				<button type="submit" id="login" style="width: 100%;">로그인</button>
 			</div>
 
 		</form>
 
-		<!-- <button type="button" style="border: none; cursor: pointer;" onclick="location.href='./CertificateSelect'"><img src="resources/img/bt_remove.gif"></button>
-<p><img src="resources/img/left_top.gif"></p> -->
 	</fieldset>
-	<!-- <button type="button" onclick="location.href='./ProjectSelect'">프로젝트 전체보기</button>
-<button type="button" onclick="location.href='./CareerSelectAll'">경력정보 전체보기</button>
-<button type="button" onclick="location.href='./WorkSelectAll'">근무 전체보기</button>
-<button type="button" onclick="location.href='./EducationSelectAll'">교육정보 전체보기</button>
-<button type="button" onclick="location.href='./ClilistSearch'">거래처 전체보기</button>
-<button type="button" onclick="location.href='./Retirement'">퇴직자 전체보기</button>
-<button type="button" onclick="location.href='./MemberSelect'">퇴직자xx전체보기</button>
-<button type="button" onclick="location.href='./ClilistSearch'">test</button>
-<a href="/member/listPage.jsp">페이징</a>
-<a href="/member/member_insert.jsp">테스트</a>
-<a href="/career/career_update.jsp">자격증 수정</a>
- -->
 
 </body>
 

@@ -110,9 +110,52 @@
                     }
                 });
             });
+           
         });
+        function checks3() {
+        	//var PRONAME = /^[\uac00-\ud7a3]{0,20}$/;
+        	var ROLE = RegExp(/^[ㄱ-ㅎ|가-힣]{2,20}$/);
+        	
+        	if($("#STMDATE").val() == "") {
+        		alert("시작날짜를 입력해주세요.");
+        		$("#STMDATE").focus();
+        		return false;
+        	}
+        	
+        	if($("#ENDMDATE").val() == "") {
+        		alert("철수날짜를 입력해주세요.");
+        		$("#ENDMDATE").focus();
+        		return false;
+        	}
+        	
+        	 // 시작 날짜와 철수 날짜 비교
+            var startDate = new Date($("#STMDATE").val());
+            var endDate = new Date($("#ENDMDATE").val());
 
+            if (endDate < startDate) {
+                alert("시작날짜가 철수날짜보다 앞에 있어야 합니다.");
+                $("#ENDMDATE").focus();
+                return false;
+            }
+            
+            if($("#ROLE").val() == "") {
+        		alert("역할를 입력해주세요.");
+        		$("#ROLE").focus();
+        		return false;
+        	}
+            if(!ROLE.test($("#ROLE").val())){
+		        alert("한글로만 입력해주세요(2~20글자)");
+		        $("#ROLE").val("");
+		        $("#ROLE").focus();
+		        return false;
+		      }
+            
+        	return true;
+        }
     </script>
+    
+    
+   
     <style>
         body {
             font-family: '맑은 고딕', sans-serif;
@@ -171,7 +214,7 @@
 </fieldset>
 <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<form action="./Myproinsert" method="post">
+<form action="./Myproinsert" method="post" onsubmit="return checks3();">
     <fieldset>
         <h3>개인 프로젝트</h3>
         <c:if test="${param.NO != null}">

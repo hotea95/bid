@@ -49,19 +49,10 @@
 <body>
 <%@ include file="/WEB-INF/views/include/side.jsp" %>
 <h1>공지사항</h1>
-<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./BoardInsert'">공지사항 등록</button>
-			<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./'">삭제</button>
-			<button type="button"
-			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./'">수정</button>
+
 <table>
 <thead>
 <tr>
-<th>선택</th>
 <th>번호</th>
 <th>제목</th>
 <th>내용</th>
@@ -72,7 +63,6 @@
 <tbody>
 <c:forEach var="list" items="${list}">
 <tr>
-<td><input type="checkbox"></td>
 <td><a href="./BoardSelect?BNO=${list.BNO}">${list.BNO}</a></td>
 <td>${list.TITLE}</td>
 <td>${list.CONTENT}</td>

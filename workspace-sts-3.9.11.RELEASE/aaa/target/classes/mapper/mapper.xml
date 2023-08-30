@@ -942,4 +942,16 @@ WRITER,
 REG_DATETIME
 from BOARD
 </select>
+
+<!-- 게시판 상세조회 -->
+<select id="boardselect" resultType="BoardDTO">
+select
+BNO,
+TITLE,
+CONTENT,
+WRITER,
+REG_DATETIME
+from BOARD
+where BNO = #{BNO}
+</select>
 </mapper>

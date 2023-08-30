@@ -11,7 +11,7 @@
     <%-- 에러 메시지 표시 --%>
     <p>${errorMessage}</p>
     <script type="text/javascript">
-    alert("${errorMessage}");
+    alert("이미 등록된 프로젝트입니다.");
     location.href="Myproinsert";
     </script>
   

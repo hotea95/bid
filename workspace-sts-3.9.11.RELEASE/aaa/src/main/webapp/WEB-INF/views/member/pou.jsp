@@ -184,11 +184,11 @@ th {
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 				<a href="Pou${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a>
 			</c:if>
-
-		</div>
+			
+			</div>
 		</tbody>
 	</table>
-	<h4>등록된 사원</h4>
+ 	<h4>등록된 사원</h4>
 <table>
 			<thead>
 			<tr>
@@ -287,7 +287,7 @@ th {
 						STHKORNAME : sthkorname,
 						STHJUMIN : sthjumin
 					});
-
+					
 					// 추가된 사원들의 정보를 테이블에 동적으로 생성하여 추가
 					updateAddedEmployees();
 				}
@@ -336,6 +336,8 @@ th {
 									+ '<span class="date-label">시작날짜 : </span><input type="date" name="STMDATE" id="STMDATE" max="9999-12-31">'
 							        + '<span class="date-label">종료날짜 : </span><input type="date" name="ENDMDATE" id="ENDMDATE" max="9999-12-31">'
 							        + '<span class="role-label">역할 : </span><input type="text" name="ROLE" id="ROLE"><br><br>');
+				
+					
 				}
 			}
 

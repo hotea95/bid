@@ -128,6 +128,9 @@ function extendSessionTimeout() {
 			onclick="location.href='./MemberInsert'">- 등록</button>
 		<br>
 		<br>
+		<button type="button"
+			style="border: none; background-color: transparent; cursor: pointer;"
+			onclick="location.href='./BoardSelectall1'">■ 공지사항</button>	
 			</c:if>
 		<!-- <button type="button"
 			style="border: none; background-color: transparent; cursor: pointer;"

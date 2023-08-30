@@ -284,8 +284,8 @@ public class MemberController {
 	
 	//팝업창 테스트
 	@RequestMapping(value = "/Pou", method = RequestMethod.GET)
-	public String pou(@RequestParam("pno")String PNO,HttpServletRequest request,@ModelAttribute("scri") SearchCriteria scri,MemberDTO memberDTO, Model model,MYPRODTO myprodto) throws Exception {
-		//String PNO = request.getParameter("pno");
+	public String pou(@ModelAttribute("scri") SearchCriteria scri,MemberDTO memberDTO, Model model,MYPRODTO myprodto,HttpServletRequest request) throws Exception {
+		String PNO = request.getParameter("pno");
 		model.addAttribute("list",memberService.listSearch(scri));
 		model.addAttribute("list2",projectService.comproselectall());
 		//model.addAttribute("list3",projectService.myproselectall(myprodto));

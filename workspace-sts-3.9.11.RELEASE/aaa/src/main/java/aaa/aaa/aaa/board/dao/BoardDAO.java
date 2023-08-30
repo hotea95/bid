@@ -25,4 +25,9 @@ public class BoardDAO {
 	public List<BoardDTO> boardselectall() {
 		return sqlSessionTemplate.selectList("boardselectall");
 	}
+	
+	//게시판 상세보기
+	public BoardDTO boardselect(String BNO) {
+		return sqlSessionTemplate.selectOne("boardselect",BNO);
+	}
 }

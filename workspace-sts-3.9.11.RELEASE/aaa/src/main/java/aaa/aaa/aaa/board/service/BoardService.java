@@ -28,4 +28,9 @@ public class BoardService {
 	public List<BoardDTO> boardselectall() {
 		return boardDAO.boardselectall();
 	}
+	
+	//게시판 상세조회
+	public BoardDTO boardselect(String BNO) {
+		return boardDAO.boardselect(BNO);
+	}
 }

@@ -11,7 +11,7 @@
 
     <%-- 에러 메시지 표시 --%>
     <script type="text/javascript">
-    alert("중복된 프로젝트가 존재합니다.");
+    alert("중복된 사원이 존재합니다.");
     location.href="Comproselectall";
     </script>
   
