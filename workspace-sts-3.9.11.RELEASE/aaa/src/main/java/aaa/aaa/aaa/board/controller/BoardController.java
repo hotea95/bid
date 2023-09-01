@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import aaa.aaa.aaa.board.dto.BoardDTO;
 import aaa.aaa.aaa.board.service.BoardService;
+import aaa.aaa.aaa.reply.dto.ReplyDTO;
+import aaa.aaa.aaa.reply.service.ReplyService;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ReplyService replyservice;
 	
 	//게시판작성
 	@RequestMapping(value = "/BoardInsert", method = RequestMethod.GET)
@@ -44,9 +48,12 @@ public class BoardController {
 	
 	//게시판 상세보기
 	@RequestMapping(value = "/BoardSelect", method = RequestMethod.GET)
-	public String boardselect(@RequestParam("BNO") String BNO, Model model,BoardDTO boardDTO) {
+	public String boardselect(@RequestParam("BNO") String BNO, Model model,BoardDTO boardDTO, ReplyDTO replyDTO) {
+		
 		model.addAttribute("list",boardService.boardselect(BNO));
-		System.out.println("컨트롤러 게시판 상세보기 값" + BNO);
+		//model.addAttribute("relist",replyservice.replyselect(replyDTO, BNO));
+		model.addAttribute("relist",replyservice.replyselectall(BNO));
+		System.out.println(replyservice.replyselectall(BNO));
 		return "./board/board_select";
 	
 	}

@@ -9,7 +9,10 @@ public class ReplyDTO {
 	private String  RNO;
 	private String  ID;
 	private String  CONTENT;
-	private String  RE_LEVEL;
+	private String  PARENT_RNO;
+	private String INDENTED_CONTENT;
+	private int indentation;
+	private String level;
 	public String getBNO() {
 		return BNO;
 	}
@@ -34,16 +37,35 @@ public class ReplyDTO {
 	public void setCONTENT(String cONTENT) {
 		CONTENT = cONTENT;
 	}
-	public String getRE_LEVEL() {
-		return RE_LEVEL;
+	public String getPARENT_RNO() {
+		return PARENT_RNO;
 	}
-	public void setRE_LEVEL(String rE_LEVEL) {
-		RE_LEVEL = rE_LEVEL;
+	public void setPARENT_RNO(String pARENT_RNO) {
+		PARENT_RNO = pARENT_RNO;
+	}
+	public String getINDENTED_CONTENT() {
+		return INDENTED_CONTENT;
+	}
+	public void setINDENTED_CONTENT(String iNDENTED_CONTENT) {
+		INDENTED_CONTENT = iNDENTED_CONTENT;
+	}
+	public int getIndentation() {
+		return indentation;
+	}
+	public void setIndentation(int indentation) {
+		this.indentation = indentation;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	@Override
 	public String toString() {
-		return "ReplyDTO [BNO=" + BNO + ", RNO=" + RNO + ", ID=" + ID + ", CONTENT=" + CONTENT + ", RE_LEVEL="
-				+ RE_LEVEL + "]";
+		return "ReplyDTO [BNO=" + BNO + ", RNO=" + RNO + ", ID=" + ID + ", CONTENT=" + CONTENT + ", PARENT_RNO="
+				+ PARENT_RNO + ", INDENTED_CONTENT=" + INDENTED_CONTENT + ", indentation=" + indentation + ", level="
+				+ level + "]";
 	}
 	
 }

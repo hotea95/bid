@@ -13,6 +13,7 @@
     <script type="text/javascript">
     alert("중복된 사원이 존재합니다.");
     location.href="Comproselectall";
+    window.close();
     </script>
   
 

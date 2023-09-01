@@ -37,7 +37,7 @@ function checkSessionExpiration() {
     var remainingTime = getSessionTimeout();
 
     if (remainingTime <= 0) {
-        alert('세션 시간이 만료되었습니다. 다시 로그인해 주세요.');
+        alert('세션 시간이 만료되었습니다. 다시 로그인해 주세요!!.');
         location.href='/logout';
     }
 }
@@ -78,8 +78,8 @@ function extendSessionTimeout() {
 
 </head>
 <body>
-<div style="float: left;" style="width:400px;" style="height:800px;">
-		<p>
+<div class="asides" style="float: left;" style="width:400px;" style="height:100vh;">
+	 	<p>
 			<img style="width: 100px;" src="resources/img/title.gif">
 		</p>
 		  <c:set var="loggedInID" value="${sessionScope.ID}" />

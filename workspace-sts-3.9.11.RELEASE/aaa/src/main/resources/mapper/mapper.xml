@@ -954,4 +954,56 @@ REG_DATETIME
 from BOARD
 where BNO = #{BNO}
 </select>
+
+<!-- 댓글조회 -->
+<select id="replyselectall" resultType="ReplyDTO">
+
+SELECT
+level,
+    LPAD(' ', (LEVEL - 1) * 2) || ' ID: ' || r.ID || ', CONTENT: ' || r.CONTENT AS INDENTED_CONTENT,
+    r.BNO,
+    r.RNO,
+    r.ID,
+    r.CONTENT,
+    r.PARENT_RNO
+FROM
+    REPLY r
+WHERE
+    r.BNO = #{BNO}
+START WITH
+    r.PARENT_RNO = 0
+CONNECT BY PRIOR
+    r.RNO = r.PARENT_RNO
+ORDER SIBLINGS BY
+    r.BNO, r.RNO
+
+</select>
+
+<!-- 댓글상세보기 -->
+<select id="replyselect" resultType="ReplyDTO">
+select
+BNO,
+RNO,
+ID,
+CONTENT,
+PARENT_RNO
+from REPLY
+where BNO = #{BNO}
+</select>
+
+<!-- 댓글작성 -->
+<insert id="replyinsert" parameterType="ReplyDTO">
+insert into REPLY(
+BNO,
+RNO,
+ID,
+CONTENT,
+PARENT_RNO)
+VALUES(
+#{BNO},
+RNO_SEQ.nextval,
+#{ID},
+#{CONTENT},
+#{PARENT_RNO})
+</insert>
 </mapper>

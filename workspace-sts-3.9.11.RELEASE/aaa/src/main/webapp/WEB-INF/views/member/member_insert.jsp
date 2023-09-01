@@ -409,7 +409,7 @@ $(function() {
 				    var STHYEARValue = $("#STHYEAR").val();
 				    if (STHYEARValue !== "") {
 				        if (!STHYEAR.test(STHYEARValue)) {
-				            alert("숫자로만 입력해주세요(1~2자리)");
+				            alert("년차를 숫자로만 입력해주세요(1~2자리)");
 				            $("#STHYEAR").val("");
 				            $("#STHYEAR").focus();
 				            return false;
