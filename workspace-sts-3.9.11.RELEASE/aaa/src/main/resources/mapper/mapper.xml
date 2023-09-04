@@ -163,10 +163,10 @@ FROM (
         ROW_NUMBER() OVER (ORDER BY NO DESC) AS rNum
     FROM STHMEMBER
     <include refid="search"/>
-) MB
-LEFT OUTER JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK = CD.CODENUM)
-LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE = CD2.CODENUM)
-LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX = CD3.CODENUM)
+		) MB
+		LEFT OUTER JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK = CD.CODENUM)
+		LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE = CD2.CODENUM)
+		LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX = CD3.CODENUM)
 WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
 ORDER BY NO DESC
 
@@ -805,7 +805,13 @@ where NO = #{NO}
     PRONAME
   ) 
   <foreach collection="list" item="dto" separator="UNION ALL">
-    select #{dto.NO}, #{dto.PNO}, #{dto.STMDATE}, #{dto.ENDMDATE}, #{dto.ROLE}, #{dto.PRONAME} from dual
+    select #{dto.NO}, 
+    #{dto.PNO}, 
+    #{dto.STMDATE}, 
+    #{dto.ENDMDATE}, 
+    #{dto.ROLE}, 
+    #{dto.PRONAME} 
+    from dual
   </foreach>
 </insert>
 
@@ -1020,4 +1026,25 @@ from MENU m
 JOIN MENU_AUTH mam ON(m.MENUNO = mam.MENUNO)
 WHERE mam.AUTHNO = #{AUTHNO}
 </select>
+
+<!-- 게시판 삭제 -->
+<delete id="boarddelete" parameterType="BoardDTO">
+   delete from BOARD
+where BNO in (
+    <foreach collection="list" item="BNO" separator=",">
+        #{BNO}
+    </foreach>
+)
+</delete>
+
+<!-- 게시판 수정 -->
+<update id="boardupdate" parameterType="BoardDTO">
+update BOARD set 
+	BNO = #{BNO}, 
+	TITLE = #{TITLE}, 
+	CONTENT = #{CONTENT}, 
+	WRITER = #{WRITER},
+	REG_DATETIME = sysdate
+	where BNO = #{BNO}
+</update>
 </mapper>

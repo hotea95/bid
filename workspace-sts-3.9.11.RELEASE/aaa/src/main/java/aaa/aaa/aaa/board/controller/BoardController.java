@@ -1,11 +1,17 @@
 package aaa.aaa.aaa.board.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import aaa.aaa.aaa.board.dto.BoardDTO;
 import aaa.aaa.aaa.board.service.BoardService;
@@ -55,5 +61,28 @@ public class BoardController {
 		model.addAttribute("relist",replyservice.replyselectall(BNO));
 		return "./board/board_select";
 	
+	}
+	
+	//게시판 삭제하기
+	@RequestMapping(value = "/BoardDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> boarddelete(@RequestBody List<String> BNOList) {
+	    boardService.boarddelete(BNOList);
+	    Map<String, Object> resultMap = new HashMap<String, Object>();
+	    resultMap.put("result", "success");
+	    return resultMap;
+	}
+	
+	//게시판 수정하기
+	@RequestMapping(value = "/BoardUpdate", method = RequestMethod.GET)
+	public String boardupdate(BoardDTO boardDTO, Model model,String BNO) {
+		model.addAttribute("list",boardService.boardselect(BNO));
+		return "./board/board_update";
+	}
+	
+	@RequestMapping(value = "/BoardUpdate", method = RequestMethod.POST)
+	public String boardupdate(BoardDTO boardDTO, Model model) {
+		boardService.boardupdate(boardDTO);
+		return "./board/board_update_view";
 	}
 }

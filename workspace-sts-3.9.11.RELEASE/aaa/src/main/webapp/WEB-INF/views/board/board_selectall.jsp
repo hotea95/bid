@@ -45,6 +45,70 @@
         background-color: #f44336;
     }
 </style>
+<script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	
+	$("#update").click(function() {
+		
+		
+		if (!$("input[name=che]:checked").val()) {
+			alert("수정하실 항목을 선택해주세요.")
+			return false;
+		}if ($("input[name=che]:checked").length != 1) {
+		    alert("회원 한명만 선택해주세요");
+		    return false;
+		}
+		else {
+
+			var BNO = $("input[name=che]:checked").val();
+			
+
+			location.href = "BoardUpdate?BNO=" + BNO;
+		}
+	});
+});
+
+$(function() {
+    $("#delete").click(function() {
+        var selectedItems = $("input[name=che]:checked");
+
+        if (selectedItems.length === 0) {
+            alert("삭제하실 항목을 선택해주세요.");
+            return false;
+        }
+
+        if (confirm("정말 삭제하시겠습니까?")) {
+            var noValues = [];
+
+            selectedItems.each(function() {
+                noValues.push($(this).val());
+            });
+            
+            $.ajax({
+                url: "./BoardDelete",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(noValues),
+                dataType: "json",
+                success: function(data) {
+                    alert("삭제 되었습니다.");
+                    location.reload();
+                    console.log("서버 응답 데이터:", data); // 추가
+                },
+                error: function(xhr, status, error) {
+                    alert("삭제 중 오류가 발생했습니다.");
+                    console.log("오류 상태:", status); // 추가
+                    console.log("오류 메시지:", error); // 추가
+                }
+            });
+
+        } else {
+            alert("삭제가 취소 되었습니다.");
+        }
+    });
+});
+</script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/side.jsp" %>
@@ -52,12 +116,12 @@
 <button type="button"
 			style="border: none; background-color: transparent; cursor: pointer;"
 			onclick="location.href='./BoardInsert'">공지사항 등록</button>
-			<button type="button"
+			<button type="button" id="delete"
 			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./'">삭제</button>
-			<button type="button"
+			>삭제</button>
+			<button type="button" id="update"
 			style="border: none; background-color: transparent; cursor: pointer;"
-			onclick="location.href='./'">수정</button>
+			>수정</button>
 <table>
 <thead>
 <tr>
@@ -72,7 +136,7 @@
 <tbody>
 <c:forEach var="list" items="${list}">
 <tr>
-<td><input type="checkbox"></td>
+<td><input type="checkbox" name="che" value="${list.BNO}"></td>
 <td><a href="./BoardSelect?BNO=${list.BNO}">${list.BNO}</a></td>
 <td>${list.TITLE}</td>
 <td>${list.CONTENT}</td>

@@ -53,8 +53,8 @@ $(document).ready(function() {
     <h2>댓글</h2>
     <div>
         <c:forEach var="relist" items="${relist}">
-        <c:forEach begin="1" end="${relist.level }">
-        	&nbsp;&nbsp;
+        <c:forEach begin="2" end="${relist.level }">
+        	ㄴ&nbsp;
         </c:forEach>
             <span>${relist.INDENTED_CONTENT}</span>
             <input type="hidden" value="${relist.PARENT_RNO}">

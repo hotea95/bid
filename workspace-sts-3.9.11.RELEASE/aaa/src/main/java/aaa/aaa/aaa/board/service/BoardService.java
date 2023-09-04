@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import aaa.aaa.aaa.board.dao.BoardDAO;
 import aaa.aaa.aaa.board.dto.BoardDTO;
+import aaa.aaa.aaa.member.dto.MemberDTO;
 
 @Service
 public class BoardService {
@@ -33,4 +34,14 @@ public class BoardService {
 	public BoardDTO boardselect(String BNO) {
 		return boardDAO.boardselect(BNO);
 	}
+	
+	//게시판 삭제하기
+	public void boarddelete(List<String> BNO) {
+	    boardDAO.boarddelete(BNO);
+	}
+	
+	//게시판 수정하기
+	public void boardupdate(BoardDTO boardDTO) { 
+	 boardDAO.boardupdate(boardDTO); 
+	 }
 }

@@ -240,6 +240,7 @@ public class MemberController {
 			      
 			      memberDTO.setSTHPHOTO(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 			      
+			      //비밀번호 비크립트 사용
 			      String inputPass = memberDTO.getPWD();
 			      String pass = passEncoder.encode(inputPass);
 			      memberDTO.setPWD(pass);
@@ -332,7 +333,8 @@ public class MemberController {
 	    String path = null;
 	    
 	    if (login != null) {
-	        boolean passMatch = passEncoder.matches(memberDTO.getPWD(), login.getPWD()); //비밀번호 해독화
+	    	//비밀번호 해독화
+	        boolean passMatch = passEncoder.matches(memberDTO.getPWD(), login.getPWD()); 
 	        if (passMatch) {
 	            session.setAttribute("member", login);
 	            session.setAttribute("admin", login.getADMIN());

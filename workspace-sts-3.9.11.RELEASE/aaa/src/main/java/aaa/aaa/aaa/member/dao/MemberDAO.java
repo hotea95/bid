@@ -83,8 +83,10 @@ public class MemberDAO {
 	
 	//멤버 수정
 	
-	 public void memberupdate(MemberDTO memberDTO) { logger.info("dao 수정완료");
-	  sqlSessionTemplate.update("memberupdate",memberDTO); }
+	 public void memberupdate(MemberDTO memberDTO) {
+		 logger.info("dao 수정완료");
+	  sqlSessionTemplate.update("memberupdate",memberDTO); 
+	  }
 	 
 	  
 	/*

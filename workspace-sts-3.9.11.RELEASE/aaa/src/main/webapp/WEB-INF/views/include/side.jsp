@@ -9,6 +9,68 @@
 <script src="./resources/js/jquery-3.5.1.min.js" type="text/javascript"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+        @font-face {
+            font-family: 'HANAMDAUM';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/HANAMDAUM.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        .member_container {
+            display: flex;
+            height: 100%;
+        }
+        .left-sidemenu>ul>li>a {
+            text-decoration-line: none;
+            color: black;
+        }
+        .left-sidemenu {
+            font-family: 'HANAMDAUM';
+            width: 20%;
+            height: 1080px;
+            background-color: rgb(40, 90, 140);
+            font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .left-sidemenu > ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+        .left-sidemenu > ul > li {
+            padding: 10px;
+            text-align: center;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .left-sidemenu > img {
+            width: 70%;
+            align-self: center;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .left-sidemenu > ul > li:first-child {
+            margin-top: 5px;
+        }
+        .left-sidemenu > ul > li:hover,
+        .left-sidemenu > ul > li:hover a {
+            cursor: pointer;
+            background-color: rgb(40, 90, 140);
+            color: white;
+            transition: 0.2s;
+        }
+        .left-sidemenu >h1 ,
+        .left-sidemenu >h6{
+        	align-self:center;
+        	color:white;
+        }
+    </style>
 <script type="text/javascript">
 // 세션을 확인하고 남은 시간을 계산합니다
 function getSessionTimeout() {
@@ -85,10 +147,12 @@ $(document).ready(function(){
 		data: { authno: authno },
 		success: function(data) {
 			
+			 $("#left-side-menu").empty(); // 메뉴 목록을 비우기
+			 
 			//항목추가
 			// 권한에 따른 메뉴 항목 추가
 		      $.each(data, function(index, menu) {
-		        let menuItem = $("<li></li>").append($("<a></a>").attr("href", menu.MENUURL).text(menu.MENUNM));
+		        let menuItem = $("<li></li>").append($("<a></a>").attr("href", menu.menuurl).text(menu.menunm));
 		        $("#left-side-menu").append(menuItem);
 		      });
 		    },

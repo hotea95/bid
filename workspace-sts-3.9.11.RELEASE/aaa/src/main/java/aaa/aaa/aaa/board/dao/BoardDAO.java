@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import aaa.aaa.aaa.board.dto.BoardDTO;
+import aaa.aaa.aaa.member.dto.MemberDTO;
 
 
 
@@ -30,4 +31,15 @@ public class BoardDAO {
 	public BoardDTO boardselect(String BNO) {
 		return sqlSessionTemplate.selectOne("boardselect",BNO);
 	}
+	
+	//게시판 삭제하기
+	public void boarddelete(List<String> BNO) {
+	    sqlSessionTemplate.delete("boarddelete", BNO);
+	}
+	
+	//게시판 수정하기
+	
+	 public void boardupdate(BoardDTO boardDTO) {
+	  sqlSessionTemplate.update("boardupdate",boardDTO); 
+	  }
 }
