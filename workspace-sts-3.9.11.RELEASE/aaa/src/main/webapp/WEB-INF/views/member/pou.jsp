@@ -335,7 +335,8 @@ th {
 									+ '<input type="hidden" id="PRONAME' + i + '" name="PRONAME" value="' + proname + '" readonly><br>'
 									+ '<span class="date-label">시작날짜 : </span><input type="date" name="STMDATE" id="STMDATE" max="9999-12-31">'
 							        + '<span class="date-label">종료날짜 : </span><input type="date" name="ENDMDATE" id="ENDMDATE" max="9999-12-31">'
-							        + '<span class="role-label">역할 : </span><input type="text" name="ROLE" id="ROLE"><br><br>');
+							        + '<span class="role-label">역할 : </span><input type="text" name="ROLE" id="ROLE"><br><br>'
+							        + '<span><input type="button" id="de" name="de" value="지우기"></span>');
 				
 					
 				}
@@ -350,6 +351,33 @@ th {
 				this.submit();
 				
 			});
+			
+			
+			
+			
+			$(document).on('click', 'input[name="de"]', function() {
+			    var button = $(this);
+			    var index = button.attr('id').replace('de', ''); // 버튼 ID에서 인덱스 추출
+
+			    // 선택한 사원 목록에서 해당 인덱스의 사원 정보 삭제
+			    selectedEmployees.splice(index, 1);
+
+			    // 추가된 사원 정보 테이블과 입력 필드에서 해당 인덱스의 요소를 제거
+			    $('#addedEmployeesTable tbody tr:eq(' + index + ')').remove();
+			    $('#inputFields h3:eq(' + index + ')').remove();
+			    $('#inputFields input[type="hidden"][id^="NO' + index + '"]').remove();
+			    $('#inputFields input[type="hidden"][id^="PNO' + index + '"]').remove();
+			    $('#inputFields input[type="hidden"][id^="PRONAME' + index + '"]').remove();
+			    $('#inputFields input[type="date"][name="STMDATE"][id^="STMDATE' + index + '"]').remove();
+			    $('#inputFields input[type="date"][name="ENDMDATE"][id^="ENDMDATE' + index + '"]').remove();
+			    $('#inputFields input[type="text"][name="ROLE"][id^="ROLE' + index + '"]').remove();
+			    $('#inputFields input[type="button"][id^="de' + index + '"]').remove();
+			    
+			    // 필드를 삭제한 후 인덱스를 다시 매겨줘야 합니다.
+			    updateAddedEmployees();
+			});
+			
+			
 		});
 	</script>
 	<script type="text/javascript">

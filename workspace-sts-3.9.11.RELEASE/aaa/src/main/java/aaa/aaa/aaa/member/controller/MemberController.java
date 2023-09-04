@@ -101,12 +101,11 @@ public class MemberController {
 	// 글 목록 + 페이징 + 검색
 	
 	  @RequestMapping(value = "/listSearch", method = RequestMethod.GET) 
-	  public String listSearch(@ModelAttribute("scri") SearchCriteria scri, Model model)throws Exception { 
+	  public String listSearch(@ModelAttribute("scri") SearchCriteria scri, Model model,HttpServletRequest req,MemberDTO memberDTO)throws Exception { 
 		  logger.info("get list search");
 	  
 	  List<MemberDTO> list = memberService.listSearch(scri);
 	  model.addAttribute("list", list);
-	  
 	  PageMaker pageMaker = new PageMaker(); 
 	  pageMaker.setCri(scri);
 	 // pageMaker.setTotalCount(memberService.listCount());
@@ -245,8 +244,11 @@ public class MemberController {
 			      String pass = passEncoder.encode(inputPass);
 			      memberDTO.setPWD(pass);
 
+			      if (memberDTO.getADMIN() == null || memberDTO.getADMIN() == "" ) {
+			    	  memberDTO.setADMIN("B");
+				}
 				 memberService.memberInsert(memberDTO);
-				 
+				 System.out.println("admin체크======"+memberDTO);
 				model.addAttribute("MemberInfo", memberService.memberSelect(memberDTO));
 					
 				logger.info("컨트롤러----"+ memberDTO);
@@ -325,14 +327,16 @@ public class MemberController {
 	    HttpSession session = req.getSession();
 	    MemberDTO login = memberService.login(memberDTO);
 	    session.setAttribute("ID", ID);
+	    System.out.println("로그인입니다."+ID);
 	    String message = null;
 	    String path = null;
 	    
 	    if (login != null) {
-	        boolean passMatch = passEncoder.matches(memberDTO.getPWD(), login.getPWD());
+	        boolean passMatch = passEncoder.matches(memberDTO.getPWD(), login.getPWD()); //비밀번호 해독화
 	        if (passMatch) {
 	            session.setAttribute("member", login);
-	            System.out.println("로그인 성공");
+	            session.setAttribute("admin", login.getADMIN());
+	            System.out.println("로그인 성공"+ login.getADMIN());
 	            return "./member/login"; // 로그인 성공 시 해당 경로로 리다이렉트
 	        } else {
 	            System.out.println("로그인 실패");

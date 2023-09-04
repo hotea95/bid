@@ -22,5 +22,6 @@
 <typeAlias alias="CODEMDTO" type="aaa.aaa.aaa.member.dto.CODEMDTO"/>
 <typeAlias alias="BoardDTO" type="aaa.aaa.aaa.board.dto.BoardDTO"/>
 <typeAlias alias="ReplyDTO" type="aaa.aaa.aaa.reply.dto.ReplyDTO"/>
+<typeAlias alias="MenuDTO" type="aaa.aaa.aaa.board.dto.MenuDTO"/>
 </typeAliases>
 </configuration>

@@ -72,7 +72,33 @@ function extendSessionTimeout() {
     });
 } 
 
-
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	const authno =  '<%= session.getAttribute("admin") %>';
+	
+	$.ajax({
+		url: "/menu",
+		type : "GET",
+		dataType: "json",
+		data: { authno: authno },
+		success: function(data) {
+			
+			//항목추가
+			// 권한에 따른 메뉴 항목 추가
+		      $.each(data, function(index, menu) {
+		        let menuItem = $("<li></li>").append($("<a></a>").attr("href", menu.MENUURL).text(menu.MENUNM));
+		        $("#left-side-menu").append(menuItem);
+		      });
+		    },
+		    error: function(xhr, status, error) {
+		      console.log("Error: " + error);
+		}
+		
+	})
+	
+});
 </script>
 
 
@@ -83,14 +109,21 @@ function extendSessionTimeout() {
 			<img style="width: 100px;" src="resources/img/title.gif">
 		</p>
 		  <c:set var="loggedInID" value="${sessionScope.ID}" />
+		  <c:set var="loggedInadmin" value="${sessionScope.admin}" />
         <%-- ID가 있을 경우 환영 메시지 출력 --%>
         <c:if test="${not empty loggedInID}">
             <p><c:out value="${loggedInID}"/>님 반갑습니다.</p> <br>
+           <%--  <p><c:out value="${loggedInadmin}"/>님 반갑습니다.gggg</p> <br> --%>
             <p>남은 시간: <span id="sessionTimeRemaining"></span></p>
 
    
         </c:if>
-        <c:if test="${loggedInID == 'admin'}">
+        <button type="button" onclick="location.href='./logout'">로그아웃</button> <br>
+       <button type="button" onclick="extendSessionTimeout()">세션 시간 초기화</button><br>
+        <ul id="left-side-menu">
+           
+        </ul>
+        <%-- <c:if test="${loggedInadmin == 'A'}">
         <button type="button" onclick="location.href='./logout'">로그아웃</button> <br>
        <button type="button" onclick="extendSessionTimeout()">세션 시간 초기화</button><br>
 		<button type="button"
@@ -115,7 +148,7 @@ function extendSessionTimeout() {
 			onclick="location.href='./BoardSelectall'">■ 공지사항</button>	
 				
 			</c:if>
-			<c:if test="${loggedInID != 'admin'}"> 
+			<c:if test="${loggedInadmin != 'A'}"> 
 			<button type="button" onclick="location.href='./logout'">로그아웃</button> <br>
 			<button type="button" onclick="extendSessionTimeout()">세션 시간 초기화</button><br>
 		<button type="button"
@@ -131,7 +164,7 @@ function extendSessionTimeout() {
 		<button type="button"
 			style="border: none; background-color: transparent; cursor: pointer;"
 			onclick="location.href='./BoardSelectall1'">■ 공지사항</button>	
-			</c:if>
+			</c:if> --%>
 		<!-- <button type="button"
 			style="border: none; background-color: transparent; cursor: pointer;"
 			onclick="location.href='./listSearchAsReg'">■ 직원명부</button>

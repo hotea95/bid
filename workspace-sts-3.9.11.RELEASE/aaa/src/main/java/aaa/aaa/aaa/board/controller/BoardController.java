@@ -53,7 +53,6 @@ public class BoardController {
 		model.addAttribute("list",boardService.boardselect(BNO));
 		//model.addAttribute("relist",replyservice.replyselect(replyDTO, BNO));
 		model.addAttribute("relist",replyservice.replyselectall(BNO));
-		System.out.println(replyservice.replyselectall(BNO));
 		return "./board/board_select";
 	
 	}

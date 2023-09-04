@@ -388,7 +388,8 @@ where NO = #{NO}
 	NO,
 	MYDATE,
 	ID,
-	PWD)
+	PWD,
+	ADMIN)
 	values
 	(#{STHKORNAME},
 	#{STHENGNAME},
@@ -409,7 +410,8 @@ where NO = #{NO}
 	SQNO.nextval,
 	#{MYDATE},
 	#{ID},
-	#{PWD}
+	#{PWD},
+	#{ADMIN}
 	)
 </insert>
 
@@ -896,7 +898,8 @@ and PWD = #{PWD}
 <select id="login2" parameterType="MemberDTO" resultType="MemberDTO">
 select
 ID,
-PWD
+PWD,
+ADMIN
 from
 STHMEMBER
 where ID = #{ID}
@@ -1006,4 +1009,15 @@ RNO_SEQ.nextval,
 #{CONTENT},
 #{PARENT_RNO})
 </insert>
+
+<!-- 메뉴창 조회 -->
+<select id="menu" resultType="MenuDTO">
+select
+m.MENUNO,
+m.MENUNM,
+m.MENUURL
+from MENU m
+JOIN MENU_AUTH mam ON(m.MENUNO = mam.MENUNO)
+WHERE mam.AUTHNO = #{AUTHNO}
+</select>
 </mapper>

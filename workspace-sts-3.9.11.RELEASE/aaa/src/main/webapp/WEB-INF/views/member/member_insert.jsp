@@ -195,46 +195,45 @@ function getSTHWORKTypeOptions() {
         });
   }
     
-    function getSTHSEXypeOptions() {
-    	  $.ajax({
-    	    type: "GET",
-    	    url: "/code/codeVal",
-    	    data: { codeVal: "B10" },
-    	    dataType: "json",
-    	    success: function (response) {
-    	      console.log(response);
-    	      var options = "<label>성별</label>";
-    	      $.each(response, function (index, option) {
-    	        options += "<input type='radio' name='STHSEX' value='" + option.codenum + "'>" + option.codem + "<br>";
-    	      });
-    	      $(".STHSEX").html(options);
-    	    }, // Missing a comma here to separate the success function from the error function
-    	    error: function (xhr, status, error) {
-    	      console.log(error);
-    	    }
-    	  });
-    	}
+            function getSTHSEXypeOptions() {
+      	  $.ajax({
+      	    type: "GET",
+      	    url: "/code/codeVal",
+      	    data: { codeVal: "B10" },
+      	    dataType: "json",
+      	    success: function (response) {
+      	      console.log(response);
+      	      var options = "<label>성별</label>";
+      	      $.each(response, function (index, option) {
+      	        options += "<input type='radio' name='STHSEX' value='" + option.codenum + "'>" + option.codem + "<br>";
+      	      });
+      	      $(".STHSEX").html(options);
+      	    }, // Missing a comma here to separate the success function from the error function
+      	    error: function (xhr, status, error) {
+      	      console.log(error);
+      	    }
+      	  });
+      	}
     
-    function getSTHWEDDINGypeOptions() {
-  	  $.ajax({
-  	    type: "GET",
-  	    url: "/code/codeVal",
-  	    data: { codeVal: "B20" },
-  	    dataType: "json",
-  	    success: function (response) {
-  	      console.log(response);
-  	      var options = "<label>결혼유무</label>";
-  	      $.each(response, function (index, option) {
-  	        options += "<input type='radio' name='STHWEDDING' value='" + option.codenum + "'>" + option.codem + "<br>";
-  	      });
-  	      $(".STHWEDDING").html(options);
-  	    }, // Missing a comma here to separate the success function from the error function
-  	    error: function (xhr, status, error) {
-  	      console.log(error);
-  	    }
-  	  });
-  	}
-
+            function getSTHWEDDINGypeOptions() {
+            	  $.ajax({
+            	    type: "GET",
+            	    url: "/code/codeVal",
+            	    data: { codeVal: "B20" },
+            	    dataType: "json",
+            	    success: function (response) {
+            	      console.log(response);
+            	      var options = "<label>결혼유무</label>";
+            	      $.each(response, function (index, option) {
+            	        options += "<input type='radio' name='STHWEDDING' value='" + option.codenum + "'>" + option.codem + "<br>";
+            	      });
+            	      $(".STHWEDDING").html(options);
+            	    }, // Missing a comma here to separate the success function from the error function
+            	    error: function (xhr, status, error) {
+            	      console.log(error);
+            	    }
+            	  });
+            	}
 </script>
 <script>
 

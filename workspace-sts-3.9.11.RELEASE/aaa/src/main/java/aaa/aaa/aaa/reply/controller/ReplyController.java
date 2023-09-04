@@ -31,7 +31,6 @@ public class ReplyController {
 			
 			model.addAttribute("level",LEVEL);
 			replyService.replyinsert(replyDTO);
-			System.out.println("BNO값"+BNO); 
 		/* return "./reply/reply_insert_view"; */
 			return "redirect:/BoardSelect?BNO="+(BNO);
 		}
@@ -49,7 +48,6 @@ public class ReplyController {
 	    List<ReplyDTO> replyList = replyService.replyselectall(BNO);
 	    List<String> indentedContentList = generateIndentedContents(replyList);
 	    model.addAttribute("list", indentedContentList);
-	    System.out.println(reply.getLevel());
 	    return "./reply/reply_select_all";
 	}
 
@@ -59,9 +57,6 @@ public class ReplyController {
 	@RequestMapping(value = "/Replyselect", method = RequestMethod.GET)
 	public String replyselect(@RequestParam("BNO") String BNO,Model model,ReplyDTO replyDTO) {
 		model.addAttribute("list",replyService.replyselect(replyDTO, BNO));
-		System.out.println("컨트롤러 댓글 값 " + BNO);
-		System.out.println("컨트롤러 댓글 값 " + BNO);
-		System.out.println("컨트롤러 댓글 값 " + BNO);
 		return "./reply/reply_select";
 	}
 	

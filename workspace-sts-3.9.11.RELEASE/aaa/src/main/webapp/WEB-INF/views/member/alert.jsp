@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-alert("없는 회원입니다.");
+alert("아이디와 패스워드를 확인해주세요.");
 location.href="./home"
 </script>
 </body>

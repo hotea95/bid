@@ -72,6 +72,7 @@ $(document).ready(function() {
                     <button type="submit">작성</button>
                 </form>
             </div>
+            
     </div>
 </div>
 

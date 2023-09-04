@@ -28,7 +28,7 @@ public class MemberDTO {
 	private String MYDATE;
 	private String ID;
 	private String PWD;
-	
+	private String ADMIN;
 	public String getSTHKORNAME() {
 		return STHKORNAME;
 	}
@@ -155,7 +155,6 @@ public class MemberDTO {
 	public void setMYDATE(String mYDATE) {
 		MYDATE = mYDATE;
 	}
-	
 	public String getID() {
 		return ID;
 	}
@@ -168,6 +167,12 @@ public class MemberDTO {
 	public void setPWD(String pWD) {
 		PWD = pWD;
 	}
+	public String getADMIN() {
+		return ADMIN;
+	}
+	public void setADMIN(String aDMIN) {
+		ADMIN = aDMIN;
+	}
 	@Override
 	public String toString() {
 		return "MemberDTO [STHKORNAME=" + STHKORNAME + ", STHENGNAME=" + STHENGNAME + ", STHCHNAME=" + STHCHNAME
@@ -176,9 +181,8 @@ public class MemberDTO {
 				+ STHWORK + ", STHSISM=" + STHSISM + ", STHSTATE=" + STHSTATE + ", STHADDRESS=" + STHADDRESS
 				+ ", STHADDRESS2=" + STHADDRESS2 + ", STHPHONE=" + STHPHONE + ", STHEMAIL=" + STHEMAIL + ", STHSKILL="
 				+ STHSKILL + ", STHSOJU=" + STHSOJU + ", NO=" + NO + ", MYDATE=" + MYDATE + ", ID=" + ID + ", PWD="
-				+ PWD + "]";
+				+ PWD + ", ADMIN=" + ADMIN + "]";
 	}
-	
 	
 
 }
