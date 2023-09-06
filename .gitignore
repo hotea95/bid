@@ -26,5 +26,6 @@ replay_pid*
 
 .metadata
 Servers/
-pom.properties
+/pom.properties
 factorypath
+/MANIFEST
