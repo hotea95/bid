@@ -178,6 +178,7 @@ public class ProjectController {
 	  //개인프로젝트 삭제2233
 	  @RequestMapping(value = "/myprodelete", method = RequestMethod.POST)
 	  public String myprodelete(String NO) {
+		  System.out.println("ZZZZZZZZZZZ"+NO);
 		  projectService.myprodelete2(NO);
 		  return "./project/mypro_delect_view";
 		  //return "./redirect:/
@@ -253,6 +254,12 @@ public class ProjectController {
 	  //공통플젝 삭제
 		  @RequestMapping(value = "/Comprodelete", method = RequestMethod.POST)
 	  public String comprodelete(String PNO) {
+		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
+		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
+		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
+		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
+		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
+		 
 		  projectService.comprodelete2(PNO);
 		  return "./project/compro_delete";
 	  }

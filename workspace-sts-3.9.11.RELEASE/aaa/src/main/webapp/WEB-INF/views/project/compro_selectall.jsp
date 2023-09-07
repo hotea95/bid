@@ -55,7 +55,7 @@ $(document).on('click', '.delete', function() {
 });
 
 function confirmDeleteProject(pno) {
-    var confirmDelete = confirm("정말 삭제하시겠습니까?"); // 확인 대화상자 띄우기
+    var confirmDelete = confirm("정말 삭제하시겠습니까???"); // 확인 대화상자 띄우기
 
     if (confirmDelete) {
         deleteProjectData(pno); // 확인을 선택한 경우에만 삭제 작업 수행
@@ -70,6 +70,7 @@ function deleteProjectData(pno) {
         url: '/Comprodelete',
         data: { PNO: pno }, // 'pno' 값을 'PNO' 파라미터로 보냄
         success: function(response) {
+        	alert("삭제성공");
             console.log('삭제 성공');
             console.log(response);
             
@@ -79,6 +80,7 @@ function deleteProjectData(pno) {
             loadProjects();
         },
         error: function() {
+        	alert("삭제 오류")
             console.log("삭제 오류 발생");
             // 오류 발생 시 처리할 내용 작성
         }
