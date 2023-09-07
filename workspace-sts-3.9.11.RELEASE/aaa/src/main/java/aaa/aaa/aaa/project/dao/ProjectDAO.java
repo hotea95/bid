@@ -100,8 +100,21 @@ public class ProjectDAO {
 		}
 		
 		//공통 플젝 삭제하기
-		public void comprodelete3(String PNO) {
-			sqlSessionTemplate.delete("comprodelete",PNO);
+		public int comprodelete3(String PNO) {
+			System.out.println("DAO"+PNO);
+			
+			int result = sqlSessionTemplate.delete("comprodelete",PNO);
+			
+			System.out.println(result);
+			
+			if ( result > 0 ) {
+				System.out.println("성공");
+			}else {
+				System.out.println("ㅗ");
+			}
+			
+			return result;
+			
 		}
 		
 		//개인플젝 전체조회리스트

@@ -2,1049 +2,1037 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="aaa.aaa.aaa">
 
-<select id="selectAll" resultType="AaaDTO">
-select aaa,bbb from sth
-</select>
+	<select id="selectAll" resultType="AaaDTO">
+		select aaa,bbb from sth
+	</select>
 
-<!-- 멤버 전체조회 -->
-<select id="memberselectAll" resultType="MemberDTO">
-select
- STHKORNAME,
- STHENGNAME,
- STHCHNAME,
- STHJUMIN,
- STHJUMIN2,
- STHPHOTO,
- STHSEX,
- STHWEDDING,
- STHYEAR,
- STHWORK,
- STHSISM,
- STHSTATE,
- STHADDRESS,
- STHADDRESS2,
- STHPHONE,
- STHEMAIL,
- NO,
- MYDATE
- from STHMEMBER
-where STHSTATE = '정규직'
-</select>
+	<!-- 멤버 전체조회 -->
+	<select id="memberselectAll" resultType="MemberDTO">
+		select
+		STHKORNAME,
+		STHENGNAME,
+		STHCHNAME,
+		STHJUMIN,
+		STHJUMIN2,
+		STHPHOTO,
+		STHSEX,
+		STHWEDDING,
+		STHYEAR,
+		STHWORK,
+		STHSISM,
+		STHSTATE,
+		STHADDRESS,
+		STHADDRESS2,
+		STHPHONE,
+		STHEMAIL,
+		NO,
+		MYDATE
+		from STHMEMBER
+		where STHSTATE = '정규직'
+	</select>
 
-<!-- 멤버 전체조회 페이징 -->
-<select id="clilistpage" resultType="MemberDTO" parameterType="MemberDTO">
-    select STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHSEX,STHWEDDING,STHYEAR,STHWORK,
-STHSISM,STHSTATE,STHADDRESS,STHADDRESS2,STHPHONE,STHEMAIL,NO
-    from (
-        select STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHSEX,STHWEDDING,STHYEAR,STHWORK,
-STHSISM,STHSTATE,STHADDRESS,STHADDRESS2,STHPHONE,STHEMAIL,NO,
-            row_number() over(order by STHKORNAME desc) as rNum
-        from STHMEMBER
-        ) mb
-      where rNum between #{rowStart} and #{rowEnd}
-        order by STHKORNAME desc
-        
-</select>
+	<!-- 멤버 전체조회 페이징 -->
+	<select id="clilistpage" resultType="MemberDTO"
+		parameterType="MemberDTO">
+		select
+		STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHSEX,STHWEDDING,STHYEAR,STHWORK,
+		STHSISM,STHSTATE,STHADDRESS,STHADDRESS2,STHPHONE,STHEMAIL,NO
+		from (
+		select
+		STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHSEX,STHWEDDING,STHYEAR,STHWORK,
+		STHSISM,STHSTATE,STHADDRESS,STHADDRESS2,STHPHONE,STHEMAIL,NO,
+		row_number() over(order by STHKORNAME desc) as rNum
+		from STHMEMBER
+		) mb
+		where rNum between #{rowStart} and #{rowEnd}
+		order by STHKORNAME desc
 
-<select id="listCount" resultType="Integer">
+	</select>
+
+	<select id="listCount" resultType="Integer">
 	<![CDATA[
 		SELECT COUNT(STHKORNAME)
 		  FROM STHMEMBER
 		 WHERE STHKORNAME > '0'
 	]]>
-</select>
+	</select>
 
-<!-- <select id="getListWithPaging"
-		resultType="MemberDTO">
-	<![CDATA[
-	select *
-	from (
-		select /*+ INDEX_DESC(sthmember sthmember_pk) */
-		rownum rn, STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHPHOTO,STHBIRTH,STHSEX,STHWEDDING,STHYEAR,STHWORK,
-STHSISM,STHSTATE,STHADDRESS,STHPHONE,STHEMAIL,STHSKILL,STHSOJU
-		from STHMEMBER
-		where rownum <= #{pageNum} * #{amount}
-	)
-	where rn > (#{pageNum} - 1) * #{amount}
-	]]>
-</select> -->
+	<!-- <select id="getListWithPaging" resultType="MemberDTO"> <![CDATA[ select 
+		* from ( select /*+ INDEX_DESC(sthmember sthmember_pk) */ rownum rn, STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHPHOTO,STHBIRTH,STHSEX,STHWEDDING,STHYEAR,STHWORK, 
+		STHSISM,STHSTATE,STHADDRESS,STHPHONE,STHEMAIL,STHSKILL,STHSOJU from STHMEMBER 
+		where rownum <= #{pageNum} * #{amount} ) where rn > (#{pageNum} - 1) * #{amount} 
+		]]> </select> -->
 
-<!-- 검색 -->
-<select id="listSearch" resultType="aaa.aaa.aaa.member.dto.MemberDTO"
-parameterType="aaa.aaa.aaa.member.dto.SearchCriteria">
-	<!--   select 
-	  STHKORNAME,
-	  STHJUMIN,
-	  STHJUMIN2,
-	  STHSEX,
-	  STHWORK,
-	  STHSTATE,
-	  STHYEAR,
-	  NO,
-	  MYDATE,
-	  ID
-      from (
-           select 
-           STHKORNAME,
-           STHJUMIN,
-           STHJUMIN2,
-           STHSEX,
-           STHWORK,
-           STHSTATE,
-           STHYEAR,
-           NO,
-           MYDATE,
-           ID,
-               row_number() over(order by NO desc) as rNum
-           from STHMEMBER
+	<!-- 검색 -->
+	<select id="listSearch"
+		resultType="aaa.aaa.aaa.member.dto.MemberDTO"
+		parameterType="aaa.aaa.aaa.member.dto.SearchCriteria">
+		<!-- select STHKORNAME, STHJUMIN, STHJUMIN2, STHSEX, STHWORK, STHSTATE, 
+			STHYEAR, NO, MYDATE, ID from ( select STHKORNAME, STHJUMIN, STHJUMIN2, STHSEX, 
+			STHWORK, STHSTATE, STHYEAR, NO, MYDATE, ID, row_number() over(order by NO 
+			desc) as rNum from STHMEMBER <include refid="search"/> ) mb where rNum between 
+			#{rowStart} and #{rowEnd} order by NO desc -->
 
-        <include refid="search"/>
-       ) mb
-      where rNum between #{rowStart} and #{rowEnd}
-          order by NO desc -->
-          
-          
-          
- <!--  select 
-   STHKORNAME, 
-   STHJUMIN, 
-   STHJUMIN2, 
-   STHSEX, 
-   STHWORK, 
-   STHSTATE, 
-   STHYEAR, 
-   NO
-from (
-  select 
-  STHKORNAME, 
-  STHJUMIN, 
-  STHJUMIN2, 
-  CD3.CODEM AS STHSEX,
-  CD.CODEM AS STHWORK, 
-  CD2.CODEM AS STHSTATE, 
-  STHYEAR, 
-  NO
-  , row_number() over(order by ROWID desc) as rNum 
-  
-  from 
-  STHMEMBER MB
-   <include refid="search"/>
- 
-LEFT OUTER JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK = CD.CODENUM)
-LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE = CD2.CODENUM)
-LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX = CD3.CODENUM)
-where rNum between #{rowStart} and #{rowEnd}
-order by ROWID desc
-) -->
- 
-SELECT 
-    STHKORNAME,
-    STHJUMIN,
-    STHJUMIN2,
-    CD3.CODEM AS STHSEX,
-  	CD.CODEM AS STHWORK, 
-  	CD2.CODEM AS STHSTATE,
-    STHYEAR,
-    NO,
-    MYDATE,
-    ID
-FROM (
-    SELECT 
-        STHKORNAME,
-        STHJUMIN,
-        STHJUMIN2,
-        STHSEX,
-  		STHWORK, 
-  		STHSTATE, 
-        STHYEAR,
-        NO,
-        MYDATE,
-        ID,
-        ROW_NUMBER() OVER (ORDER BY NO DESC) AS rNum
-    FROM STHMEMBER
-    <include refid="search"/>
+
+
+		<!-- select STHKORNAME, STHJUMIN, STHJUMIN2, STHSEX, STHWORK, STHSTATE, 
+			STHYEAR, NO from ( select STHKORNAME, STHJUMIN, STHJUMIN2, CD3.CODEM AS STHSEX, 
+			CD.CODEM AS STHWORK, CD2.CODEM AS STHSTATE, STHYEAR, NO , row_number() over(order 
+			by ROWID desc) as rNum from STHMEMBER MB <include refid="search"/> LEFT OUTER 
+			JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK = CD.CODENUM) LEFT OUTER 
+			JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE = CD2.CODENUM) LEFT OUTER 
+			JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX = CD3.CODENUM) where rNum 
+			between #{rowStart} and #{rowEnd} order by ROWID desc ) -->
+
+		SELECT
+		STHKORNAME,
+		STHJUMIN,
+		STHJUMIN2,
+		CD3.CODEM AS STHSEX,
+		CD.CODEM AS STHWORK,
+		CD2.CODEM AS STHSTATE,
+		STHYEAR,
+		NO,
+		MYDATE,
+		ID
+		FROM (
+		SELECT
+		STHKORNAME,
+		STHJUMIN,
+		STHJUMIN2,
+		STHSEX,
+		STHWORK,
+		STHSTATE,
+		STHYEAR,
+		NO,
+		MYDATE,
+		ID,
+		ROW_NUMBER() OVER (ORDER BY NO DESC) AS rNum
+		FROM STHMEMBER
+		<include refid="search" />
 		) MB
-		LEFT OUTER JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK = CD.CODENUM)
-		LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE = CD2.CODENUM)
-		LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX = CD3.CODENUM)
-WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
-ORDER BY NO DESC
+		LEFT OUTER JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK =
+		CD.CODENUM)
+		LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND
+		MB.STHSTATE = CD2.CODENUM)
+		LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE =
+		'B10' AND MB.STHSEX = CD3.CODENUM)
+		WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY NO DESC
 
 
-</select>
+	</select>
 
-<!-- 정규직만 검색 -->
-<select id="listSearchAsReg" resultType="aaa.aaa.aaa.member.dto.MemberDTO"
-parameterType="aaa.aaa.aaa.member.dto.SearchCriteria">
-select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHYEAR
-       from (
-           select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHYEAR,
-               row_number() over(order by STHKORNAME desc) as rNum
-           from STHMEMBER where STHSTATE = '정규직'
+	<!-- 정규직만 검색 -->
+	<select id="listSearchAsReg"
+		resultType="aaa.aaa.aaa.member.dto.MemberDTO"
+		parameterType="aaa.aaa.aaa.member.dto.SearchCriteria">
+		select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHYEAR
+		from (
+		select STHKORNAME,STHJUMIN,STHJUMIN2,STHSEX,STHWORK,STHSTATE,STHYEAR,
+		row_number() over(order by STHKORNAME desc) as rNum
+		from STHMEMBER where STHSTATE = '정규직'
 
-        <include refid="searchAsReg"/>
-       ) mb
-      where STHSTATE = '정규직' and rNum between #{rowStart} and #{rowEnd}
-          order by STHKORNAME desc
-         
-</select>
+		<include refid="searchAsReg" />
+		) mb
+		where STHSTATE = '정규직' and rNum between #{rowStart} and #{rowEnd}
+		order by STHKORNAME desc
 
-<sql id="search">
-  <if test="searchType != null">
-    <where>
-      <choose>
-        <when test="searchType == 'all'.toString()">
-          AND MYDATE &gt;= #{keyword}
-          AND MYDATE &lt;= #{keyword2}
-          AND STHKORNAME like '%' || #{keyword3} || '%'
-          AND STHYEAR like '%' || #{keyword4} || '%'
+	</select>
 
-        </when>
-        
-        <when test="searchType == 'year'.toString()">
-          AND MYDATE &gt;= #{keyword}
-          AND MYDATE &lt;= #{keyword2}
- 
-        </when>
-        
-        <when test="searchType == 'yearAndName'.toString()">
-          AND MYDATE &gt;= #{keyword}
-          AND MYDATE &lt;= #{keyword2}
-          AND STHKORNAME like '%' || #{keyword3} || '%'
+	<sql id="search">
+		<if test="searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 'all'.toString()">
+						AND MYDATE &gt;= #{keyword}
+						AND MYDATE &lt;= #{keyword2}
+						AND STHKORNAME like '%' || #{keyword3} || '%'
+						AND STHYEAR like '%' || #{keyword4} || '%'
 
-        </when>
-        
-        <when test="searchType == 'yearAndYear'.toString()">
-          AND MYDATE &gt;= #{keyword}
-          AND MYDATE &lt;= #{keyword2}
-          AND STHYEAR like '%' || #{keyword4} || '%'
+					</when>
 
-        </when>
-        
-        <when test="searchType == 'name'.toString()">
-          AND STHKORNAME like '%' || #{keyword3} || '%'
+					<when test="searchType == 'year'.toString()">
+						AND MYDATE &gt;= #{keyword}
+						AND MYDATE &lt;= #{keyword2}
 
-        </when>
-        
-        <when test="searchType == 'duration'.toString()">
-          AND STHYEAR like '%' || #{keyword4} || '%'
+					</when>
 
-        </when>
-        
-        <when test="searchType == 'nameAndYear'.toString()">
-          AND STHKORNAME like '%' || #{keyword3} || '%'
-          AND STHYEAR like '%' || #{keyword4} || '%'
+					<when test="searchType == 'yearAndName'.toString()">
+						AND MYDATE &gt;= #{keyword}
+						AND MYDATE &lt;= #{keyword2}
+						AND STHKORNAME like '%' || #{keyword3} || '%'
 
-        </when>
-        
-      </choose>
-    </where>
-  </if>
-</sql>
+					</when>
 
-<!--  <sql id="search">   원래 검색////////////
-   <if test="searchType != null">
-    <if test="searchType == 'n'.toString()">where STHKORNAME like '%' || #{keyword2} || '%'</if>
-    <if test="searchType == 'a'.toString()">where STHJUMIN like '%' || #{keyword2} || '%'</if>
-    <if test="searchType == 'y'.toString()">where STHYEAR like '%' || #{keyword} || '%'</if>
-   </if>
-</sql> -->
+					<when test="searchType == 'yearAndYear'.toString()">
+						AND MYDATE &gt;= #{keyword}
+						AND MYDATE &lt;= #{keyword2}
+						AND STHYEAR like '%' || #{keyword4} || '%'
 
- <sql id="searchAsReg">
-   <if test="searchType != null">
-    <if test="searchType == 'n'.toString()">and STHKORNAME like '%' || #{keyword2} || '%'</if>
-    <if test="searchType == 'a'.toString()">and STHJUMIN like '%' || #{keyword2} || '%'</if>
-    <if test="searchType == 'y'.toString()">and STHYEAR like '%' || #{keyword} || '%'</if>
-   </if>
-</sql>
- 
-  <select id="countSearch" resultType="Integer">
+					</when>
+
+					<when test="searchType == 'name'.toString()">
+						AND STHKORNAME like '%' || #{keyword3} || '%'
+
+					</when>
+
+					<when test="searchType == 'duration'.toString()">
+						AND STHYEAR like '%' || #{keyword4} || '%'
+
+					</when>
+
+					<when test="searchType == 'nameAndYear'.toString()">
+						AND STHKORNAME like '%' || #{keyword3} || '%'
+						AND STHYEAR like '%' || #{keyword4} || '%'
+
+					</when>
+
+				</choose>
+			</where>
+		</if>
+	</sql>
+
+	<!-- <sql id="search"> 원래 검색//////////// <if test="searchType != null"> 
+		<if test="searchType == 'n'.toString()">where STHKORNAME like '%' || #{keyword2} 
+		|| '%'</if> <if test="searchType == 'a'.toString()">where STHJUMIN like '%' 
+		|| #{keyword2} || '%'</if> <if test="searchType == 'y'.toString()">where 
+		STHYEAR like '%' || #{keyword} || '%'</if> </if> </sql> -->
+
+	<sql id="searchAsReg">
+		<if test="searchType != null">
+			<if test="searchType == 'n'.toString()">and STHKORNAME like '%' || #{keyword2} || '%'</if>
+			<if test="searchType == 'a'.toString()">and STHJUMIN like '%' || #{keyword2} || '%'</if>
+			<if test="searchType == 'y'.toString()">and STHYEAR like '%' || #{keyword} || '%'</if>
+		</if>
+	</sql>
+
+	<select id="countSearch" resultType="Integer">
   <![CDATA[
    select count(STHKORNAME)
     from STHMEMBER
 
      where STHKORNAME > '0'
 ]]>
-</select>
-<!-- <select id="countSearch" resultType="Integer">
-select count(STHKORNAME)
-from STHMEMBER
-
-<![CDATA[
-and STHKORNAME > '0'
-]]>
-<include refid="search"></include>
-
-</select>
-
-<sql id="search">
-<if test="searchType != null">
-<if test="searchType == 't'.toString()">and STHKORNAME like '%' || #{keyword} || '%'</if>
-<if test="searchType == 'c'.toString()">and STHJUMIN like '%' || #{keyword} || '%'</if>
-</if>
-</sql> -->
+	</select>
+	<!-- <select id="countSearch" resultType="Integer"> select count(STHKORNAME) 
+		from STHMEMBER <![CDATA[ and STHKORNAME > '0' ]]> <include refid="search"></include> 
+		</select> <sql id="search"> <if test="searchType != null"> <if test="searchType 
+		== 't'.toString()">and STHKORNAME like '%' || #{keyword} || '%'</if> <if 
+		test="searchType == 'c'.toString()">and STHJUMIN like '%' || #{keyword} || 
+		'%'</if> </if> </sql> -->
 
 
-<!-- 여기 부터 -->
+	<!-- 여기 부터 -->
 
 
-<!--  <select id="countSearch" resultType="Integer">
- <![CDATA[
-    	select	count(STHKORNAME)
-    		from STHMEMBER
-    			where STHKORNAME > '0' ]]>
- </select>  -->
- <!--  <select id="countSearch" resultType="Integer">
-   select count(STHKORNAME)
-    from STHMEMBER
-     <include refid="search"></include>
-<![CDATA[
-     where STHKORNAME > '0'
-]]>
-</select>   -->
+	<!-- <select id="countSearch" resultType="Integer"> <![CDATA[ select count(STHKORNAME) 
+		from STHMEMBER where STHKORNAME > '0' ]]> </select> -->
+	<!-- <select id="countSearch" resultType="Integer"> select count(STHKORNAME) 
+		from STHMEMBER <include refid="search"></include> <![CDATA[ where STHKORNAME 
+		> '0' ]]> </select> -->
 
-<!-- 멤버 상세보기 -->
-<select id="memberselect" parameterType="MemberDTO" resultType="MemberDTO">
-	select
-	STHKORNAME,
-	STHENGNAME,
-	STHCHNAME,
-	STHJUMIN,
-	STHJUMIN2,
-	STHPHOTO,
-	CD3.CODEM AS STHSEX,
-	CD4.CODEM AS STHWEDDING,
-	STHYEAR,
-	CD.CODEM AS STHWORK, 
-	CD5.CODEM AS STHSISM,
-	CD2.CODEM AS STHSTATE, 
-	STHADDRESS,
-	STHADDRESS2,
-	STHPHONE,
-	STHEMAIL,
-	NO,
-	MYDATE,
-	ID
-	from STHMEMBER MB
-	LEFT OUTER JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK = CD.CODENUM)
-	LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE = CD2.CODENUM)
-	LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX = CD3.CODENUM)
-	LEFT OUTER JOIN CODEM CD4 ON (CD4.CODE = 'B20' AND MB.STHWEDDING = CD4.CODENUM)
-	LEFT OUTER JOIN CODEM CD5 ON (CD5.CODE = 'A30' AND MB.STHSISM = CD5.CODENUM)
-	where NO = #{NO}
+	<!-- 멤버 상세보기 -->
+	<select id="memberselect" parameterType="MemberDTO"
+		resultType="MemberDTO">
+		select
+		STHKORNAME,
+		STHENGNAME,
+		STHCHNAME,
+		STHJUMIN,
+		STHJUMIN2,
+		STHPHOTO,
+		CD3.CODEM AS STHSEX,
+		CD4.CODEM AS STHWEDDING,
+		STHYEAR,
+		CD.CODEM AS STHWORK,
+		CD5.CODEM AS STHSISM,
+		CD2.CODEM AS STHSTATE,
+		STHADDRESS,
+		STHADDRESS2,
+		STHPHONE,
+		STHEMAIL,
+		NO,
+		MYDATE,
+		ID
+		from STHMEMBER MB
+		LEFT OUTER JOIN CODEM CD ON (CD.CODE = 'A10' AND MB.STHWORK = CD.CODENUM)
+		LEFT OUTER JOIN CODEM CD2 ON (CD2.CODE = 'A20' AND MB.STHSTATE =
+		CD2.CODENUM)
+		LEFT OUTER JOIN CODEM CD3 ON (CD3.CODE = 'B10' AND MB.STHSEX =
+		CD3.CODENUM)
+		LEFT OUTER JOIN CODEM CD4 ON (CD4.CODE = 'B20' AND MB.STHWEDDING =
+		CD4.CODENUM)
+		LEFT OUTER JOIN CODEM CD5 ON (CD5.CODE = 'A30' AND MB.STHSISM =
+		CD5.CODENUM)
+		where NO = #{NO}
 
-</select> 
+	</select>
 
-<select id="memberselect2" resultType="MemberDTO">
-select STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHSEX,STHWEDDING,STHYEAR,STHWORK,
-STHSISM,STHSTATE,STHADDRESS,STHADDRESS2,STHPHONE,STHEMAIL,ID from STHMEMBER
-where NO = #{NO}
-</select>
+	<select id="memberselect2" resultType="MemberDTO">
+		select
+		STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHSEX,STHWEDDING,STHYEAR,STHWORK,
+		STHSISM,STHSTATE,STHADDRESS,STHADDRESS2,STHPHONE,STHEMAIL,ID from
+		STHMEMBER
+		where NO = #{NO}
+	</select>
 
 
-<!-- 멤버 수정 -->
- <update id="memberupdate" parameterType="MemberDTO">
-	update STHMEMBER set 
-	STHENGNAME = #{STHENGNAME}, 
-	STHCHNAME = #{STHCHNAME}, 
-	STHJUMIN = #{STHJUMIN}, 
-	STHJUMIN2 = #{STHJUMIN2},
-	STHPHOTO = #{STHPHOTO}, 
-	STHSEX = #{STHSEX}, 
-	STHWEDDING = #{STHWEDDING}, 
-	STHYEAR = #{STHYEAR}, 
-	STHWORK = #{STHWORK}, 
-	STHSISM = #{STHSISM},
-	STHSTATE = #{STHSTATE}, 
-	STHADDRESS = #{STHADDRESS}, 
-	STHADDRESS2 = #{STHADDRESS2}, 
-	STHPHONE = #{STHPHONE}, 
-	STHEMAIL = #{STHEMAIL},
-	MYDATE = #{MYDATE}, 
-	ID = #{ID}, 
-	PWD = #{PWD}
-	where NO = #{NO}
-</update>
+	<!-- 멤버 수정 -->
+	<update id="memberupdate" parameterType="MemberDTO">
+		update STHMEMBER set
+		STHENGNAME = #{STHENGNAME},
+		STHCHNAME = #{STHCHNAME},
+		STHJUMIN = #{STHJUMIN},
+		STHJUMIN2 = #{STHJUMIN2},
+		STHPHOTO = #{STHPHOTO},
+		STHSEX = #{STHSEX},
+		STHWEDDING = #{STHWEDDING},
+		STHYEAR = #{STHYEAR},
+		STHWORK = #{STHWORK},
+		STHSISM = #{STHSISM},
+		STHSTATE = #{STHSTATE},
+		STHADDRESS = #{STHADDRESS},
+		STHADDRESS2 = #{STHADDRESS2},
+		STHPHONE = #{STHPHONE},
+		STHEMAIL = #{STHEMAIL},
+		MYDATE = #{MYDATE},
+		ID = #{ID},
+		PWD = #{PWD}
+		where NO = #{NO}
+	</update>
 
-<!-- 멤버 작성하기 -->
-<insert id="memberinsert" parameterType="MemberDTO">
-	insert into STHMEMBER (
-	STHKORNAME,
-	STHENGNAME,
-	STHCHNAME,
-	STHJUMIN,
-	STHJUMIN2,
-	STHPHOTO,
-	STHSEX,
-	STHWEDDING,
-	STHYEAR,
-	STHWORK,
-	STHSISM,
-	STHSTATE,
-	STHADDRESS,
-	STHADDRESS2,
-	STHPHONE,
-	STHEMAIL,
-	NO,
-	MYDATE,
-	ID,
-	PWD,
-	ADMIN)
-	values
-	(#{STHKORNAME},
-	#{STHENGNAME},
-	#{STHCHNAME},
-	#{STHJUMIN},
-	#{STHJUMIN2},
-	#{STHPHOTO},
-	#{STHSEX},
-	#{STHWEDDING},
-	#{STHYEAR},
-	#{STHWORK},
-	#{STHSISM},
-	#{STHSTATE},
-	#{STHADDRESS},
-	#{STHADDRESS2},
-	#{STHPHONE},
-	#{STHEMAIL},
-	SQNO.nextval,
-	#{MYDATE},
-	#{ID},
-	#{PWD},
-	#{ADMIN}
-	)
-</insert>
+	<!-- 멤버 작성하기 -->
+	<insert id="memberinsert" parameterType="MemberDTO">
+		insert into STHMEMBER (
+		STHKORNAME,
+		STHENGNAME,
+		STHCHNAME,
+		STHJUMIN,
+		STHJUMIN2,
+		STHPHOTO,
+		STHSEX,
+		STHWEDDING,
+		STHYEAR,
+		STHWORK,
+		STHSISM,
+		STHSTATE,
+		STHADDRESS,
+		STHADDRESS2,
+		STHPHONE,
+		STHEMAIL,
+		NO,
+		MYDATE,
+		ID,
+		PWD,
+		ADMIN)
+		values
+		(#{STHKORNAME},
+		#{STHENGNAME},
+		#{STHCHNAME},
+		#{STHJUMIN},
+		#{STHJUMIN2},
+		#{STHPHOTO},
+		#{STHSEX},
+		#{STHWEDDING},
+		#{STHYEAR},
+		#{STHWORK},
+		#{STHSISM},
+		#{STHSTATE},
+		#{STHADDRESS},
+		#{STHADDRESS2},
+		#{STHPHONE},
+		#{STHEMAIL},
+		SQNO.nextval,
+		#{MYDATE},
+		#{ID},
+		#{PWD},
+		#{ADMIN}
+		)
+	</insert>
 
-<!-- 멤버 삭제하기 -->
-<delete id="memberdelete" parameterType="java.util.List">
-   delete from STHMEMBER
-where NO in (
-    <foreach collection="list" item="NO" separator=",">
-        #{NO}
-    </foreach>
-)
-<!-- {call
-declare
-begin
+	<!-- 멤버 삭제하기 -->
+	<delete id="memberdelete" parameterType="java.util.List">
+		delete from STHMEMBER
+		where NO in (
+		<foreach collection="list" item="NO" separator=",">
+			#{NO}
+		</foreach>
+		)
+		<!-- {call declare begin delete from STHMEMBER where STHKORNAME = #{STHKORNAME} 
+			and STHJUMIN = #{STHJUMIN} and STHJUMIN2 = #{STHJUMIN2}; delete from EDUCATION 
+			where EDNAME = #{STHKORNAME} and EDJUMIN = #{STHJUMIN} and EDJUMIN2 = #{STHJUMIN2}; 
+			delete from CERTIFICATE where CERNAME = #{STHKORNAME} and CERJUMIN = #{STHJUMIN} 
+			and CERJUMIN2 = #{STHJUMIN2}; delete from PROJECT where PRONAME = #{STHKORNAME} 
+			and PROJUMIN = #{STHJUMIN} and PROJUMIN2 = #{STHJUMIN2}; delete from CAREER 
+			where CARNAME = #{STHKORNAME} and CARJUMIN = #{STHJUMIN} and CARJUMIN2 = 
+			#{STHJUMIN2}; delete from WORK where WORKNAME = #{STHKORNAME} and WORKJUMIN 
+			= #{STHJUMIN} and WORKJUMIN2 = #{STHJUMIN2}; end } -->
 
+	</delete>
 
-delete from STHMEMBER
-where STHKORNAME = #{STHKORNAME} and STHJUMIN = #{STHJUMIN} and STHJUMIN2 = #{STHJUMIN2};
+	<!--멤버 퇴직자 조회하기 -->
+	<select id="retirement" resultType="MemberDTO">
+		select
+		STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHSEX,STHWEDDING,STHYEAR,STHWORK,
+		STHSISM,STHSTATE,STHADDRESS,STHPHONE,STHEMAIL from STHMEMBER
+		where STHSTATE = '계약직'
+	</select>
 
+	<!-- 예비인력 조회하기 -->
+	<select id="preliminary" resultType="MemberDTO">
+		select
+		STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHSEX,STHWEDDING,STHYEAR,STHWORK,
+		STHSISM,STHSTATE,STHADDRESS,STHPHONE,STHEMAIL from STHMEMBER
+		where STHSISM = 'sm'
+	</select>
 
-delete from EDUCATION
-where EDNAME = #{STHKORNAME} and EDJUMIN = #{STHJUMIN} and EDJUMIN2 = #{STHJUMIN2};
+	<!-- 자격증 전체조회 -->
+	<select id="certificateselectAll" resultType="CertificateDTO">
+		select
+		CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
+		CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5 from CERTIFICATE
+	</select>
 
+	<!-- 자격증 상세조회 -->
+	<select id="certificateselect" parameterType="CertificateDTO"
+		resultType="CertificateDTO">
+		select
+		CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
+		CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5 from CERTIFICATE
+		where CERNAME = #{CERNAME} and CERJUMIN = #{CERJUMIN} and CERJUMIN2 =
+		#{CERJUMIN2}
+	</select>
 
-delete from CERTIFICATE
-where CERNAME = #{STHKORNAME} and CERJUMIN = #{STHJUMIN} and CERJUMIN2 = #{STHJUMIN2};
+	<!-- 자격증 상세조회22 -->
+	<select id="certificateselect2" parameterType="CertificateDTO"
+		resultType="CertificateDTO">
+		select
+		CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
+		CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5 from CERTIFICATE
+		where CERNAME = #{EDNAME} and CERJUMIN = #{EDJUMIN} and CERJUMIN2 =
+		#{EDJUMIN2}
+	</select>
 
-delete from PROJECT
-where PRONAME = #{STHKORNAME} and PROJUMIN = #{STHJUMIN} and PROJUMIN2 = #{STHJUMIN2};
+	<!-- 자격증 수정 -->
+	<update id="certificateupdate" parameterType="CertificateDTO">
+		update CERTIFICATE set CERNAME = #{CERNAME},CERJUMIN2 = #{CERJUMIN2},CERCER
+		= #{CERCER},CERDATE = #{CERDATE},CERCER2 = #{CERCER2},CERDATE2 =
+		#{CERDATE2},
+		CERCER3 = #{CERCER3},CERDATE3 = #{CERDATE3},CERCER4 = #{CERCER4},CERDATE4 =
+		#{CERDATE4},CERSKILL = #{CERSKILL},CERPRO = #{CERPRO},CERSKILL2 =
+		#{CERSKILL2},CERPRO2 = #{CERPRO2},
+		CERSKILL3 = #{CERSKILL3},CERPRO3 = #{CERPRO3},CERSKILL4 = #{CERSKILL4},CERPRO4
+		= #{CERPRO4},CERSKILL5 = #{CERSKILL5},CERPRO5 = #{CERPRO5}
+		where CERJUMIN = #{CERJUMIN}
+	</update>
 
-delete from CAREER
-where CARNAME = #{STHKORNAME} and CARJUMIN = #{STHJUMIN} and CARJUMIN2 = #{STHJUMIN2};
+	<!-- 자격증 삭제 -->
+	<delete id="certificatedelete" parameterType="CertificateDTO">
+		delete from CERTIFICATE
+		where CERJUMIN = #{CERJUMIN}
 
-delete from WORK
-where WORKNAME = #{STHKORNAME} and WORKJUMIN = #{STHJUMIN} and WORKJUMIN2 = #{STHJUMIN2};
-
-end
-} -->
-
-</delete>
-
-<!--멤버 퇴직자 조회하기 -->
-<select id="retirement" resultType="MemberDTO">
-select STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHSEX,STHWEDDING,STHYEAR,STHWORK,
-STHSISM,STHSTATE,STHADDRESS,STHPHONE,STHEMAIL from STHMEMBER
-where STHSTATE = '계약직'
-</select>
-
-<!-- 예비인력 조회하기 -->
-<select id="preliminary" resultType="MemberDTO">
-select STHKORNAME,STHENGNAME,STHCHNAME,STHJUMIN,STHJUMIN2,STHPHOTO,STHBIRTH,STHSEX,STHWEDDING,STHYEAR,STHWORK,
-STHSISM,STHSTATE,STHADDRESS,STHPHONE,STHEMAIL from STHMEMBER
-where STHSISM = 'sm'
-</select>
-
-<!-- 자격증 전체조회 -->
-<select id="certificateselectAll" resultType="CertificateDTO">
-select CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
-CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5 from CERTIFICATE
-</select>
-
-<!-- 자격증 상세조회 -->
-<select id="certificateselect" parameterType="CertificateDTO" resultType="CertificateDTO">
-select CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
-CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5 from CERTIFICATE
-where CERNAME = #{CERNAME} and CERJUMIN = #{CERJUMIN} and CERJUMIN2 = #{CERJUMIN2}
-</select>
-
-<!-- 자격증 상세조회22 -->
-<select id="certificateselect2" parameterType="CertificateDTO" resultType="CertificateDTO">
-select CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
-CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5 from CERTIFICATE
-where CERNAME = #{EDNAME} and CERJUMIN = #{EDJUMIN} and CERJUMIN2 = #{EDJUMIN2}
-</select>
-
-<!-- 자격증 수정 -->
-<update id="certificateupdate" parameterType="CertificateDTO">
-update CERTIFICATE set CERNAME = #{CERNAME},CERJUMIN2 = #{CERJUMIN2},CERCER = #{CERCER},CERDATE = #{CERDATE},CERCER2 = #{CERCER2},CERDATE2 = #{CERDATE2},
-CERCER3 = #{CERCER3},CERDATE3 = #{CERDATE3},CERCER4 = #{CERCER4},CERDATE4 = #{CERDATE4},CERSKILL = #{CERSKILL},CERPRO = #{CERPRO},CERSKILL2 = #{CERSKILL2},CERPRO2 = #{CERPRO2},
-CERSKILL3 = #{CERSKILL3},CERPRO3 = #{CERPRO3},CERSKILL4 = #{CERSKILL4},CERPRO4 = #{CERPRO4},CERSKILL5 = #{CERSKILL5},CERPRO5 = #{CERPRO5}
-where CERJUMIN = #{CERJUMIN}
-</update>
-
-<!-- 자격증 삭제-->
-<delete id="certificatedelete" parameterType="CertificateDTO">
-delete from CERTIFICATE
-where CERJUMIN = #{CERJUMIN} 
-
-</delete>
-<!-- 자격증 작성-->
-<insert id="certificateinsert" parameterType="CertificateDTO">
-insert into CERTIFICATE(CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
-CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5)
-values(#{CERNAME},#{CERJUMIN},#{CERJUMIN2},#{CERCER},#{CERDATE},#{CERCER2},#{CERDATE2},#{CERCER3},#{CERDATE3},#{CERCER4},#{CERDATE4},#{CERSKILL},#{CERPRO},
-#{CERSKILL2},#{CERPRO2},#{CERSKILL3},#{CERPRO3},#{CERSKILL4},#{CERPRO4},#{CERSKILL5},#{CERPRO5})
-</insert>
+	</delete>
+	<!-- 자격증 작성 -->
+	<insert id="certificateinsert" parameterType="CertificateDTO">
+		insert into
+		CERTIFICATE(CERNAME,CERJUMIN,CERJUMIN2,CERCER,CERDATE,CERCER2,CERDATE2,CERCER3,CERDATE3,CERCER4,CERDATE4,CERSKILL,CERPRO,CERSKILL2,CERPRO2,
+		CERSKILL3,CERPRO3,CERSKILL4,CERPRO4,CERSKILL5,CERPRO5)
+		values(#{CERNAME},#{CERJUMIN},#{CERJUMIN2},#{CERCER},#{CERDATE},#{CERCER2},#{CERDATE2},#{CERCER3},#{CERDATE3},#{CERCER4},#{CERDATE4},#{CERSKILL},#{CERPRO},
+		#{CERSKILL2},#{CERPRO2},#{CERSKILL3},#{CERPRO3},#{CERSKILL4},#{CERPRO4},#{CERSKILL5},#{CERPRO5})
+	</insert>
 
 
-<!-- 프로젝트 전체조회 -->
-<select id="projectselectAll" resultType="ProjectDTO">
-select PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
-PRODBMS,PROTOOL,PROAGE,PROGUI from PROJECT
-</select>
+	<!-- 프로젝트 전체조회 -->
+	<select id="projectselectAll" resultType="ProjectDTO">
+		select
+		PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
+		PRODBMS,PROTOOL,PROAGE,PROGUI from PROJECT
+	</select>
 
-<!-- 프로젝트 상세조회 -->
-<select id="projectselect" parameterType="ProjectDTO" resultType="ProjectDTO">
-select PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
-PRODBMS,PROTOOL,PROAGE,PROGUI from PROJECT
-where PRONAME = #{PRONAME} and PROJUMIN = #{PROJUMIN} and PROJUMIN2 = #{PROJUMIN2}
-</select>
+	<!-- 프로젝트 상세조회 -->
+	<select id="projectselect" parameterType="ProjectDTO"
+		resultType="ProjectDTO">
+		select
+		PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
+		PRODBMS,PROTOOL,PROAGE,PROGUI from PROJECT
+		where PRONAME = #{PRONAME} and PROJUMIN = #{PROJUMIN} and PROJUMIN2 =
+		#{PROJUMIN2}
+	</select>
 
-<!-- 프로젝트 상세조회 22-->
-<select id="projectselect2" parameterType="ProjectDTO" resultType="ProjectDTO">
-select PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
-PRODBMS,PROTOOL,PROAGE,PROGUI from PROJECT
-where PRONAME = #{CERNAME} and PROJUMIN = #{CERJUMIN} and PROJUMIN2 = #{CERJUMIN2}
-</select>
-<!-- 프로젝트 수정 -->
-<select id="projectupdate" parameterType="ProjectDTO">
-update PROJECT set PRONAME = #{PRONAME},PROJUMIN2 = #{PROJUMIN2},PROJECTN = #{PROJECTN},PRODATE = #{PRODATE},PRODATE2 = #{PRODATE2},PROCOM = #{PROCOM},PROBU = #{PROBU},
-PROFIE = #{PROFIE},PROROLE = #{PROROLE},PROMODEL = #{PROMODEL},PROOS = #{PROOS},PROLAN = #{PROLAN},PRODBMS = #{PRODBMS},
-PROTOOL = #{PROTOOL},PROAGE = #{PROAGE},PROGUI = #{PROGUI}
-where PROJUMIN = #{PROJUMIN}
-</select>
-<!-- 프로젝트 삭제 -->
+	<!-- 프로젝트 상세조회 22 -->
+	<select id="projectselect2" parameterType="ProjectDTO"
+		resultType="ProjectDTO">
+		select
+		PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
+		PRODBMS,PROTOOL,PROAGE,PROGUI from PROJECT
+		where PRONAME = #{CERNAME} and PROJUMIN = #{CERJUMIN} and PROJUMIN2 =
+		#{CERJUMIN2}
+	</select>
+	<!-- 프로젝트 수정 -->
+	<select id="projectupdate" parameterType="ProjectDTO">
+		update PROJECT set PRONAME = #{PRONAME},PROJUMIN2 = #{PROJUMIN2},PROJECTN =
+		#{PROJECTN},PRODATE = #{PRODATE},PRODATE2 = #{PRODATE2},PROCOM =
+		#{PROCOM},PROBU = #{PROBU},
+		PROFIE = #{PROFIE},PROROLE = #{PROROLE},PROMODEL = #{PROMODEL},PROOS =
+		#{PROOS},PROLAN = #{PROLAN},PRODBMS = #{PRODBMS},
+		PROTOOL = #{PROTOOL},PROAGE = #{PROAGE},PROGUI = #{PROGUI}
+		where PROJUMIN = #{PROJUMIN}
+	</select>
+	<!-- 프로젝트 삭제 -->
 
-<!-- 프로젝트 작성 -->
-<insert id="projectinsert" parameterType="ProjectDTO">
-insert into PROJECT(PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
-PRODBMS,PROTOOL,PROAGE,PROGUI)
-values(#{PRONAME},#{PROJUMIN},#{PROJUMIN2},#{PROJECTN},#{PRODATE},#{PRODATE2},#{PROCOM},#{PROBU},#{PROFIE},#{PROROLE},
-#{PROMODEL},#{PROOS},#{PROLAN},#{PRODBMS},#{PROTOOL},#{PROAGE},#{PROGUI})
-</insert>
+	<!-- 프로젝트 작성 -->
+	<insert id="projectinsert" parameterType="ProjectDTO">
+		insert into
+		PROJECT(PRONAME,PROJUMIN,PROJUMIN2,PROJECTN,PRODATE,PRODATE2,PROCOM,PROBU,PROFIE,PROROLE,PROMODEL,PROOS,PROLAN,
+		PRODBMS,PROTOOL,PROAGE,PROGUI)
+		values(#{PRONAME},#{PROJUMIN},#{PROJUMIN2},#{PROJECTN},#{PRODATE},#{PRODATE2},#{PROCOM},#{PROBU},#{PROFIE},#{PROROLE},
+		#{PROMODEL},#{PROOS},#{PROLAN},#{PRODBMS},#{PROTOOL},#{PROAGE},#{PROGUI})
+	</insert>
 
-<!-- 경력 전체조회 -->
-<select id="careerselectAll" resultType="CareerDTO">
-select CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
-CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4 from CAREER
-</select>
+	<!-- 경력 전체조회 -->
+	<select id="careerselectAll" resultType="CareerDTO">
+		select
+		CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
+		CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4 from CAREER
+	</select>
 
-<!-- 경력상세조회 -->
-<select id="careerselect" parameterType="CareerDTO" resultType="CareerDTO">
-select CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
-CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4 from CAREER
-where CARNAME = #{CARNAME} and CARJUMIN = #{CARJUMIN} and CARJUMIN2 = #{CARJUMIN2}
-</select>
+	<!-- 경력상세조회 -->
+	<select id="careerselect" parameterType="CareerDTO"
+		resultType="CareerDTO">
+		select
+		CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
+		CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4 from CAREER
+		where CARNAME = #{CARNAME} and CARJUMIN = #{CARJUMIN} and CARJUMIN2 =
+		#{CARJUMIN2}
+	</select>
 
-<!-- 경력상세조회22 -->
-<select id="careerselect2" parameterType="CareerDTO" resultType="CareerDTO">
-select CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
-CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4 from CAREER
-where CARNAME = #{PRONAME} and CARJUMIN = #{PROJUMIN} and CARJUMIN2 = #{PROJUMIN2}
-</select>
-
-
-<!-- 경력 수정 -->
-<update id="careerupdate" parameterType="CareerDTO">
-update CAREER set CARNAME = #{CARNAME},CARJUMIN2 = #{CARJUMIN2},CARCOM = #{CARCOM},CARPOS = #{CARPOS},CARDATE = #{CARDATE},
-CARIN = #{CARIN},CARCOM2 = #{CARCOM2},CARPOS2 = #{CARPOS2},CARDATE2 = #{CARDATE2},CARIN2 = #{CARIN2},
-CARCOM3 = #{CARCOM3},CARPOS3 = #{CARPOS3},CARDATE3 = #{CARDATE3},CARIN3 = #{CARIN3},CARCOM4 = #{CARCOM4},
-CARPOS4 = #{CARPOS4},CARDATE4 = #{CARDATE4},CARIN4 = #{CARIN4}
-where CARJUMIN = #{CARJUMIN}
-</update>
+	<!-- 경력상세조회22 -->
+	<select id="careerselect2" parameterType="CareerDTO"
+		resultType="CareerDTO">
+		select
+		CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
+		CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4 from CAREER
+		where CARNAME = #{PRONAME} and CARJUMIN = #{PROJUMIN} and CARJUMIN2 =
+		#{PROJUMIN2}
+	</select>
 
 
+	<!-- 경력 수정 -->
+	<update id="careerupdate" parameterType="CareerDTO">
+		update CAREER set CARNAME = #{CARNAME},CARJUMIN2 = #{CARJUMIN2},CARCOM =
+		#{CARCOM},CARPOS = #{CARPOS},CARDATE = #{CARDATE},
+		CARIN = #{CARIN},CARCOM2 = #{CARCOM2},CARPOS2 = #{CARPOS2},CARDATE2 =
+		#{CARDATE2},CARIN2 = #{CARIN2},
+		CARCOM3 = #{CARCOM3},CARPOS3 = #{CARPOS3},CARDATE3 = #{CARDATE3},CARIN3 =
+		#{CARIN3},CARCOM4 = #{CARCOM4},
+		CARPOS4 = #{CARPOS4},CARDATE4 = #{CARDATE4},CARIN4 = #{CARIN4}
+		where CARJUMIN = #{CARJUMIN}
+	</update>
 
-<!-- 경력 작성 -->
-<insert id="careerinsert" parameterType="CareerDTO">
-insert into CAREER(CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
-CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4)
-values(#{CARNAME},#{CARJUMIN},#{CARJUMIN2},#{CARCOM},#{CARPOS},#{CARDATE},#{CARIN},#{CARCOM2},#{CARPOS2},#{CARDATE2},#{CARIN2},#{CARCOM3},#{CARPOS3},
-#{CARDATE3},#{CARIN3},#{CARCOM4},#{CARPOS4},#{CARDATE4},#{CARIN4})
-</insert>
-<!-- 근무정보 전체조회 -->
-  <select id="workselectAll" resultType="WorkDTO">
-select WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI from WORK
-</select>
-<!-- 근무 상세조회 -->
-<select id="workselect" resultType="WorkDTO">
-select WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI from WORK
-where WORKNAME = #{WORKNAME} and WORKJUMIN = #{WORKJUMIN} and WORKJUMIN2 = #{WORKJUMIN2}
-</select>
-<!-- 근무 상세조회22 -->
-<select id="workselect2" resultType="WorkDTO">
-select WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI from WORK
-where WORKNAME = #{CARNAME} and  WORKJUMIN = #{CARJUMIN} and  WORKJUMIN2 = #{CARJUMIN2}
-</select>
-<!-- 근무정보 수정 -->
-<update id="workupdate" parameterType="WorkDTO">
-update WORK set WORKNAME = #{WORKNAME},WORKJUMIN2 = #{WORKJUMIN2},WORKPRO = #{WORKPRO},WORKPLA = #{WORKPLA},WORKST = #{WORKST},WORKEND = #{WORKEND},WORKSAL = #{WORKSAL},
-WORKSCH = #{WORKSCH},WORKDATE = #{WORKDATE},WORKCLI = #{WORKCLI}
-WHERE WORKJUMIN = #{WORKJUMIN}
-</update>
-<!-- 근무 작성 -->
-<insert id="workinsert" parameterType="WorkDTO">
-insert into WORK(WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI)
-values(#{WORKNAME},#{WORKJUMIN},#{WORKJUMIN2},#{WORKPRO},#{WORKPLA},#{WORKST},#{WORKEND},#{WORKSAL},#{WORKSCH},#{WORKDATE},#{WORKCLI})
-</insert>
 
-<!-- 교욱정보 전체조회 -->
-<select id="educationselectAll" resultType="EducationDTO">
-select EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
-EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3 from EDUCATION
-</select>
-<!-- 교욱정보 상세조회 -->
-<select id="educationselect" resultType="EducationDTO">
-select EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
-EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3 from EDUCATION
-where EDNAME = #{EDNAME} and EDJUMIN = #{EDJUMIN} and EDJUMIN2 = #{EDJUMIN2}
-</select>
-<!-- 교욱정보 상세조회 (회원이름)-->
-<select id="educationselectM" resultType="EducationDTO">
-select EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
-EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3 from EDUCATION
-where EDNAME = #{STHKORNAME} and EDJUMIN = #{STHJUMIN} and EDJUMIN2 = #{STHJUMIN2}
-</select>
-<!-- 교욱정보 수정 -->
-<update id="educationupdate" parameterType="EducationDTO">
-update EDUCATION set EDNAME = #{EDNAME},EDJUMIN2 = #{EDJUMIN2},EDSC = #{EDSC},EDD = #{EDD},EDYE = #{EDYE},EDM = #{EDM},EDSC2 = #{EDSC2},EDD2 = #{EDD2},
-EDYE2 = #{EDYE2},EDM2 = #{EDM2},EDSC3 = #{EDSC3},EDD3 = #{EDD3},EDYE3 = #{EDYE3},EDM3 = #{EDM3},EDSC4 = #{EDSC4},EDD4 = #{EDD4},EDYE4 = #{EDYE4},
-EDM4 = #{EDM4},EDSC5 = #{EDSC5},EDD5 = #{EDD5},EDYE5 = #{EDYE5},EDM5 = #{EDM5},EDUCATIONNAME = #{EDUCATIONNAME},EDST = #{EDST},EDEND = #{EDEND},EDIN = #{EDIN},
-EDUCATIONNAME2 = #{EDUCATIONNAME2},EDST2 = #{EDST2},EDEND2 = #{EDEND2},EDIN2 = #{EDIN2},EDUCATIONNAME3 = #{EDUCATIONNAME3},EDST3 = #{EDST3},EDEND3 = #{EDEND3},EDIN3 = #{EDIN3}
-where EDJUMIN = #{EDJUMIN}
-</update>
 
-<!-- 교육정보 작성 -->
-<insert id="educationinsert" parameterType="EducationDTO">
-insert into EDUCATION (EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
-EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3)
-values(#{EDNAME},#{EDJUMIN},#{EDJUMIN2},#{EDSC},#{EDD},#{EDYE},#{EDM},#{EDSC2},#{EDD2},#{EDYE2},#{EDM2},#{EDSC3},#{EDD3},#{EDYE3},#{EDM3},#{EDSC4},
-#{EDD4},#{EDYE4},#{EDM4},#{EDSC5},#{EDD5},#{EDYE5},#{EDM5},#{EDUCATIONNAME},#{EDST},#{EDEND},#{EDIN},#{EDUCATIONNAME2},#{EDST2},#{EDEND2},
-#{EDIN2},#{EDUCATIONNAME3},#{EDST3},#{EDEND3},#{EDIN3})
-</insert>
+	<!-- 경력 작성 -->
+	<insert id="careerinsert" parameterType="CareerDTO">
+		insert into
+		CAREER(CARNAME,CARJUMIN,CARJUMIN2,CARCOM,CARPOS,CARDATE,CARIN,CARCOM2,CARPOS2,CARDATE2,CARIN2,CARCOM3,CARPOS3,
+		CARDATE3,CARIN3,CARCOM4,CARPOS4,CARDATE4,CARIN4)
+		values(#{CARNAME},#{CARJUMIN},#{CARJUMIN2},#{CARCOM},#{CARPOS},#{CARDATE},#{CARIN},#{CARCOM2},#{CARPOS2},#{CARDATE2},#{CARIN2},#{CARCOM3},#{CARPOS3},
+		#{CARDATE3},#{CARIN3},#{CARCOM4},#{CARPOS4},#{CARDATE4},#{CARIN4})
+	</insert>
+	<!-- 근무정보 전체조회 -->
+	<select id="workselectAll" resultType="WorkDTO">
+		select
+		WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI
+		from WORK
+	</select>
+	<!-- 근무 상세조회 -->
+	<select id="workselect" resultType="WorkDTO">
+		select
+		WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI
+		from WORK
+		where WORKNAME = #{WORKNAME} and WORKJUMIN = #{WORKJUMIN} and WORKJUMIN2 =
+		#{WORKJUMIN2}
+	</select>
+	<!-- 근무 상세조회22 -->
+	<select id="workselect2" resultType="WorkDTO">
+		select
+		WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI
+		from WORK
+		where WORKNAME = #{CARNAME} and WORKJUMIN = #{CARJUMIN} and WORKJUMIN2 =
+		#{CARJUMIN2}
+	</select>
+	<!-- 근무정보 수정 -->
+	<update id="workupdate" parameterType="WorkDTO">
+		update WORK set WORKNAME = #{WORKNAME},WORKJUMIN2 = #{WORKJUMIN2},WORKPRO =
+		#{WORKPRO},WORKPLA = #{WORKPLA},WORKST = #{WORKST},WORKEND =
+		#{WORKEND},WORKSAL = #{WORKSAL},
+		WORKSCH = #{WORKSCH},WORKDATE = #{WORKDATE},WORKCLI = #{WORKCLI}
+		WHERE WORKJUMIN = #{WORKJUMIN}
+	</update>
+	<!-- 근무 작성 -->
+	<insert id="workinsert" parameterType="WorkDTO">
+		insert into
+		WORK(WORKNAME,WORKJUMIN,WORKJUMIN2,WORKPRO,WORKPLA,WORKST,WORKEND,WORKSAL,WORKSCH,WORKDATE,WORKCLI)
+		values(#{WORKNAME},#{WORKJUMIN},#{WORKJUMIN2},#{WORKPRO},#{WORKPLA},#{WORKST},#{WORKEND},#{WORKSAL},#{WORKSCH},#{WORKDATE},#{WORKCLI})
+	</insert>
 
-<!-- 거래처 전체조회 -->
-<select id="clientselectAll" resultType="ClientDTO">
-select CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE from CLIENT
-</select>
-<!-- 거래처 상세조회 -->
-<select id="clientselect" resultType="ClientDTO">
-select CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE from CLIENT
-where CLINAME = #{CLINAME}
-</select>
-<!-- 거래처 수정 -->
-<update id="clientupdate" parameterType="ClientDTO">
-update CLIENT set CLIRE = #{CLIRE},CLIREP = #{CLIREP},CLIBU = #{CLIBU},CLIONE = #{CLIONE},CLIADD = #{CLIADD},CLINUM = #{CLINUM},
-CLIFAX = #{CLIFAX},CLIPER = #{CLIPER},CLIPHONE = #{CLIPHONE}
-where CLINAME = #{CLINAME}
-</update>
-<!-- 거래처 삭제 -->
-<delete id="clientdelete" parameterType="ClientDTO">
-delete from CLIENT
-where CLINAME = #{CLINAME}
-</delete>
+	<!-- 교욱정보 전체조회 -->
+	<select id="educationselectAll" resultType="EducationDTO">
+		select
+		EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
+		EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3
+		from EDUCATION
+	</select>
+	<!-- 교욱정보 상세조회 -->
+	<select id="educationselect" resultType="EducationDTO">
+		select
+		EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
+		EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3
+		from EDUCATION
+		where EDNAME = #{EDNAME} and EDJUMIN = #{EDJUMIN} and EDJUMIN2 =
+		#{EDJUMIN2}
+	</select>
+	<!-- 교욱정보 상세조회 (회원이름) -->
+	<select id="educationselectM" resultType="EducationDTO">
+		select
+		EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
+		EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3
+		from EDUCATION
+		where EDNAME = #{STHKORNAME} and EDJUMIN = #{STHJUMIN} and EDJUMIN2 =
+		#{STHJUMIN2}
+	</select>
+	<!-- 교욱정보 수정 -->
+	<update id="educationupdate" parameterType="EducationDTO">
+		update EDUCATION set EDNAME = #{EDNAME},EDJUMIN2 = #{EDJUMIN2},EDSC =
+		#{EDSC},EDD = #{EDD},EDYE = #{EDYE},EDM = #{EDM},EDSC2 = #{EDSC2},EDD2
+		= #{EDD2},
+		EDYE2 = #{EDYE2},EDM2 = #{EDM2},EDSC3 = #{EDSC3},EDD3 = #{EDD3},EDYE3 =
+		#{EDYE3},EDM3 = #{EDM3},EDSC4 = #{EDSC4},EDD4 = #{EDD4},EDYE4 =
+		#{EDYE4},
+		EDM4 = #{EDM4},EDSC5 = #{EDSC5},EDD5 = #{EDD5},EDYE5 = #{EDYE5},EDM5 =
+		#{EDM5},EDUCATIONNAME = #{EDUCATIONNAME},EDST = #{EDST},EDEND =
+		#{EDEND},EDIN = #{EDIN},
+		EDUCATIONNAME2 = #{EDUCATIONNAME2},EDST2 = #{EDST2},EDEND2 = #{EDEND2},EDIN2 =
+		#{EDIN2},EDUCATIONNAME3 = #{EDUCATIONNAME3},EDST3 = #{EDST3},EDEND3 =
+		#{EDEND3},EDIN3 = #{EDIN3}
+		where EDJUMIN = #{EDJUMIN}
+	</update>
 
-<insert id="clientinsert" parameterType="ClientDTO">
-insert into CLIENT(CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE)
-values(#{CLINAME},#{CLIRE},#{CLIREP},#{CLIBU},#{CLIONE},#{CLIADD},#{CLINUM},#{CLIFAX},#{CLIPER},#{CLIPHONE})
-</insert>
-<!-- 거래처페이징 -->
-<select id="clilistPage" resultType="MemberDTO" parameterType="MemberDTO">
-    select CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE
-       from (
-           CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE,
-               row_number() over(order by CLINAME desc) as rNum
-           from CLIENT
-       ) mb
-      where rNum between #{rowStart} and #{rowEnd}
-          order by CLINAME desc
-</select>
-<select id="clilistCount" resultType="Integer">
+	<!-- 교육정보 작성 -->
+	<insert id="educationinsert" parameterType="EducationDTO">
+		insert into EDUCATION
+		(EDNAME,EDJUMIN,EDJUMIN2,EDSC,EDD,EDYE,EDM,EDSC2,EDD2,EDYE2,EDM2,EDSC3,EDD3,EDYE3,EDM3,EDSC4,EDD4,EDYE4,EDM4,EDSC5,EDD5,
+		EDYE5,EDM5,EDUCATIONNAME,EDST,EDEND,EDIN,EDUCATIONNAME2,EDST2,EDEND2,EDIN2,EDUCATIONNAME3,EDST3,EDEND3,EDIN3)
+		values(#{EDNAME},#{EDJUMIN},#{EDJUMIN2},#{EDSC},#{EDD},#{EDYE},#{EDM},#{EDSC2},#{EDD2},#{EDYE2},#{EDM2},#{EDSC3},#{EDD3},#{EDYE3},#{EDM3},#{EDSC4},
+		#{EDD4},#{EDYE4},#{EDM4},#{EDSC5},#{EDD5},#{EDYE5},#{EDM5},#{EDUCATIONNAME},#{EDST},#{EDEND},#{EDIN},#{EDUCATIONNAME2},#{EDST2},#{EDEND2},
+		#{EDIN2},#{EDUCATIONNAME3},#{EDST3},#{EDEND3},#{EDIN3})
+	</insert>
+
+	<!-- 거래처 전체조회 -->
+	<select id="clientselectAll" resultType="ClientDTO">
+		select
+		CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE
+		from CLIENT
+	</select>
+	<!-- 거래처 상세조회 -->
+	<select id="clientselect" resultType="ClientDTO">
+		select
+		CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE
+		from CLIENT
+		where CLINAME = #{CLINAME}
+	</select>
+	<!-- 거래처 수정 -->
+	<update id="clientupdate" parameterType="ClientDTO">
+		update CLIENT set CLIRE = #{CLIRE},CLIREP = #{CLIREP},CLIBU =
+		#{CLIBU},CLIONE = #{CLIONE},CLIADD = #{CLIADD},CLINUM = #{CLINUM},
+		CLIFAX = #{CLIFAX},CLIPER = #{CLIPER},CLIPHONE = #{CLIPHONE}
+		where CLINAME = #{CLINAME}
+	</update>
+	<!-- 거래처 삭제 -->
+	<delete id="clientdelete" parameterType="ClientDTO">
+		delete from CLIENT
+		where CLINAME = #{CLINAME}
+	</delete>
+
+	<insert id="clientinsert" parameterType="ClientDTO">
+		insert into
+		CLIENT(CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE)
+		values(#{CLINAME},#{CLIRE},#{CLIREP},#{CLIBU},#{CLIONE},#{CLIADD},#{CLINUM},#{CLIFAX},#{CLIPER},#{CLIPHONE})
+	</insert>
+	<!-- 거래처페이징 -->
+	<select id="clilistPage" resultType="MemberDTO"
+		parameterType="MemberDTO">
+		select
+		CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE
+		from (
+		CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE,
+		row_number() over(order by CLINAME desc) as rNum
+		from CLIENT
+		) mb
+		where rNum between #{rowStart} and #{rowEnd}
+		order by CLINAME desc
+	</select>
+	<select id="clilistCount" resultType="Integer">
 	<![CDATA[
 		SELECT COUNT(CLINAME)
 		  FROM CLIENT
 		 WHERE CLINAME > '0'
 	]]>
-</select>
+	</select>
 
-<!-- 검색 -->
-<select id="clilistSearch" resultType="aaa.aaa.aaa.client.dto.ClientDTO"
-parameterType="aaa.aaa.aaa.client.dto.SearchCriteria">
-select CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE
-       from (
-        select CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE,
-               row_number() over(order by CLINAME desc) as rNum
-           from CLIENT
-        <include refid="search2"/>
-       ) mb
-      where rNum between #{rowStart} and #{rowEnd}
-          order by CLINAME desc
-</select>
+	<!-- 검색 -->
+	<select id="clilistSearch"
+		resultType="aaa.aaa.aaa.client.dto.ClientDTO"
+		parameterType="aaa.aaa.aaa.client.dto.SearchCriteria">
+		select
+		CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE
+		from (
+		select
+		CLINAME,CLIRE,CLIREP,CLIBU,CLIONE,CLIADD,CLINUM,CLIFAX,CLIPER,CLIPHONE,
+		row_number() over(order by CLINAME desc) as rNum
+		from CLIENT
+		<include refid="search2" />
+		) mb
+		where rNum between #{rowStart} and #{rowEnd}
+		order by CLINAME desc
+	</select>
 
- <sql id="search2">
-   <if test="searchType != null">
-    <if test="searchType == '1'.toString()">where CLINAME like '%' || #{keyword} || '%'</if>
-    <if test="searchType == '2'.toString()">where CLIREP like '%' || #{keyword} || '%'</if>
-   </if>
-</sql>
- 
-  <select id="countSearch2" resultType="Integer">
+	<sql id="search2">
+		<if test="searchType != null">
+			<if test="searchType == '1'.toString()">where CLINAME like '%' || #{keyword} || '%'</if>
+			<if test="searchType == '2'.toString()">where CLIREP like '%' || #{keyword} || '%'</if>
+		</if>
+	</sql>
+
+	<select id="countSearch2" resultType="Integer">
   <![CDATA[
    select count(CLINAME)
     from CLIENT
 
      where CLINAME > '0'
 ]]>
-</select>
+	</select>
 
-<!-- 개인 프로젝트 조회 -->
- <select id="myproselectall" resultType="MYPRODTO">
-select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
-</select>
+	<!-- 개인 프로젝트 조회 -->
+	<select id="myproselectall" resultType="MYPRODTO">
+		select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME from MYPRO
+	</select>
 
-<insert id="myproinsert" parameterType="MYPRODTO">
-insert into MYPRO (NO,
-PNO,
-STMDATE,
-ENDMDATE,
-ROLE,
-PRONAME)
-values(#{NO},#{PNO},#{STMDATE},#{ENDMDATE},#{ROLE},#{PRONAME})
-</insert>
-
-
-<select id="code" resultType="CODEMDTO">
-SELECT CODE,CODENUM,CODEM FROM CODEM WHERE CODE = #{CODE}
-</select>
-
-<!-- 공통 프로젝트 작성  -->
-<insert id="comproinsert" parameterType="COMMONPRODTO">
-insert into COMMONPRO (
-PNO,
-STDATE,
-ENDDATE,
-PRONAME)
-VALUES(COMMONPRO_COM_SEQ.nextval,#{STDATE},#{ENDDATE},#{PRONAME})
-</insert>
-
-<!-- 공통 프로젝트 전체조회 -->
-<select id="comproselectall" resultType="COMMONPRODTO">
- SELECT
-    PNO,
-    STDATE,
-    ENDDATE,
-    PRONAME
-  FROM
-    COMMONPRO
-  ORDER BY
-    PNO DESC
-</select>
-
-<!--공통 플젝 상세조회  -->
-<select id="comproselectall2" resultType="COMMONPRODTO">
-select
-PNO,
-STDATE,
-ENDDATE,
-PRONAME 
-FROM 
-COMMONPRO
-WHERE PNO = #{PNO}
-</select>
-
-<!-- 담당 플젝 불러오기 -->
-<select id="getParticipantsByPno" resultType="MYPRODTO">
-select
-NO,
-PNO,
-STMDATE,
-ENDMDATE,
-ROLE,
-PRONAME 
-FROM MYPRO 
-WHERE PNO = #{PNO}
-</select>
-
-<!-- 개인 플젝 삭제 -->
-<delete id="myprodelect" parameterType="MYPRODTO">
-delete from MYPRO
-where NO = #{NO}
-</delete>
-
-<!-- 개인플젝 다중 작성 -->
-<insert id="myproinsert3" parameterType="java.util.List">
-  insert into MYPRO (
-    NO,
-    PNO,
-    STMDATE,
-    ENDMDATE,
-    ROLE,
-    PRONAME
-  ) 
-  <foreach collection="list" item="dto" separator="UNION ALL">
-    select #{dto.NO}, 
-    #{dto.PNO}, 
-    #{dto.STMDATE}, 
-    #{dto.ENDMDATE}, 
-    #{dto.ROLE}, 
-    #{dto.PRONAME} 
-    from dual
-  </foreach>
-</insert>
+	<insert id="myproinsert" parameterType="MYPRODTO">
+		insert into MYPRO (NO,
+		PNO,
+		STMDATE,
+		ENDMDATE,
+		ROLE,
+		PRONAME)
+		values(#{NO},#{PNO},#{STMDATE},#{ENDMDATE},#{ROLE},#{PRONAME})
+	</insert>
 
 
-<!-- <insert id="myproinsert3" parameterType="MYPRODTO">
-insert into MYPRO (NO,
-PNO,
-STMDATE,
-ENDMDATE,
-ROLE,
-PRONAME)
-values(#{NO},#{PNO},#{STMDATE},#{ENDMDATE},#{ROLE},#{PRONAME})
-</insert> -->
+	<select id="code" resultType="CODEMDTO">
+		SELECT CODE,CODENUM,CODEM FROM CODEM WHERE CODE = #{CODE}
+	</select>
 
-<select id="che" resultType="MYPRODTO">
-select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME FROM MYPRO WHERE NO = #{NO}
-</select>
-<select id="comselect" resultType="COMMONPRODTO">
-select PNO,STDATE,ENDDATE,PRONAME FROM COMMONPRO WHERE PNO = #{PNO}
-</select>
+	<!-- 공통 프로젝트 작성 -->
+	<insert id="comproinsert" parameterType="COMMONPRODTO">
+		insert into COMMONPRO (
+		PNO,
+		STDATE,
+		ENDDATE,
+		PRONAME)
+		VALUES(COMMONPRO_COM_SEQ.nextval,#{STDATE},#{ENDDATE},#{PRONAME})
+	</insert>
 
-<!-- 공통플젝 삭제 -->
-<delete id="comprodelete" parameterType="COMMONPRODTO">
-delete from COMMONPRO
-where PNO = #{PNO}
-</delete>
-<!-- 개인플젝 리스트 -->
-<select id="myproselectall3" resultType="MYPRODTO">
-select 
-NO,
-PNO,
-STMDATE,
-ENDMDATE,
-ROLE,
-PRONAME
-from MYPRO
+	<!-- 공통 프로젝트 전체조회 -->
+	<select id="comproselectall" resultType="COMMONPRODTO">
+		SELECT
+		PNO,
+		STDATE,
+		ENDDATE,
+		PRONAME
+		FROM
+		COMMONPRO
+		ORDER BY
+		PNO DESC
+	</select>
 
-</select>
+	<!--공통 플젝 상세조회 -->
+	<select id="comproselectall2" resultType="COMMONPRODTO">
+		select
+		PNO,
+		STDATE,
+		ENDDATE,
+		PRONAME
+		FROM
+		COMMONPRO
+		WHERE PNO = #{PNO}
+	</select>
 
-<!-- 공통플젝 수정 -->
-<update id="comproupdate" parameterType="COMMONPRODTO">
-update 
-COMMONPRO set 
-STDATE = #{STDATE},
-ENDDATE = #{ENDDATE},
-PRONAME = #{PRONAME} 
-WHERE PNO = #{PNO}
-</update>
+	<!-- 담당 플젝 불러오기 -->
+	<select id="getParticipantsByPno" resultType="MYPRODTO">
+		select
+		NO,
+		PNO,
+		STMDATE,
+		ENDMDATE,
+		ROLE,
+		PRONAME
+		FROM MYPRO
+		WHERE PNO = #{PNO}
+	</select>
 
-<!-- 개인플젝 수정 -->
-<update id="myproupdate" parameterType="MYPRODTO">
-update 
-MYPRO set 
-STMDATE = #{STMDATE}, 
-ENDMDATE = #{ENDMDATE}, 
-ROLE = #{ROLE}, 
-PRONAME = #{PRONAME} 
-WHERE NO = #{NO} 
-AND PNO = #{PNO}
-</update>
+	<!-- 개인 플젝 삭제 -->
+	<delete id="myprodelect" parameterType="MYPRODTO">
+		delete from MYPRO
+		where NO = #{NO}
+	</delete>
 
-<!-- 개인 플젝 상세조회 2개 -->
-<select id="myproselectone" resultType="MYPRODTO">
-select STMDATE,
-ENDMDATE,
-ROLE,
-PRONAME 
-from MYPRO 
-WHERE NO = #{NO} AND PNO = #{PNO} 
-</select>
-
-<!-- 아이디 중복체크 -->
-<select id="idchk" resultType="int">
-select count(*) from STHMEMBER
-WHERE ID = #{ID}
-</select>
-
-<!-- 로그인 -->
-<select id="login" parameterType="MemberDTO" resultType="MemberDTO">
-select
-ID,
-PWD
-from
-STHMEMBER
-where ID = #{ID}
-and PWD = #{PWD}
-</select>
-
-<!-- 로그인 암호화 -->
-<select id="login2" parameterType="MemberDTO" resultType="MemberDTO">
-select
-ID,
-PWD,
-ADMIN
-from
-STHMEMBER
-where ID = #{ID}
-</select>
-
-<!-- 개인플젝 조회 리스트 -->
-<select id="myprolist" resultType="MYPRODTO">
-select 
-NO,
-PNO,
-STMDATE,
-ENDMDATE,
-ROLE,
-PRONAME 
-from MYPRO
-WHERE NO = #{NO}
-</select>
+	<!-- 개인플젝 다중 작성 -->
+	<insert id="myproinsert3" parameterType="java.util.List">
+		insert into MYPRO (
+		NO,
+		PNO,
+		STMDATE,
+		ENDMDATE,
+		ROLE,
+		PRONAME
+		)
+		<foreach collection="list" item="dto" separator="UNION ALL">
+			select #{dto.NO},
+			#{dto.PNO},
+			#{dto.STMDATE},
+			#{dto.ENDMDATE},
+			#{dto.ROLE},
+			#{dto.PRONAME}
+			from dual
+		</foreach>
+	</insert>
 
 
-<!-- 게시판 작성 -->
-<insert id="boardinsert" parameterType="BoardDTO">
-insert into BOARD (
-BNO,
-TITLE,
-CONTENT,
-WRITER,
-REG_DATETIME)
-VALUES(
-BNO_SEQ.nextval,
-#{TITLE},
-#{CONTENT},
-#{WRITER},
-sysdate)
-</insert>
 
-<!-- 게시판 전체조회 -->
-<select id="boardselectall" resultType="BoardDTO">
-select
-BNO,
-TITLE,
-CONTENT,
-WRITER,
-REG_DATETIME
-from BOARD
-</select>
+	<select id="che" resultType="MYPRODTO">
+		select NO,PNO,STMDATE,ENDMDATE,ROLE,PRONAME FROM MYPRO WHERE NO = #{NO}
+	</select>
+	<select id="comselect" resultType="COMMONPRODTO">
+		select PNO,STDATE,ENDDATE,PRONAME FROM COMMONPRO WHERE PNO = #{PNO}
+	</select>
 
-<!-- 게시판 상세조회 -->
-<select id="boardselect" resultType="BoardDTO">
-select
-BNO,
-TITLE,
-CONTENT,
-WRITER,
-REG_DATETIME
-from BOARD
-where BNO = #{BNO}
-</select>
+	<!-- 공통플젝 삭제 -->
+	<delete id="comprodelete" parameterType="COMMONPRODTO">
+		 DELETE FROM COMMONPRO
+          WHERE PNO = #{pno}
+	</delete>
+	<!-- 개인플젝 리스트 -->
+	<select id="myproselectall3" resultType="MYPRODTO">
+		select
+		NO,
+		PNO,
+		STMDATE,
+		ENDMDATE,
+		ROLE,
+		PRONAME
+		from MYPRO
 
-<!-- 댓글조회 -->
-<select id="replyselectall" resultType="ReplyDTO">
+	</select>
 
-SELECT
-level,
-    LPAD(' ', (LEVEL - 1) * 2) || ' ID: ' || r.ID || ', CONTENT: ' || r.CONTENT AS INDENTED_CONTENT,
-    r.BNO,
-    r.RNO,
-    r.ID,
-    r.CONTENT,
-    r.PARENT_RNO
-FROM
-    REPLY r
-WHERE
-    r.BNO = #{BNO}
-START WITH
-    r.PARENT_RNO = 0
-CONNECT BY PRIOR
-    r.RNO = r.PARENT_RNO
-ORDER SIBLINGS BY
-    r.BNO, r.RNO
+	<!-- 공통플젝 수정 -->
+	<update id="comproupdate" parameterType="COMMONPRODTO">
+		update
+		COMMONPRO set
+		STDATE = #{STDATE},
+		ENDDATE = #{ENDDATE},
+		PRONAME = #{PRONAME}
+		WHERE PNO = #{PNO}
+	</update>
 
-</select>
+	<!-- 개인플젝 수정 -->
+	<update id="myproupdate" parameterType="MYPRODTO">
+		update
+		MYPRO set
+		STMDATE = #{STMDATE},
+		ENDMDATE = #{ENDMDATE},
+		ROLE = #{ROLE},
+		PRONAME = #{PRONAME}
+		WHERE NO = #{NO}
+		AND PNO = #{PNO}
+	</update>
 
-<!-- 댓글상세보기 -->
-<select id="replyselect" resultType="ReplyDTO">
-select
-BNO,
-RNO,
-ID,
-CONTENT,
-PARENT_RNO
-from REPLY
-where BNO = #{BNO}
-</select>
+	<!-- 개인 플젝 상세조회 2개 -->
+	<select id="myproselectone" resultType="MYPRODTO">
+		select STMDATE,
+		ENDMDATE,
+		ROLE,
+		PRONAME
+		from MYPRO
+		WHERE NO = #{NO} AND PNO = #{PNO}
+	</select>
 
-<!-- 댓글작성 -->
-<insert id="replyinsert" parameterType="ReplyDTO">
-insert into REPLY(
-BNO,
-RNO,
-ID,
-CONTENT,
-PARENT_RNO)
-VALUES(
-#{BNO},
-RNO_SEQ.nextval,
-#{ID},
-#{CONTENT},
-#{PARENT_RNO})
-</insert>
+	<!-- 아이디 중복체크 -->
+	<select id="idchk" resultType="int">
+		select count(*) from STHMEMBER
+		WHERE ID = #{ID}
+	</select>
 
-<!-- 메뉴창 조회 -->
-<select id="menu" resultType="MenuDTO">
-select
-m.MENUNO,
-m.MENUNM,
-m.MENUURL
-from MENU m
-JOIN MENU_AUTH mam ON(m.MENUNO = mam.MENUNO)
-WHERE mam.AUTHNO = #{AUTHNO}
-</select>
+	<!-- 로그인 -->
+	<select id="login" parameterType="MemberDTO"
+		resultType="MemberDTO">
+		select
+		ID,
+		PWD
+		from
+		STHMEMBER
+		where ID = #{ID}
+		and PWD = #{PWD}
+	</select>
 
-<!-- 게시판 삭제 -->
-<delete id="boarddelete" parameterType="BoardDTO">
-   delete from BOARD
-where BNO in (
-    <foreach collection="list" item="BNO" separator=",">
-        #{BNO}
-    </foreach>
-)
-</delete>
+	<!-- 로그인 암호화 -->
+	<select id="login2" parameterType="MemberDTO"
+		resultType="MemberDTO">
+		select
+		ID,
+		PWD,
+		ADMIN
+		from
+		STHMEMBER
+		where ID = #{ID}
+	</select>
 
-<!-- 게시판 수정 -->
-<update id="boardupdate" parameterType="BoardDTO">
-update BOARD set 
-	BNO = #{BNO}, 
-	TITLE = #{TITLE}, 
-	CONTENT = #{CONTENT}, 
-	WRITER = #{WRITER},
-	REG_DATETIME = sysdate
-	where BNO = #{BNO}
-</update>
+	<!-- 개인플젝 조회 리스트 -->
+	<select id="myprolist" resultType="MYPRODTO">
+		select
+		NO,
+		PNO,
+		STMDATE,
+		ENDMDATE,
+		ROLE,
+		PRONAME
+		from MYPRO
+		WHERE NO = #{NO}
+	</select>
+
+
+	<!-- 게시판 작성 -->
+	<insert id="boardinsert" parameterType="BoardDTO">
+		insert into BOARD (
+		BNO,
+		TITLE,
+		CONTENT,
+		WRITER,
+		REG_DATETIME)
+		VALUES(
+		BNO_SEQ.nextval,
+		#{TITLE},
+		#{CONTENT},
+		#{WRITER},
+		sysdate)
+	</insert>
+
+	<!-- 게시판 전체조회 -->
+	<select id="boardselectall" resultType="BoardDTO">
+		select
+		BNO,
+		TITLE,
+		CONTENT,
+		WRITER,
+		REG_DATETIME
+		from BOARD
+	</select>
+
+	<!-- 게시판 상세조회 -->
+	<select id="boardselect" resultType="BoardDTO">
+		select
+		BNO,
+		TITLE,
+		CONTENT,
+		WRITER,
+		REG_DATETIME
+		from BOARD
+		where BNO = #{BNO}
+	</select>
+
+	<!-- 댓글조회 -->
+	<select id="replyselectall" resultType="ReplyDTO">
+
+		SELECT
+		level,
+		LPAD(' ', (LEVEL - 1) * 2) || ' ID: ' || r.ID || ', CONTENT: ' || r.CONTENT
+		AS INDENTED_CONTENT,
+		r.BNO,
+		r.RNO,
+		r.ID,
+		r.CONTENT,
+		r.PARENT_RNO
+		FROM
+		REPLY r
+		WHERE
+		r.BNO = #{BNO}
+		START WITH
+		r.PARENT_RNO = 0
+		CONNECT BY PRIOR
+		r.RNO = r.PARENT_RNO
+		ORDER SIBLINGS BY
+		r.BNO, r.RNO
+
+	</select>
+
+	<!-- 댓글상세보기 -->
+	<select id="replyselect" resultType="ReplyDTO">
+		select
+		BNO,
+		RNO,
+		ID,
+		CONTENT,
+		PARENT_RNO
+		from REPLY
+		where BNO = #{BNO}
+	</select>
+
+	<!-- 댓글작성 -->
+	<insert id="replyinsert" parameterType="ReplyDTO">
+		insert into REPLY(
+		BNO,
+		RNO,
+		ID,
+		CONTENT,
+		PARENT_RNO)
+		VALUES(
+		#{BNO},
+		RNO_SEQ.nextval,
+		#{ID},
+		#{CONTENT},
+		#{PARENT_RNO})
+	</insert>
+
+	<!-- 메뉴창 조회 -->
+	<select id="menu" resultType="MenuDTO">
+		select
+		m.MENUNO,
+		m.MENUNM,
+		m.MENUURL
+		from MENU m
+		JOIN MENU_AUTH mam ON(m.MENUNO = mam.MENUNO)
+		WHERE mam.AUTHNO = #{AUTHNO}
+	</select>
+
+	<!-- 게시판 삭제 -->
+	<delete id="boarddelete" parameterType="BoardDTO">
+		delete from BOARD
+		where BNO in (
+		<foreach collection="list" item="BNO" separator=",">
+			#{BNO}
+		</foreach>
+		)
+	</delete>
+
+	<!-- 게시판 수정 -->
+	<update id="boardupdate" parameterType="BoardDTO">
+		update BOARD set
+		BNO = #{BNO},
+		TITLE = #{TITLE},
+		CONTENT = #{CONTENT},
+		WRITER = #{WRITER},
+		REG_DATETIME = sysdate
+		where BNO = #{BNO}
+	</update>
 </mapper>

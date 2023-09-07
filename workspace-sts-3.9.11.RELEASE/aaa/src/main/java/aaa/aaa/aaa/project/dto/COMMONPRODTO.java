@@ -10,6 +10,7 @@ public class COMMONPRODTO {
 	private String ENDDATE;
 	private String PRONAME;
 	public String getPNO() {
+		
 		return PNO;
 	}
 	public void setPNO(String pNO) {

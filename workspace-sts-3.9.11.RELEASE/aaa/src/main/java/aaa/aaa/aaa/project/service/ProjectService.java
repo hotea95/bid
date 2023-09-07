@@ -112,8 +112,11 @@ public class ProjectService {
 	}
 	
 	//공통 플젝 삭제
-	public void comprodelete2(String PNO) {
-		projectDAO.comprodelete3(PNO);
+	public int comprodelete2(String PNO) {
+		System.out.println("서비스"+PNO);
+		int result = projectDAO.comprodelete3(PNO);
+		
+		return result;
 	}
 	
 	//개인플젝 조회리스트

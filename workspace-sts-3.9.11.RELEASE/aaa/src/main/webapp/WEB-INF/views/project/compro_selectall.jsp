@@ -67,17 +67,18 @@ function confirmDeleteProject(pno) {
 function deleteProjectData(pno) {
     $.ajax({
         type: 'POST',
-        url: '/Comprodelete',
-        data: { PNO: pno }, // 'pno' 값을 'PNO' 파라미터로 보냄
+        url: '/comprodelete',
+        data: { pno: pno }, // 'pno' 값을 'PNO' 파라미터로 보냄
         success: function(response) {
+
         	alert("삭제성공");
             console.log('삭제 성공');
             console.log(response);
             
-            location.reload();
+            //  location.reload();
             // 여기서 새로운 데이터를 로드하고 프로젝트 목록 테이블을 갱신하는 작업을 수행할 수 있습니다.
             // 예를 들어, loadProjects 함수를 다시 호출하여 테이블을 갱신할 수 있습니다.
-            loadProjects();
+            //loadProjects(pno);
         },
         error: function() {
         	alert("삭제 오류")
@@ -209,7 +210,7 @@ function deleteParticipantData(no) {
                 	<td><p> <input type="button" value="사원 추가하기" onclick="new_window(${list.PNO}, '${list.PRONAME}');"></p></td>
 					  <td><a href="./ComproUpdate?PNO=${list.PNO}">수정하기</a></td>
 					<!-- <td><input type="button" value="${list.PNO}">수정하기</td>-->
-					<td><p><input type="button" value="삭제하기" data-pno="${list.PNO}" class="delete"></p></td>
+					<td><a href="/comprodelete?pno=${list.PNO}"><button <%-- name="pno" value="${list.PNO }" data-pno="${list.PNO}" class="delete" --%>>삭제하기</button></a></td>
 
 
 

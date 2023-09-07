@@ -252,15 +252,12 @@ public class ProjectController {
 	  
 	  
 	  //공통플젝 삭제
-		  @RequestMapping(value = "/Comprodelete", method = RequestMethod.POST)
-	  public String comprodelete(String PNO) {
-		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
-		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
-		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
-		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
-		 System.out.println("컨트롤러 플젝 삭제"+ PNO);
+      @RequestMapping(value = "/comprodelete", method = RequestMethod.GET)
+	  public String comprodelete(@RequestParam("pno") String PNO) throws Exception {
+		 System.out.println("컨트롤러 플젝 삭제-----"+ PNO);
 		 
-		  projectService.comprodelete2(PNO);
+		 int result = projectService.comprodelete2(PNO);
+		 System.out.println(result);
 		  return "./project/compro_delete";
 	  }
 	
