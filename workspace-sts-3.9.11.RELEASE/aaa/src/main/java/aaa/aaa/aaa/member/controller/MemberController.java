@@ -339,7 +339,7 @@ public class MemberController {
 	            session.setAttribute("member", login);
 	            session.setAttribute("admin", login.getADMIN());
 	            System.out.println("로그인 성공"+ login.getADMIN());
-	            logger.info("로그인테스틐ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ");
+	            logger.info("로그인테스틐ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㄴㄴㅇㄴㅇㅋㅋㅋㅋㅋㅋㅋ");
 	            System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
 	            return "./member/login"; // 로그인 성공 시 해당 경로로 리다이렉트
 	        } else {
