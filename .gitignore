@@ -28,4 +28,3 @@ replay_pid*
 Servers/
 *pom.properties
 *.factorypath
-*.classpath
