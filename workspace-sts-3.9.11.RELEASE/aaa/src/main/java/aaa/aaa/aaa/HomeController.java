@@ -20,7 +20,11 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
+<<<<<<< HEAD
 	 * Simply selects the home view to render by returning its name.추가 제발ggg
+=======
+	 * Simply selects the home view to render by returning its name.추가 제발 되주라 
+>>>>>>> 4fac88dfdf45fdcbcd39b8d1f951b7b46e6be77d
 	 */	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
