@@ -23,7 +23,7 @@ public class HomeController {
 <<<<<<< HEAD
 	 * Simply selects the home view to render by returning its name.추가 제발ggg
 =======
-	 * Simply selects the home view to render by returning its name.2시 15분
+	 * Simply selects the home view to render by returning its name.2시 17분
 >>>>>>> 4fac88dfdf45fdcbcd39b8d1f951b7b46e6be77d
 	 */	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
