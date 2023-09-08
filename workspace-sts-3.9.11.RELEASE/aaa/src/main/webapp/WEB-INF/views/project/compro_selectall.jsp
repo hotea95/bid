@@ -140,6 +140,29 @@ function deleteParticipantData(no) {
 	}
 
 </script>
+<script type="text/javascript">
+//공통플젝 "삭제" 버튼 클릭 이벤트 처리
+$(document).on('click', '.delete', function() {
+    var tableBody = $('#participants-table tbody');
+    if (tableBody.children().length === 0) { // 참여 인원 목록에 값이 없으면
+        var no = $(this).closest('tr').find('td:eq(0)').text(); // 해당 행의 2번째 열 (프로젝트 번호) 값을 가져옴
+        confirmDeleteParticipant(no); // 확인 대화상자 표시
+    } else {
+        alert("참여 인원 목록에 값이 있어서 삭제할 수 없습니다.");
+    }
+});
+
+function confirmDeleteParticipant(no) {
+    var confirmDelete = confirm("정말 삭제하시겠습니까?"); // 확인 대화상자 띄우기
+
+    if (confirmDelete) {
+        deleteParticipantData(no); // 확인을 선택한 경우에만 삭제 작업 수행
+    } else {
+        console.log("삭제 취소");
+    }
+}
+</script>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/side.jsp" %>
@@ -169,7 +192,8 @@ function deleteParticipantData(no) {
                 	<td><p> <input type="button" value="사원 추가하기" onclick="new_window(${list.PNO}, '${list.PRONAME}');"></p></td>
 					  <td><a href="./ComproUpdate?PNO=${list.PNO}">수정하기</a></td>
 					<!-- <td><input type="button" value="${list.PNO}">수정하기</td>-->
-					<td><a href="/comprodelete?pno=${list.PNO}"><button class="delete">삭제하기</button></a></td>
+					<td><a href="/comprodelete?pno=${list.PNO}" onclick="return confirmDeleteProject(event, ${list.PNO})">삭제하기</a></td>
+
 
 
 
