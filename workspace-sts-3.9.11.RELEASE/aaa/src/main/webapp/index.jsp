@@ -66,6 +66,39 @@
     }
         
     </style>
+    <script type="text/javascript">
+    $(function(){
+        $('#ID').on('input', function() {
+            var inputValue = $(this).val();
+            var idValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+
+            if (idValue.length < 4) {
+                $('#idErrorMessage').text('4글자 이상 입력해주세요.(영문,숫자)');
+            } else if (idValue.length > 12) {
+                idValue = idValue.substring(0, 12);
+                $('#idErrorMessage').text('12글자 이하로 입력해주세요.');
+            } else {
+                $('#idErrorMessage').text('');
+            }
+
+            $(this).val(idValue);
+        });
+        
+        $('#PWD').on('input', function() {
+            var inputValue = $(this).val();
+            var regex = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).{8,15}$/;
+
+            if (!regex.test(inputValue)) {
+                $('#pwdErrorMessage').text('올바른 비밀번호 형식이 아닙니다.');
+                if (inputValue.length > 15) {
+                    $(this).val(inputValue.substring(0, 15));
+                }
+            } else {
+                $('#pwdErrorMessage').text('');
+            }
+        });
+    });
+    </script>
 <c:choose>
     <c:when test="${!empty sessionScope.message}">
         <script>
@@ -93,11 +126,13 @@
 			<div class="">
 
 					<label for="ID">아이디 : </label> <input type="text" id="ID" name="ID">
+					<div id="idErrorMessage" style="color: red;"></div>
 
 				<br>
 
 					<label for="PWD">패스워드 : </label> <input type="password" id="PWD"
 						name="PWD">
+						<div id="pwdErrorMessage" style="color: red;"></div>
 
 			</div>
 

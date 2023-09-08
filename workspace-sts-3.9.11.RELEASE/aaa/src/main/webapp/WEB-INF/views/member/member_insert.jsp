@@ -535,20 +535,20 @@ $(function() {
                      
                  <div>
 				<label for="STHKORNAME">한글 이름</label> <input type="text"
-					name="STHKORNAME" id="STHKORNAME" placeholder="필수사항"> <br>
+					name="STHKORNAME" id="STHKORNAME" placeholder="필수사항" maxlength="6"> <br>
 					<label for="ID">ID</label>
-					<input type="text" name="ID" id="ID" placeholder="필수사항">  <input type="button" id="idche" value="중복체크" onclick="fn_idChk();"> <br>
+					<input type="text" name="ID" id="ID" placeholder="필수사항" maxlength="12">  <input type="button" id="idche" value="중복체크" onclick="fn_idChk();" > <br>
 					<label for="PWD">비밀번호</label>
-					<input type="password" name="PWD" id="PWD" placeholder="필수사항"> <br>
+					<input type="password" name="PWD" id="PWD" placeholder="필수사항" maxlength="15"> <br>
 					<label for="PWD2">비밀번호 확인</label>
-					<input type="password" name="PWD2" id="PWD2" placeholder="필수사항"> <br>
+					<input type="password" name="PWD2" id="PWD2" placeholder="필수사항" maxlength="15"> <br>
 					 <label for="STHENGNAME">영문 이름</label> <input type="text" name="STHENGNAME"
-					id="STHENGNAME" placeholder="필수사항"> <br> <label for="STHCHNAME">한문
-					이름</label> <input type="text" name="STHCHNAME" id="STHCHNAME"> <br>
+					id="STHENGNAME" placeholder="필수사항" maxlength="20"> <br> <label for="STHCHNAME">한문
+					이름</label> <input type="text" name="STHCHNAME" id="STHCHNAME" maxlength="6"> <br>
 				<label for="STHJUMIN" for="STHJUMIN2">주민등록번호</label> <input
 					type="text" name="STHJUMIN" id="STHJUMIN" maxlength="6"
 					onkeyup="if(this.value.length>=6)this.form.STHJUMIN2.focus();" placeholder="필수사항">-<input
-					type="text" name="STHJUMIN2" id="STHJUMIN2" placeholder="필수사항"> <br> 
+					type="text" name="STHJUMIN2" id="STHJUMIN2" placeholder="필수사항" maxlength="7"> <br> 
 					
 					</div>
 					
@@ -566,7 +566,7 @@ $(function() {
 					id="STHWEDDING" value="기혼">기혼 <input type="radio"
 					name="STHWEDDING" id="STHWEDDING2" value="미혼">미혼 --> <br>
 				<label for="STHYEAR">년차</label> <input type="text" name="STHYEAR"
-					id="STHYEAR" style="width: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					id="STHYEAR" style="width: 60px;" maxlength="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label for="STHWORK">급여지급유형</label> 
 					<select
 					name="STHWORK" class="STHWORK">

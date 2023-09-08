@@ -47,48 +47,7 @@
 <meta charset="UTF-8">
 <title>공통 프로젝트 조회</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-//공통플젝 삭제
-$(document).on('click', '.delete', function() {
-    var pno = $(this).closest('tr').find('td:eq(0)').text(); // 해당 행의 첫 번째 열 (프로젝트 번호) 값을 가져옴
-    confirmDeleteProject(pno); // pno 값을 confirmDeleteProject 함수에 전달
-});
 
-function confirmDeleteProject(pno) {
-    var confirmDelete = confirm("정말 삭제하시겠습니까???"); // 확인 대화상자 띄우기
-
-    if (confirmDelete) {
-        deleteProjectData(pno); // 확인을 선택한 경우에만 삭제 작업 수행
-    } else {
-        console.log("삭제 취소");
-    }
-}
-
-function deleteProjectData(pno) {
-    $.ajax({
-        type: 'POST',
-        url: '/comprodelete',
-        data: { pno: pno }, // 'pno' 값을 'PNO' 파라미터로 보냄
-        success: function(response) {
-
-        	alert("삭제성공");
-            console.log('삭제 성공');
-            console.log(response);
-            
-            //  location.reload();
-            // 여기서 새로운 데이터를 로드하고 프로젝트 목록 테이블을 갱신하는 작업을 수행할 수 있습니다.
-            // 예를 들어, loadProjects 함수를 다시 호출하여 테이블을 갱신할 수 있습니다.
-            //loadProjects(pno);
-        },
-        error: function() {
-        	alert("삭제 오류")
-            console.log("삭제 오류 발생");
-            // 오류 발생 시 처리할 내용 작성
-        }
-    });
-}
-
-</script>
 
 <script>
 
@@ -210,7 +169,7 @@ function deleteParticipantData(no) {
                 	<td><p> <input type="button" value="사원 추가하기" onclick="new_window(${list.PNO}, '${list.PRONAME}');"></p></td>
 					  <td><a href="./ComproUpdate?PNO=${list.PNO}">수정하기</a></td>
 					<!-- <td><input type="button" value="${list.PNO}">수정하기</td>-->
-					<td><a href="/comprodelete?pno=${list.PNO}"><button <%-- name="pno" value="${list.PNO }" data-pno="${list.PNO}" class="delete" --%>>삭제하기</button></a></td>
+					<td><a href="/comprodelete?pno=${list.PNO}"><button class="delete">삭제하기</button></a></td>
 
 
 

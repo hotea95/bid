@@ -128,6 +128,7 @@ $(function() {
             filteredValue = filteredValue.substring(0, 6);
             $('#nameErrorMessage').text('6글자 이상 입력이 불가능합니다.');
         } else {
+        	//에러 메세지를 지운다.
             $('#nameErrorMessage').text('');
         }
 

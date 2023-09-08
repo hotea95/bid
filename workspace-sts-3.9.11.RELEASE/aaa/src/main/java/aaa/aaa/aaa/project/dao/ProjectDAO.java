@@ -101,6 +101,23 @@ public class ProjectDAO {
 		
 		//공통 플젝 삭제하기
 		public int comprodelete3(String PNO) {
+			
+//			int result = sqlSessionTemplate.selectOne("getParticipantsByPno",PNO);
+//			
+//			if (result > 0 ) {
+//				System.out.println("실패");
+//				 return result;
+//			}else {
+//				
+//			}
+//			int result1 = sqlSessionTemplate.delete("comprodelete",PNO);
+//			System.out.println("성공");
+//			return result1;
+//			
+		
+			
+			
+			
 			System.out.println("DAO"+PNO);
 			
 			int result = sqlSessionTemplate.delete("comprodelete",PNO);

@@ -124,7 +124,7 @@ function checks() {
 <h1>프로젝트 등록</h1>
 <form action="/Comproinsert" method="post" onsubmit="return checks();">
   <label for="PRONAME">프로젝트 명</label>
-  <input type="text" id="PRONAME" name="PRONAME"> <br>
+  <input type="text" id="PRONAME" name="PRONAME" maxlength="20"> <br>
   <label for="STDATE">시작 날짜</label>
   <input type="date" id="STDATE" name="STDATE" max="9999-12-31"> <br>
   <label for="ENDDATE">철수 날짜</label>
