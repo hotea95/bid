@@ -28,3 +28,5 @@ replay_pid*
 Servers/
 *pom.properties
 *.factorypath
+MANIFEST.MF
+pom.properties
