@@ -786,6 +786,7 @@
 	<delete id="myprodelect" parameterType="MYPRODTO">
 		delete from MYPRO
 		where NO = #{NO}
+		adn PNO = #{PNO}
 	</delete>
 
 	<!-- 개인플젝 다중 작성 -->

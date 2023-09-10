@@ -91,9 +91,10 @@ public class ProjectService {
 		return projectDAO.getParticipantsByPno(PNO);
 	}
 	
-	//개인 플젝 삭제
-	public void myprodelete2(String NO) {
-		projectDAO.myprodelete3(NO);
+	// 개인 플젝 삭제
+	public void myprodelete2(String NO, String PNO) {
+		System.out.println("서비스 값"+ NO + PNO);
+	    projectDAO.myprodelete3(NO, PNO); // NO와 PNO를 myprodelete3 메서드에 전달
 	}
 	
 	//개인플펙 다중 작성

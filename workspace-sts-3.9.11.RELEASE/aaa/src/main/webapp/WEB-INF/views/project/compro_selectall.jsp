@@ -53,38 +53,39 @@
 
 //개인플젝  "삭제" 버튼 클릭 이벤트 처리
 $(document).on('click', '.delete-participant', function() {
-    var no = $(this).closest('tr').find('td:eq(0)').text(); // 해당 행의 2번째 열 (프로젝트 번호) 값을 가져옴
-    confirmDeleteParticipant(no); // 확인 대화상자 표시
+    var no = $(this).closest('tr').find('td:eq(0)').text(); // 'no' 값을 가져옵니다.
+    var pno = $(this).closest('tr').find('td:eq(1)').text(); // 'pno' 값을 가져옵니다.
+    confirmDeleteParticipant(no, pno); // 'no'와 'pno'를 모두 전달합니다.
 });
 
-function confirmDeleteParticipant(no) {
-    var confirmDelete = confirm("정말 삭제하시겠습니까?"); // 확인 대화상자 띄우기
-
+function confirmDeleteParticipant(no, pno) {
+    var confirmDelete = confirm("정말 삭제하시겠습니까?"); // 확인 대화상자를 띄웁니다.
     if (confirmDelete) {
-        deleteParticipantData(no); // 확인을 선택한 경우에만 삭제 작업 수행
+        deleteParticipantData(no, pno); // 'no'와 'pno'를 함께 전달합니다.
     } else {
         console.log("삭제 취소");
     }
 }
 
-function deleteParticipantData(no) {
+function deleteParticipantData(no, pno) {
     $.ajax({
         type: 'POST',
         url: '/myprodelete',
-        data: { NO: no }, // 'no' 값을 'NO' 파라미터로 보냄
+        data: { NO: no, PNO: pno }, // 'no'와 'pno' 값을 함께 전달
         success: function(response) {
             console.log('삭제 성공');
             console.log(response);
-            // 여기서 새로운 데이터를 로드하고 참여 인원 테이블을 갱신하는 작업을 수행할 수 있습니다.
-            // 예를 들어, loadParticipants 함수를 다시 호출하여 테이블을 갱신할 수 있습니다.
-            loadParticipants(no);
+            // 여기서는 삭제 후 필요한 작업을 수행할 수 있습니다.
+            // 예를 들어, 데이터를 다시 로드하거나 테이블을 업데이트할 수 있습니다.
+            loadParticipants(pno); // 'pno'를 loadParticipants 함수로 전달
         },
         error: function() {
             console.log("삭제 오류 발생");
-            // 오류 발생 시 처리할 내용 작성
+            // 오류 처리를 여기에서 수행합니다.
         }
     });
 }
+
 </script> 
 
 <script>

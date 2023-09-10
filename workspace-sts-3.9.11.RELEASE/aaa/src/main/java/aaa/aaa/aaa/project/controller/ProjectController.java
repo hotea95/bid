@@ -177,12 +177,15 @@ public class ProjectController {
 	  
 	  //개인프로젝트 삭제2233
 	  @RequestMapping(value = "/myprodelete", method = RequestMethod.POST)
-	  public String myprodelete(String NO) {
-		  System.out.println("ZZZZZZZZZZZ"+NO);
-		  projectService.myprodelete2(NO);
-		  return "./project/mypro_delect_view";
-		  //return "./redirect:/
+	  public String myprodelete(String NO, String PNO) {
+		  
+	      System.out.println("컨트롤러 NO값" + NO);
+	      System.out.println("컨트롤러 PNO값" + PNO);
+	      projectService.myprodelete2(NO, PNO); // NO와 PNO를 myprodelete2 메서드에 전달
+	      return "./project/mypro_delect_view";
+	      //return "./redirect:/
 	  }
+
 	  
 	  @RequestMapping(value = "/Myproinsert3", method = RequestMethod.POST)
 	    public String myproinsert3(Model model, HttpServletRequest request, MYPRODTO myProDTO) {

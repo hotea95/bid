@@ -1,6 +1,8 @@
 package aaa.aaa.aaa.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -80,9 +82,14 @@ public class ProjectDAO {
 		}
 		
 		//개인 플젝 삭제
-		public void myprodelete3(String NO) {
-			sqlSessionTemplate.delete("myprodelect",NO);
+		public void myprodelete3(String NO, String PNO) {
+		    Map<String, String> paramMap = new HashMap<>();
+		    paramMap.put("NO", NO);
+		    paramMap.put("PNO", PNO);
+		    System.out.println("DAO값"+NO+PNO);
+		    sqlSessionTemplate.delete("myprodelect", paramMap); // NO와 PNO를 맵에 담아 SQL 쿼리에 전달
 		}
+
 		
 		// 개인 프로젝트 다중작성
 		public void myproinsert3(List<MYPRODTO> myproDTOList) {
