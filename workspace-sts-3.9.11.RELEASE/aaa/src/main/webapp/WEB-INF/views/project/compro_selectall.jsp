@@ -55,6 +55,8 @@
 $(document).on('click', '.delete-participant', function() {
     var no = $(this).closest('tr').find('td:eq(0)').text(); // 'no' 값을 가져옵니다.
     var pno = $(this).closest('tr').find('td:eq(1)').text(); // 'pno' 값을 가져옵니다.
+    alert(no)
+    alert(pno)
     confirmDeleteParticipant(no, pno); // 'no'와 'pno'를 모두 전달합니다.
 });
 

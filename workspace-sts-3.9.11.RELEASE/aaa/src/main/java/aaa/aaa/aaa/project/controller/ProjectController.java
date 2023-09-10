@@ -176,9 +176,10 @@ public class ProjectController {
 	  }
 	  
 	  //개인프로젝트 삭제2233
+	  @ResponseBody
 	  @RequestMapping(value = "/myprodelete", method = RequestMethod.POST)
+	  //public String myprodelete(@RequestParam("NO") String NO, @RequestParam("PNO") String PNO) {
 	  public String myprodelete(String NO, String PNO) {
-		  
 	      System.out.println("컨트롤러 NO값" + NO);
 	      System.out.println("컨트롤러 PNO값" + PNO);
 	      projectService.myprodelete2(NO, PNO); // NO와 PNO를 myprodelete2 메서드에 전달
