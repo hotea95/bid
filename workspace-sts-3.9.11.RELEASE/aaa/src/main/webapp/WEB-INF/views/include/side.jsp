@@ -177,13 +177,13 @@ $(document).ready(function(){
         <%-- ID가 있을 경우 환영 메시지 출력 --%>
         <c:if test="${not empty loggedInID}">
             <p><c:out value="${loggedInID}"/>님 반갑습니다.</p> <br>
-           <%--  <p><c:out value="${loggedInadmin}"/>님 반갑습니다.gggg</p> <br> --%>
+             <%-- <p><c:out value="${loggedInadmin}"/>님 반갑습니다.gggg</p> <br> --%> 
             <p>남은 시간: <span id="sessionTimeRemaining"></span></p>
 
    
         </c:if>
         <button type="button" onclick="location.href='./logout'">로그아웃</button> <br>
-       <button type="button" onclick="extendSessionTimeout()">세션 시간 초기화</button><br>
+      <!--  <button type="button" onclick="extendSessionTimeout()">세션 시간 초기화</button><br> -->
         <ul id="left-side-menu">
            
         </ul>

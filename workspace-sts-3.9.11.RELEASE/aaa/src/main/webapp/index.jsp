@@ -129,6 +129,7 @@
 					<div id="idErrorMessage" style="color: red;"></div>
 
 				<br>
+				
 
 					<label for="PWD">패스워드 : </label> <input type="password" id="PWD"
 						name="PWD">

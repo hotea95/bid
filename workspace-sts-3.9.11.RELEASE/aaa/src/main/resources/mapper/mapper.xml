@@ -298,7 +298,8 @@
 		STHEMAIL = #{STHEMAIL},
 		MYDATE = #{MYDATE},
 		ID = #{ID},
-		PWD = #{PWD}
+		PWD = #{PWD},
+		ADMIN = #{ADMIN}
 		where NO = #{NO}
 	</update>
 
@@ -786,7 +787,7 @@
 	<delete id="myprodelect" parameterType="MYPRODTO">
 		delete from MYPRO
 		where NO = #{NO}
-		adn PNO = #{PNO}
+		and PNO = #{PNO}
 	</delete>
 
 	<!-- 개인플젝 다중 작성 -->
@@ -1036,4 +1037,10 @@
 		REG_DATETIME = sysdate
 		where BNO = #{BNO}
 	</update>
+	
+	<!-- 플젝 멤버 중복체크 -->
+	<select id="prochk" resultType="int">
+		select count(*) from MYPRO
+		WHERE PNO = #{PNO}
+	</select>
 </mapper>

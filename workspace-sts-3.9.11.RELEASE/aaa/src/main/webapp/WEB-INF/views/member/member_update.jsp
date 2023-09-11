@@ -10,11 +10,34 @@
 
 
 <script type="text/javascript">
+getADMINTypeOptions();
 getSTHWORKTypeOptions();
 getSTHSISMTypeOptions()
 getSTHSTATETypeOptions()
 getSTHSEXypeOptions()
 getSTHWEDDINGypeOptions()
+
+function getADMINTypeOptions() {
+    $.ajax({
+      type: "GET",
+      url: "/code/codeVal",
+      data: { codeVal : "C10" },
+      dataType: "json", 
+      success: function(response) {
+    	console.log(response);
+        var options = "<button disabled>권한</button>";
+        options += "<select name='ADMIN' id='ADMIN'>";
+        $.each(response, function(index, option) {
+          options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+        });
+        options += "</select>";
+        $(".ADMIN").html(options);
+      },
+      error: function(xhr, status, error) {
+        console.log(error);
+      }
+    });
+}
 
 function getSTHWORKTypeOptions() {
     $.ajax({
@@ -482,7 +505,11 @@ $(function() {
 					id="STHEMAIL" value="${memberDTO.STHEMAIL}"> <br>
 					
 					<label for="MYDATE">입사일</label>
-				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;"  value="${memberDTO.MYDATE}"> <br>
+				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;"  value="${memberDTO.MYDATE}"> <br><br>
+				<c:set var="loggedInadmin" value="${sessionScope.admin}" />
+				<c:if test="${loggedInadmin eq 'A'}">
+				<label for="ADMIN" class="ADMIN">관리자1111</label>
+				</c:if>
 				<div style="text-align: center;">
 					<button type="submit" style="WIDTH: 60pt; HEIGHT: 30pt;">수정</button>
 					<button type="reset" style="WIDTH: 60pt; HEIGHT: 30pt;"

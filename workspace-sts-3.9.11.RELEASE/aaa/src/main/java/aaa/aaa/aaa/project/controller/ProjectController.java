@@ -178,14 +178,14 @@ public class ProjectController {
 	  //개인프로젝트 삭제2233
 	  @ResponseBody
 	  @RequestMapping(value = "/myprodelete", method = RequestMethod.POST)
-	  //public String myprodelete(@RequestParam("NO") String NO, @RequestParam("PNO") String PNO) {
-	  public String myprodelete(String NO, String PNO) {
-	      System.out.println("컨트롤러 NO값" + NO);
-	      System.out.println("컨트롤러 PNO값" + PNO);
+	  //public String myprodelete(String NO, String PNO) {
+	  public String myprodelete(@RequestParam("NO") String NO, @RequestParam("PNO") String PNO) {
+	      System.out.println("컨트롤러 NO값: " + NO);
+	      System.out.println("컨트롤러 PNO값: " + PNO);
 	      projectService.myprodelete2(NO, PNO); // NO와 PNO를 myprodelete2 메서드에 전달
 	      return "./project/mypro_delect_view";
-	      //return "./redirect:/
 	  }
+
 
 	  
 	  @RequestMapping(value = "/Myproinsert3", method = RequestMethod.POST)
@@ -254,15 +254,37 @@ public class ProjectController {
 		  return "./project/compro_selectone_view";
 	  }
 	  
+//	  //플젝 멤버체크
+//	  @RequestMapping(value = "/proChk", method = RequestMethod.POST)
+//	  public int prochk(MYPRODTO myprodto) throws Exception {
+//			int result = projectService.proChk(myprodto);
+//			return result;
+//	  
+//}
+	  
 	  
 	  //공통플젝 삭제
       @RequestMapping(value = "/comprodelete", method = RequestMethod.GET)
-	  public String comprodelete(@RequestParam("pno") String PNO) throws Exception {
-		 System.out.println("컨트롤러 플젝 삭제-----"+ PNO);
-		 
-		 int result = projectService.comprodelete2(PNO);
-		 System.out.println(result);
-		  return "./project/compro_delete";
+	  public String comprodelete(@RequestParam("pno") String pno) throws Exception {
+    	  
+    	  System.out.println("================" + pno);
+    	  
+    	  int result = projectService.proChk(pno);
+    	  
+    	  System.out.println(result + " select Count 의 갯수는 몇깨일까용");
+    	  
+    	  if (result > 0) {
+    		  System.out.println("삭제불가"+result);
+    		  return "./project/compro_delete_err";
+		} else {
+			 System.out.println("컨트롤러 플젝 삭제성공-----"+ pno);
+			 System.out.println("컨트롤러 플젝 삭제성공-----"+ result);
+			 
+			 int result2 = projectService.comprodelete2(pno);
+			 System.out.println(result2);
+			  
+		}
+    	  return "./project/compro_delete";
 	  }
 	
 	//개인플젝 수정
@@ -285,6 +307,6 @@ public class ProjectController {
 			  return "./project/mypro_selectone";
 		  }
 		  
-	}
-
+		
+}
 

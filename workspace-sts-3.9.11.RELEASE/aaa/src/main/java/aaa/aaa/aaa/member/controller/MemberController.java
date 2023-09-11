@@ -203,7 +203,15 @@ public class MemberController {
      }else {
     	 memberDTO.setSTHPHOTO(httpServletRequest.getParameter("STHPHOTO"));
      }
+     
+     //비밀번호 설정
+     String inputPass = memberDTO.getPWD();
+     String pass = passEncoder.encode(inputPass);
+     memberDTO.setPWD(pass);
 
+     if (memberDTO.getADMIN() == null || memberDTO.getADMIN() == "" ) {
+   	  memberDTO.setADMIN("B");
+	}
 	
 		memberService.memberUpdate(memberDTO);
 		model.addAttribute("update",memberService.memberSelect(memberDTO));
@@ -255,7 +263,8 @@ public class MemberController {
 				logger.info("컨트롤러----"+ memberDTO);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException();
+			//throw new RuntimeException();
+			e.printStackTrace();
 		}
 		return "./member/member_insert_view";
 	}

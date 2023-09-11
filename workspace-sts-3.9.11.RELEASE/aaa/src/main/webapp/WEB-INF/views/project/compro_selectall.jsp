@@ -55,34 +55,33 @@
 $(document).on('click', '.delete-participant', function() {
     var no = $(this).closest('tr').find('td:eq(0)').text(); // 'no' 값을 가져옵니다.
     var pno = $(this).closest('tr').find('td:eq(1)').text(); // 'pno' 값을 가져옵니다.
-    alert(no)
-    alert(pno)
-    confirmDeleteParticipant(no, pno); // 'no'와 'pno'를 모두 전달합니다.
-});
-
-function confirmDeleteParticipant(no, pno) {
+    
     var confirmDelete = confirm("정말 삭제하시겠습니까?"); // 확인 대화상자를 띄웁니다.
+    
     if (confirmDelete) {
-        deleteParticipantData(no, pno); // 'no'와 'pno'를 함께 전달합니다.
+    	deleteParticipantData(no, pno); // 'no'와 'pno'를 함께 전달합니다.
     } else {
         console.log("삭제 취소");
     }
-}
+});
+
 
 function deleteParticipantData(no, pno) {
     $.ajax({
         type: 'POST',
         url: '/myprodelete',
         data: { NO: no, PNO: pno }, // 'no'와 'pno' 값을 함께 전달
-        success: function(response) {
+        success: function(data) {
             console.log('삭제 성공');
-            console.log(response);
+            console.log(data);
             // 여기서는 삭제 후 필요한 작업을 수행할 수 있습니다.
             // 예를 들어, 데이터를 다시 로드하거나 테이블을 업데이트할 수 있습니다.
             loadParticipants(pno); // 'pno'를 loadParticipants 함수로 전달
         },
         error: function() {
             console.log("삭제 오류 발생");
+            console.log(no);
+            console.log(pno);
             // 오류 처리를 여기에서 수행합니다.
         }
     });

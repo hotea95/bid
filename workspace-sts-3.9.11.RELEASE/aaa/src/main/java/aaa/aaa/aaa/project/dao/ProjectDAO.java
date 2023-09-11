@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import aaa.aaa.aaa.certificate.dto.CertificateDTO;
+import aaa.aaa.aaa.member.dto.MemberDTO;
 import aaa.aaa.aaa.project.dto.COMMONPRODTO;
 import aaa.aaa.aaa.project.dto.MYPRODTO;
 import aaa.aaa.aaa.project.dto.ProjectDTO;
@@ -164,5 +165,13 @@ public class ProjectDAO {
 		//개인플젝 확인
 		public List<MYPRODTO> myprolist(String NO) {
 			return sqlSessionTemplate.selectList("myprolist",NO);
+		}
+		
+		//플젝 멤버체크
+		public int proChk(String pno) throws Exception {
+			System.out.println(pno + "=========== DAO 에 넘어온 값은 바로바로~~~~~~~~~~~~~~~");
+		
+			int result = sqlSessionTemplate.selectOne("prochk",pno);
+			return result;
 		}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import aaa.aaa.aaa.certificate.dto.CertificateDTO;
 import aaa.aaa.aaa.member.controller.MemberController;
+import aaa.aaa.aaa.member.dto.MemberDTO;
 import aaa.aaa.aaa.project.dao.ProjectDAO;
 import aaa.aaa.aaa.project.dto.COMMONPRODTO;
 import aaa.aaa.aaa.project.dto.MYPRODTO;
@@ -143,5 +144,11 @@ public class ProjectService {
 	//개인플젝 list조회
 	public List<MYPRODTO> myprolist(String NO) {
 		return projectDAO.myprolist(NO);
+	}
+	
+	//플젝 멤버체크
+	public int proChk(String pno) throws Exception {
+		int result = projectDAO.proChk(pno);
+		return result;
 	}
 }

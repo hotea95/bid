@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-alert("삭제가 완료되었습니다.")
+alert("현재 프로젝트 인원이 참여중 이므로 삭제가 불가능합니다.")
 location.href="./Comproselectall";
 </script>
 </body>

@@ -607,6 +607,13 @@ $(function() {
 					id="STHEMAIL"> <br>
 				<label for="MYDATE">입사일</label>
 				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;" max="9999-12-31" min="1950-12-31"> <br>
+				
+				
+				<c:set var="loggedInadmin" value="${sessionScope.admin}" />
+				<c:if test="${loggedInadmin eq 'A'}">
+				<label for="admin">테스트</label>
+				<button>ggg </button>
+				</c:if>
 				<div style="text-align: center;">
 					<button type="submit" style="WIDTH: 60pt; HEIGHT: 30pt;">등록</button>
 					<button type="reset" style="WIDTH: 60pt; HEIGHT: 30pt;"
