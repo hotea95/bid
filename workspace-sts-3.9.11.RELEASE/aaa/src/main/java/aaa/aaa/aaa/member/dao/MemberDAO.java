@@ -34,7 +34,7 @@ public class MemberDAO {
 			public List<MemberDTO> preliminary() {
 				return sqlSessionTemplate.selectList("preliminary");
 			}
-	
+	 
 	//멤버 페이징
 	public List<MemberDTO> listPage(Criteria cri) throws Exception {
 		return sqlSessionTemplate.selectList("listpage",cri);

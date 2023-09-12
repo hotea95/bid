@@ -155,7 +155,7 @@ function getSTHWORKTypeOptions() {
         $.ajax({
           type: "GET",
           url: "/code/codeVal",
-          data: { codeVal : "A20" },
+          data: { codeVal : "A30" },
           dataType: "json", 
           success: function(response) {
         	console.log(response);
@@ -177,7 +177,7 @@ function getSTHWORKTypeOptions() {
         $.ajax({
           type: "GET",
           url: "/code/codeVal",
-          data: { codeVal : "A30" },
+          data: { codeVal : "A20" },
           dataType: "json", 
           success: function(response) {
         	console.log(response);
@@ -597,9 +597,6 @@ $(function() {
 				    <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
 				</div>
 					
-					
-					
-					
 				<label for="STHPHONE">
 				연락처</label> <input type="text" name="STHPHONE"
 					id="STHPHONE" style="width: 120px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -609,11 +606,11 @@ $(function() {
 				<input type="date" name="MYDATE" id="MYDATE" style="width: 100px;" max="9999-12-31" min="1950-12-31"> <br>
 				
 				
-				<c:set var="loggedInadmin" value="${sessionScope.admin}" />
+			<%-- 	<c:set var="loggedInadmin" value="${sessionScope.admin}" />
 				<c:if test="${loggedInadmin eq 'A'}">
 				<label for="admin">테스트</label>
 				<button>ggg </button>
-				</c:if>
+				</c:if> --%>
 				<div style="text-align: center;">
 					<button type="submit" style="WIDTH: 60pt; HEIGHT: 30pt;">등록</button>
 					<button type="reset" style="WIDTH: 60pt; HEIGHT: 30pt;"

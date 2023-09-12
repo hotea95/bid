@@ -18,6 +18,7 @@ getSTHSEXypeOptions()
 getSTHWEDDINGypeOptions()
 
 function getADMINTypeOptions() {
+	var selectedValue = '${memberDTO.ADMIN}';
     $.ajax({
       type: "GET",
       url: "/code/codeVal",
@@ -25,10 +26,14 @@ function getADMINTypeOptions() {
       dataType: "json", 
       success: function(response) {
     	console.log(response);
-        var options = "<button disabled>권한</button>";
+        var options = "<label>권한</label>";
         options += "<select name='ADMIN' id='ADMIN'>";
         $.each(response, function(index, option) {
-          options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+          options += "<option value='" + option.codenum + "'"
+          if (option.codem === selectedValue) {
+              options += "selected";
+          }
+          options += ">" + option.codem + "</option>";
         });
         options += "</select>";
         $(".ADMIN").html(options);
@@ -40,6 +45,7 @@ function getADMINTypeOptions() {
 }
 
 function getSTHWORKTypeOptions() {
+	var selectedValue = '${memberDTO.STHWORK}';
     $.ajax({
       type: "GET",
       url: "/code/codeVal",
@@ -50,7 +56,11 @@ function getSTHWORKTypeOptions() {
         var options = "<button disabled>급여지급유형</button>";
         options += "<select name='STHWORK' id='STHWORK'>";
         $.each(response, function(index, option) {
-          options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+          options += "<option value='" + option.codenum + "'"
+          if (option.codem === selectedValue) {
+              options += "selected";
+          }
+          options += ">" + option.codem + "</option>";
         });
         options += "</select>";
         $(".STHWORK").html(options);
@@ -61,17 +71,22 @@ function getSTHWORKTypeOptions() {
     });
 }
     function getSTHSISMTypeOptions() {
+    	var selectedValue = '${memberDTO.STHSISM}';
         $.ajax({
           type: "GET",
           url: "/code/codeVal",
-          data: { codeVal : "A20" },
+          data: { codeVal : "A30" },
           dataType: "json", 
           success: function(response) {
         	console.log(response);
             var options = "<button disabled>희망직무</button>";
             options += "<select name='STHSISM' id='STHSISM'>";
             $.each(response, function(index, option) {
-              options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+              options += "<option value='" + option.codenum + "'"
+              if (option.codem === selectedValue) {
+                  options += "selected";
+              }
+              options += ">" + option.codem + "</option>";
             });
             options += "</select>";
             $(".STHSISM").html(options);
@@ -83,17 +98,22 @@ function getSTHWORKTypeOptions() {
   }
     
     function getSTHSTATETypeOptions() {
+    	var selectedValue = '${memberDTO.STHSTATE}';
         $.ajax({
           type: "GET",
           url: "/code/codeVal",
-          data: { codeVal : "A30" },
+          data: { codeVal : "A20" },
           dataType: "json", 
           success: function(response) {
         	console.log(response);
             var options = "<button disabled>입사유형</button>";
             options += "<select name='STHSTATE' id='STHSTATE'>";
             $.each(response, function(index, option) {
-              options += "<option value='" + option.codenum + "'>" + option.codem + "</option>";
+              options += "<option value='" + option.codenum + "'"
+              if (option.codem === selectedValue) {
+                  options += "selected";
+              }
+              options += ">" + option.codem + "</option>";
             });
             options += "</select>";
             $(".STHSTATE").html(options);
@@ -105,6 +125,7 @@ function getSTHWORKTypeOptions() {
   }
     
     function getSTHSEXypeOptions() {
+    	var selectedValue = '${memberDTO.STHSEX}';
     	  $.ajax({
     	    type: "GET",
     	    url: "/code/codeVal",
@@ -114,7 +135,13 @@ function getSTHWORKTypeOptions() {
     	      console.log(response);
     	      var options = "<label>성별</label>";
     	      $.each(response, function (index, option) {
-    	        options += "<input type='radio' name='STHSEX' value='" + option.codenum + "'>" + option.codem + "<br>";
+    	        options += "<input type='radio' name='STHSEX' value='" + option.codenum + "'"
+    	        console.log(selectedValue)
+    	        if (option.codem === selectedValue) {
+                    options += "checked";
+                }
+    	        options += ">" + option.codem + "<br>";
+    	       
     	      });
     	      $(".STHSEX").html(options);
     	    }, // Missing a comma here to separate the success function from the error function
@@ -125,6 +152,7 @@ function getSTHWORKTypeOptions() {
     	}
     
     function getSTHWEDDINGypeOptions() {
+    	var selectedValue = '${memberDTO.STHWEDDING}';
   	  $.ajax({
   	    type: "GET",
   	    url: "/code/codeVal",
@@ -134,7 +162,11 @@ function getSTHWORKTypeOptions() {
   	      console.log(response);
   	      var options = "<label>결혼유무</label>";
   	      $.each(response, function (index, option) {
-  	        options += "<input type='radio' name='STHWEDDING' value='" + option.codenum + "'>" + option.codem + "<br>";
+  	        options += "<input type='radio' name='STHWEDDING' value='" + option.codenum + "'"
+  	      if (option.codem === selectedValue) {
+              options += "checked";
+          }
+  	      options += ">" + option.codem + "<br>";
   	      });
   	      $(".STHWEDDING").html(options);
   	    }, // Missing a comma here to separate the success function from the error function
@@ -398,6 +430,8 @@ $(function() {
 	<%@ include file="/WEB-INF/views/include/side.jsp" %>
 	<h1>사원 정보 수정</h1>
 	
+	
+	
 	<div>
 		<form method="post" enctype="multipart/form-data"
 			action="./MemberUpdate" onsubmit="return checks()">
@@ -443,20 +477,6 @@ $(function() {
 				  
 				  <label for="STHSEX" class="STHSEX">성별</label> 
 	
-				   <c:if test="${memberDTO.STHSEX eq '1'}">
-				  <input type="radio" name="STHSEX" id="STHSEX" value="남자" checked="checked">남자 
-				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자">여자
-				  </c:if>
-
-                  <c:if test="${memberDTO.STHSEX eq '2'}">
-				  <input type="radio" name="STHSEX" id="STHSEX" value="남자">남자 
-				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자" checked="checked">여자
-				  </c:if>
-				  
-				  <c:if test="${empty memberDTO.STHSEX}">
-				  <input type="radio" name="STHSEX" id="STHSEX" value="남자">남자 
-				  <input type="radio" name="STHSEX" id="STHSEX2" value="여자">여자
-				  </c:if> 
 				  
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					 
