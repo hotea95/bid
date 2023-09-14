@@ -152,6 +152,17 @@ $(function() {
 
 
 </script>
+<script type="text/javascript">
+
+function validateDate(input) {
+	  var selectedDate = new Date(input.value);
+	  var minDate = new Date("1990-01-01");
+	  
+	  if (selectedDate < minDate) {
+	    input.value = "1990-01-01"; // 작성하려는 날짜가 유효하지 않으면 최소 날짜로 설정
+	  }
+	}
+</script>
   <script>
     // 초기화 버튼 클릭 시 값들을 초기화하는 함수
     document.addEventListener("DOMContentLoaded", function() {
@@ -177,8 +188,8 @@ $(function() {
 	
 			
 			<input type="text" value="입사일" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
-			<input type="date" name="keyword" id="keyword11" value="${scri.keyword}" max="9999-12-31" style="width: 100px;">~
-			<input type="date" name="keyword2" id="keyword22" value="${scri.keyword2}" max="9999-12-31" style="width: 100px;">
+			<input type="date" name="keyword" id="keyword11" value="${scri.keyword}" max="9999-12-31" min="1990-01-01" style="width: 100px;" oninput="validateDate(this)">~
+			<input type="date" name="keyword2" id="keyword22" value="${scri.keyword2}" max="9999-12-31" min="1990-01-01" style="width: 100px;" oninput="validateDate(this)">
 			<span id="dateErrorMessage" style="color: red;"></span>
 			<input type="text" value="이름" readonly="readonly" style="border: none; background-color: transparent; width: 50px;">
 			<input type="text" name="keyword3" id="keyword33" value="${scri.keyword3}" style="width: 50px;">

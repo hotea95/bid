@@ -129,14 +129,41 @@
         	}
         	
         	 // 시작 날짜와 철수 날짜 비교
-            var startDate = new Date($("#STMDATE").val());
-            var endDate = new Date($("#ENDMDATE").val());
+            var startDate = new Date($("#STMDATE").val()); //개인
+            var endDate = new Date($("#ENDMDATE").val()); //개인
+            var sDate = new Date($("#STDATE").val()); //공통 플젝
+            var eDate = new Date($("#ENDDATE").val()); //공통 플젝
 
             if (endDate < startDate) {
                 alert("시작날짜가 철수날짜보다 앞에 있어야 합니다.");
                 $("#ENDMDATE").focus();
                 return false;
             }
+            
+            if (startDate < sDate) {
+				alert("프로젝트 시작 날짜보다 빠른 날짜입니다.")
+				$("#startDate").focus();
+				return false;
+			}
+            
+            if (startDate > eDate) {
+				alert("프로젝트 종료 날짜보다 느린 날짜입니다.")
+				$("#startDate").focus();
+				return false;
+			}
+            
+            if (endDate > eDate) {
+				alert("프로젝트 종료 날짜보다 느린 날짜입니다.")
+				$("#endDate").focus();
+				return false;
+			}
+            
+            if (endDate < sDate) {
+				alert("프로젝트 시작 날짜보다 빠른 날짜입니다.")
+				$("#endDate").focus();
+				return false;
+			}
+            
             
             if($("#ROLE").val() == "") {
         		alert("역할를 입력해주세요.");
@@ -208,9 +235,9 @@
     <label>프로젝트 이름 : </label>
     <input type="text" name="PRONAME" id="PRONAME" readonly="readonly"> <br>
     <label>시작 날짜 : </label>
-    <input type="text" name="STDATE" readonly="readonly"> <br>
+    <input type="text" name="STDATE" id="STDATE" readonly="readonly"> <br>
     <label>철수 날짜 : </label>
-    <input type="text" name="ENDDATE" readonly="readonly"> <br>
+    <input type="text" name="ENDDATE" id="ENDDATE" readonly="readonly"> <br>
 </fieldset>
 <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
