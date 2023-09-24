@@ -110,9 +110,6 @@ function execPostCode() {
            $("[name=STHADDRESS]").val(data.zonecode);
            $("[name=STHADDRESS2]").val(fullRoadAddr);
            
-           /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-           document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-           document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
            
         // 우편번호와 주소 정보를 해당 필드에 넣는다.
            document.getElementById('STHADDRESS').value = data.zonecode; //5자리 새우편번호 사용
